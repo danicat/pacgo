@@ -1,7 +1,5 @@
 package main
 
-import "fmt"
-
 func main() {
 	// initialize game
 
@@ -9,14 +7,17 @@ func main() {
 
 	// game loop
 	for {
-		// get input
-		// process movement
 		// update screen
-		// check game over
-		// repeat
 
-		// Temp: print hello and break infinite loop
-		fmt.Println("Hello from PacGo!😊")
+		// get input
+
+		// process movement
+
+		// check game over
+
+		// Temp: break infinite loop
 		break
+
+		// repeat
 	}
 }
