@@ -10,6 +10,8 @@
 
 ## Restoring Cooked Mode
 
+## Clearing the screen
+
 ## References
 
 1. [Terminal modes](https://en.wikipedia.org/wiki/Terminal_mode)
