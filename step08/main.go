@@ -309,6 +309,6 @@ func main() {
 		}
 
 		// repeat
-		time.Sleep(150 * time.Millisecond)
+		time.Sleep(200 * time.Millisecond)
 	}
 }
