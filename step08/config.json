@@ -1,0 +1,10 @@
+{
+    "player": "😋",
+    "ghost": "👻",
+    "wall": "🌵",
+    "dot": "🧀",
+    "pill": "🍹",
+    "death": "💀",
+    "space": "  ",
+    "use_emoji": true
+}
