@@ -4,17 +4,26 @@ import (
 	"bufio"
 	"fmt"
 	"log"
+	"math/rand"
 	"os"
 	"os/exec"
 )
 
-// Player is the player character
+// Player is the player character \o/
 type Player struct {
 	row int
 	col int
 }
 
 var player Player
+
+// Ghost is the enemy that chases the player :O
+type Ghost struct {
+	row int
+	col int
+}
+
+var ghosts []*Ghost
 
 func loadMaze() error {
 	mazePath := "maze01.txt"
@@ -36,6 +45,8 @@ func loadMaze() error {
 			switch char {
 			case 'P':
 				player = Player{row, col}
+			case 'G':
+				ghosts = append(ghosts, &Ghost{row, col})
 			}
 		}
 	}
@@ -71,6 +82,11 @@ func printScreen() {
 	moveCursor(player.row, player.col)
 	fmt.Printf("P")
 
+	for _, g := range ghosts {
+		moveCursor(g.row, g.col)
+		fmt.Printf("G")
+	}
+
 	moveCursor(len(maze)+1, 0)
 	fmt.Printf("Row %v Col %v", player.row, player.col)
 }
@@ -103,10 +119,10 @@ func readInput() (string, error) {
 	return "", nil
 }
 
-func movePlayer(input string) {
-	newRow, newCol := player.row, player.col
+func makeMove(oldRow, oldCol int, dir string) (newRow, newCol int) {
+	newRow, newCol = oldRow, oldCol
 
-	switch input {
+	switch dir {
 	case "UP":
 		newRow = newRow - 1
 		if newRow < 0 {
@@ -114,12 +130,12 @@ func movePlayer(input string) {
 		}
 	case "DOWN":
 		newRow = newRow + 1
-		if newRow > len(maze)-1 {
+		if newRow == len(maze)-1 {
 			newRow = 0
 		}
 	case "RIGHT":
 		newCol = newCol + 1
-		if newCol > len(maze[0]) {
+		if newCol == len(maze[0]) {
 			newCol = 0
 		}
 	case "LEFT":
@@ -129,17 +145,41 @@ func movePlayer(input string) {
 		}
 	}
 
-	if maze[newRow][newCol] != '#' {
-		player.row = newRow
-		player.col = newCol
+	if maze[newRow][newCol] == '#' {
+		newRow = oldRow
+		newCol = oldCol
+	}
+
+	return
+}
+
+func movePlayer(dir string) {
+	player.row, player.col = makeMove(player.row, player.col, dir)
+}
+
+func drawDirection() string {
+	dir := rand.Intn(4)
+	move := map[int]string{
+		0: "UP",
+		1: "DOWN",
+		2: "RIGHT",
+		3: "LEFT",
+	}
+	return move[dir]
+}
+
+func moveGhosts() {
+	for _, g := range ghosts {
+		dir := drawDirection()
+		g.row, g.col = makeMove(g.row, g.col, dir)
 	}
 }
 
 func initialize() {
-	cbreakTerm := exec.Command("/bin/stty", "cbreak", "-echo")
-	cbreakTerm.Stdin = os.Stdin
+	cbTerm := exec.Command("/bin/stty", "cbreak", "-echo")
+	cbTerm.Stdin = os.Stdin
 
-	err := cbreakTerm.Run()
+	err := cbTerm.Run()
 	if err != nil {
 		log.Fatalf("Unable to activate cbreak mode terminal: %v\n", err)
 	}
@@ -180,6 +220,7 @@ func main() {
 
 		// process movement
 		movePlayer(input)
+		moveGhosts()
 
 		// check game over
 		if input == "ESC" {
