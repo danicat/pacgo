@@ -8,9 +8,7 @@ import (
 )
 
 func loadMaze() error {
-	mazePath := "maze01.txt"
-
-	f, err := os.Open(mazePath)
+	f, err := os.Open("maze01.txt")
 	if err != nil {
 		return err
 	}
@@ -39,17 +37,20 @@ func main() {
 	// load maze
 	err := loadMaze()
 	if err != nil {
-		log.Printf("Error loading maze: %v", err)
+		log.Printf("Error loading maze: %v\n", err)
+		return
 	}
 
 	// game loop
 	for {
-		// update screen
-		printScreen()
-
-		// get input
+		// process input
 
 		// process movement
+
+		// process collisions
+
+		// update screen
+		printScreen()
 
 		// check game over
 

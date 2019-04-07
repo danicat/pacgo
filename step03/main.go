@@ -9,9 +9,7 @@ import (
 )
 
 func loadMaze() error {
-	mazePath := "maze01.txt"
-
-	f, err := os.Open(mazePath)
+	f, err := os.Open("maze01.txt")
 	if err != nil {
 		return err
 	}
@@ -34,7 +32,7 @@ func clearScreen() {
 }
 
 func moveCursor(row, col int) {
-	fmt.Printf("\x1b[%d;%df", row, col)
+	fmt.Printf("\x1b[%d;%df", row+1, col+1)
 }
 
 func printScreen() {
@@ -45,7 +43,7 @@ func printScreen() {
 }
 
 func readInput() (string, error) {
-	buffer := make([]byte, 10)
+	buffer := make([]byte, 100)
 
 	cnt, err := os.Stdin.Read(buffer)
 	if err != nil {
@@ -60,10 +58,10 @@ func readInput() (string, error) {
 }
 
 func initialize() {
-	cbreakTerm := exec.Command("/bin/stty", "cbreak", "-echo")
-	cbreakTerm.Stdin = os.Stdin
+	cbTerm := exec.Command("/bin/stty", "cbreak", "-echo")
+	cbTerm.Stdin = os.Stdin
 
-	err := cbreakTerm.Run()
+	err := cbTerm.Run()
 	if err != nil {
 		log.Fatalf("Unable to activate cbreak mode terminal: %v\n", err)
 	}
@@ -88,14 +86,12 @@ func main() {
 	err := loadMaze()
 	if err != nil {
 		log.Printf("Error loading maze: %v\n", err)
+		return
 	}
 
 	// game loop
 	for {
-		// update screen
-		printScreen()
-
-		// get input
+		// process input
 		input, err := readInput()
 		if err != nil {
 			log.Printf("Error reading input: %v", err)
@@ -103,6 +99,11 @@ func main() {
 		}
 
 		// process movement
+
+		// process collisions
+
+		// update screen
+		printScreen()
 
 		// check game over
 		if input == "ESC" {

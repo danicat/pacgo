@@ -8,7 +8,7 @@ import (
 	"os/exec"
 )
 
-// Player is the player character
+// Player is the player character \o/
 type Player struct {
 	row int
 	col int
@@ -17,9 +17,7 @@ type Player struct {
 var player Player
 
 func loadMaze() error {
-	mazePath := "maze01.txt"
-
-	f, err := os.Open(mazePath)
+	f, err := os.Open("maze01.txt")
 	if err != nil {
 		return err
 	}
@@ -76,7 +74,7 @@ func printScreen() {
 }
 
 func readInput() (string, error) {
-	buffer := make([]byte, 10)
+	buffer := make([]byte, 100)
 
 	cnt, err := os.Stdin.Read(buffer)
 	if err != nil {
@@ -85,7 +83,7 @@ func readInput() (string, error) {
 
 	if cnt == 1 && buffer[0] == 0x1b {
 		return "ESC", nil
-	} else if cnt == 3 {
+	} else if cnt >= 3 {
 		if buffer[0] == 0x1b && buffer[1] == '[' {
 			switch buffer[2] {
 			case 'A':
@@ -103,10 +101,10 @@ func readInput() (string, error) {
 	return "", nil
 }
 
-func movePlayer(input string) {
-	newRow, newCol := player.row, player.col
+func makeMove(oldRow, oldCol int, dir string) (newRow, newCol int) {
+	newRow, newCol = oldRow, oldCol
 
-	switch input {
+	switch dir {
 	case "UP":
 		newRow = newRow - 1
 		if newRow < 0 {
@@ -114,12 +112,12 @@ func movePlayer(input string) {
 		}
 	case "DOWN":
 		newRow = newRow + 1
-		if newRow > len(maze)-1 {
+		if newRow == len(maze)-1 {
 			newRow = 0
 		}
 	case "RIGHT":
 		newCol = newCol + 1
-		if newCol > len(maze[0]) {
+		if newCol == len(maze[0]) {
 			newCol = 0
 		}
 	case "LEFT":
@@ -129,17 +127,23 @@ func movePlayer(input string) {
 		}
 	}
 
-	if maze[newRow][newCol] != '#' {
-		player.row = newRow
-		player.col = newCol
+	if maze[newRow][newCol] == '#' {
+		newRow = oldRow
+		newCol = oldCol
 	}
+
+	return
+}
+
+func movePlayer(dir string) {
+	player.row, player.col = makeMove(player.row, player.col, dir)
 }
 
 func initialize() {
-	cbreakTerm := exec.Command("/bin/stty", "cbreak", "-echo")
-	cbreakTerm.Stdin = os.Stdin
+	cbTerm := exec.Command("/bin/stty", "cbreak", "-echo")
+	cbTerm.Stdin = os.Stdin
 
-	err := cbreakTerm.Run()
+	err := cbTerm.Run()
 	if err != nil {
 		log.Fatalf("Unable to activate cbreak mode terminal: %v\n", err)
 	}
@@ -164,14 +168,12 @@ func main() {
 	err := loadMaze()
 	if err != nil {
 		log.Printf("Error loading maze: %v\n", err)
+		return
 	}
 
 	// game loop
 	for {
-		// update screen
-		printScreen()
-
-		// get input
+		// process input
 		input, err := readInput()
 		if err != nil {
 			log.Printf("Error reading input: %v", err)
@@ -180,6 +182,11 @@ func main() {
 
 		// process movement
 		movePlayer(input)
+
+		// process collisions
+
+		// update screen
+		printScreen()
 
 		// check game over
 		if input == "ESC" {

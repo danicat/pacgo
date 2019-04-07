@@ -26,9 +26,7 @@ type Ghost struct {
 var ghosts []*Ghost
 
 func loadMaze() error {
-	mazePath := "maze01.txt"
-
-	f, err := os.Open(mazePath)
+	f, err := os.Open("maze01.txt")
 	if err != nil {
 		return err
 	}
@@ -99,7 +97,7 @@ func printScreen() {
 }
 
 func readInput() (string, error) {
-	buffer := make([]byte, 10)
+	buffer := make([]byte, 100)
 
 	cnt, err := os.Stdin.Read(buffer)
 	if err != nil {
@@ -108,7 +106,7 @@ func readInput() (string, error) {
 
 	if cnt == 1 && buffer[0] == 0x1b {
 		return "ESC", nil
-	} else if cnt == 3 {
+	} else if cnt >= 3 {
 		if buffer[0] == 0x1b && buffer[1] == '[' {
 			switch buffer[2] {
 			case 'A':
@@ -218,14 +216,12 @@ func main() {
 	err := loadMaze()
 	if err != nil {
 		log.Printf("Error loading maze: %v\n", err)
+		return
 	}
 
 	// game loop
 	for {
-		// update screen
-		printScreen()
-
-		// get input
+		// process input
 		input, err := readInput()
 		if err != nil {
 			log.Printf("Error reading input: %v", err)
@@ -236,11 +232,15 @@ func main() {
 		movePlayer(input)
 		moveGhosts()
 
+		// process collisions
 		for _, g := range ghosts {
 			if player.row == g.row && player.col == g.col {
 				lives = 0
 			}
 		}
+
+		// update screen
+		printScreen()
 
 		// check game over
 		if input == "ESC" || numDots == 0 || lives == 0 {
