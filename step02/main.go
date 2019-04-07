@@ -49,7 +49,7 @@ func readInput() (string, error) {
 func main() {
 	// initialize game
 
-	// load maze
+	// load resources
 	err := loadMaze()
 	if err != nil {
 		log.Printf("Error loading maze: %v\n", err)

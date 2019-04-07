@@ -5,7 +5,7 @@ import "fmt"
 func main() {
 	// initialize game
 
-	// load maze
+	// load resources
 
 	// game loop
 	for {
@@ -16,7 +16,6 @@ func main() {
 		// process collisions
 
 		// update screen
-		printScreen()
 
 		// check game over
 
