@@ -1,5 +1,12 @@
 # Step 03: Terminal magic
 
+In this lesson you will learn how to:
+
+- Work with different terminal modes
+- Send escape sequences to the terminal
+
+## Overview
+
 ## Intro to terminal modes
 
 1. Cooked Mode

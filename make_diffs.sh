@@ -1,3 +1,5 @@
+# this script is a helper to track differences from each step
+
 mkdir -p diff
 diff        main.go step01/main.go > diff/01.go
 diff step01/main.go step02/main.go > diff/12.go
