@@ -84,14 +84,18 @@ Keep in mind that Go is a strongly typed language, but that nice feature saves u
 
 In the case above, Go automatically infers the type for both `f` and `err` variables.
 
-When a function returns an error is a common patter to check it immediately afterwards:
+When a function returns an error it is a common patter to check the error immediately afterwards:
 
 ```go
 	f, err := os.Open("maze01.txt")
 	if err != nil {
-		// do something with err
+        // do something with err
+        log.Printf("...")
+        return
 	}
 ```
+
+Note: It is a good practice to keep the "happy path" aligned to the left, and the sad path to the right (ie: terminating the function early).
 
 `nil` in Go means no value is assigned to a variable. 
 
@@ -104,11 +108,43 @@ if foo := rand.Intn(2); foo == 0 {
 } else {
     fmt.Print(foo) // and here
 }
-// but can't use foo here!
+// but you can't use foo here!
 ```
 
+Other interesting aspect of the `loadMaze` code is the use of the `defer` keyword. It basic says to call the function after `defer` at the end of the current function. It is very useful for cleanup purposes and in this case we are using it to close the file we've just opened:
+
+```
+func loadMaze() error {
+    f, err := os.Open("maze01.txt")
+    // omited error handling
+    defer f.Close() // puts f.Close() in the call stack
+
+    // rest of the code
+    
+    return nil
+    // f.Close is called implicitly
+}
+```
+
+The next part of the code just reads the file line by line and append it to the maze slice:
+
+```
+	scanner := bufio.NewScanner(f)
+	for scanner.Scan() {
+		line := scanner.Text()
+		maze = append(maze, line)
+	}
+```
+
+A scanner is a very convenient way to read a file. `scanner.Scan()` will return true while there is something to be read from the file, and `scanner.Text()` will return the next line of input.
+
+The `append` built in function is responsible for adding a new element to the `maze` slice.
 
 ## Task 02: Printing to the Screen
+
+Once we have the maze file loaded into memory we need to print it to the screen.
+
+One way to do that is to iterate over each entry in the `maze` slice and print it. This can be conveniently done with the `range` operator:
 
 ```go
 
@@ -119,7 +155,23 @@ func printScreen() {
 }
 ```
 
+Please note that we are using the `:=` assignment operator to initialize two values: the underscore (_) and the `line` variable. The underscore is just a placeholder for where the compiler would expect a variable name. Using the underscore means that we are ignoring that value.
+
+In the case of the `range` operator, the first return value is the index of the element, starting from zero. The second return value is the value itself.
+
+If we did not write the underscore character to ignore the first value, the range operator would return just the index (and not the value). For example:
+
+```go
+for idx := range maze {
+    fmt.Println(idx)
+}
+```
+
+Since in this case we only care about the content and not the index, we can safely ignore the index by assigning it to the underscore.
+
 ## Updating the game loop
+
+Now that we have both a `loadMaze` and a `printScreen` function, we should update the `main` function to initialize the maze and print it on the game loop. See the code below:
 
 ```go
 func main() {
@@ -152,3 +204,9 @@ func main() {
 	}
 }
 ```
+
+Like always we are keeping the happy path to the left, so if the `loadMaze` function fails we log it and return to terminate the program execution. The `log.Println` function prints messages to the standard error in a structured log format.
+
+Now that we've finished the game loop modifications we can run the program with `go run` or compile it with `go build` and run it as a standalone program.
+
+You should see the maze printed to the terminal.
