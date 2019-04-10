@@ -16,9 +16,13 @@ We will be writing a Pac Man clone for the terminal. While writing a game you ar
 
 You also learn a bit more about the terminal and it's magical escape sequences.
 
-## How to use this tutorial
+## Pre-requisites
 
-This tutorial is design to teach the basic concepts of the Go programming language. You are expected to have a basic understanding on how programming languages work, as we are not going into details about the basics. Also, basic terminal knowledge is recommended as well.
+It's recommended to have:
+- Basic understanding on how programming languages work, as we won't be covering the basics 
+- Basic terminal knowledge (know how to use command line applications)
+
+Of course, if you don't have the above, but is a curious spirit and want to try anyway, please feel free to do so.
 
 ## Compatibility
 
@@ -34,9 +38,27 @@ In order to start, make sure you have Go installed in your system.
 
 If you don't, please follow the instructions in [golang.org](https://golang.org)
 
+## How to use this tutorial
+
+In every step, including step 0 (this one), we have the given task explained in the README.md file followed by the code that does and an explanation of how it work.
+
+Every step is located in its separate folder except for this one. Look for the folders stepXX for any given step.
+
+We will be editing a file called `main.go`. All the code in this tutorial will reside in this file. A proper program would usually have multiple source code files, but for the sake of simplicity we are keeping this program limited to one source.
+
+The README.md for each step will explain the intent and show the modifications needed to proceed. You should make then in your own `main.go` file. 
+
+You can also use the `main.go` in step 00 as a starting point and modify it incrementaly when progressing through the steps.
+
+If you get lost, every step has it's own `main.go` file with the changes to that step already applied. That also means that if you want to fast track to a given step you can start with the `main.go` from the previous step.
+
 ## Step 00: Hello (Game) World
 
-We are going to start by laying the ground a skeleton of what a game program looks like:
+We are going to start by laying the ground a skeleton of what a game program looks like. 
+
+Pick a diretory to be your work dir (ie: `tutorial` under your home folder) and create a file called `main.go` with the content below.
+
+Note: alternatively you can just clone this repository and edit the `main.go` file on it's root.
 
 ```go
 package main
@@ -68,8 +90,6 @@ func main() {
 	}
 }
 ```
-
-This code is also available as `main.go` in the root of this repository.
 
 ### Running your first Go program
 
@@ -104,15 +124,15 @@ Finally the `main` function. You define function in Go with the keyword `func` f
 
 ```go
 func main() {
-
+		// I'm a function body
 }
 ```
 
-This is a function called main which takes no parameters and return nothing. That's the proper definition of a main function in Go, as opposed to the definitions other languages where the main function takes the command line arguments and return an integer value.
+This is a function called `main` which takes no parameters and return nothing. That's the proper definition of a main function in Go, as opposed to the definitions in other languages where the main function may take the command line arguments and/or return an integer value.
 
 We have different ways to deal with the command line arguments and return values in Go, which we will see in Step 10.
 
-In our main function we have some comments (any text after `//` is a comment) that are acting as placeholders for the actual game code. We will use those to drive each modification in a orderly way.
+In the game main function we have some comments (any text after `//` is a comment) that are acting as placeholders for the actual game code. We will use those to drive each modification in a orderly way.
 
 The most important concept in a game is what is called the game loop. That's basically an infinite loop where all the game mechanics are processed.
 
@@ -128,14 +148,16 @@ We can exit an infinite loop with a `break` statement. We are using it in the sa
 
 ```go
 func main() {
-	for {
-		fmt.Println("Hello, Pac Go!")
-		break
-    }
+		for {
+					fmt.Println("Hello, Pac Go!")
+					break
+			}
 }
 ```
 
 Of course, in this case the infinite loop with a non-conditional break is pointless, but it will make sense in the next steps!
+
+Congratulations, step 00 is complete! 
 
 [Take me to step 01!](step01/README.md)
 

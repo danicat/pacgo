@@ -1,6 +1,5 @@
 ## TODO
 
-- Write README for step 01
 - Write README for step 02
 - Write README for step 03
 - Write README for step 04
@@ -14,4 +13,4 @@
 - Step 12: Add support for power up pill
 - Step ??: Add support for player 2
 - Step ??: Have a better AI
-
+- Merge steps 02 and 03

@@ -24,7 +24,7 @@ First, we are going to read the maze data. We have a file called `maze01.txt` th
 
 Our first task consists in loading this ASCII representation of the maze to a slice of strings and then printing it to the screen. Looks simple, right? It is indeed!
 
-## Task 01: Load the maze
+## Task 01: Load the Maze
 
 Let's start by reading the `maze01.txt` file.
 
@@ -113,7 +113,7 @@ if foo := rand.Intn(2); foo == 0 {
 
 Other interesting aspect of the `loadMaze` code is the use of the `defer` keyword. It basic says to call the function after `defer` at the end of the current function. It is very useful for cleanup purposes and in this case we are using it to close the file we've just opened:
 
-```
+```go
 func loadMaze() error {
     f, err := os.Open("maze01.txt")
     // omited error handling
@@ -128,7 +128,7 @@ func loadMaze() error {
 
 The next part of the code just reads the file line by line and append it to the maze slice:
 
-```
+```go
 	scanner := bufio.NewScanner(f)
 	for scanner.Scan() {
 		line := scanner.Text()
