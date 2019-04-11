@@ -7,6 +7,7 @@ import (
 	"math/rand"
 	"os"
 	"os/exec"
+	"time"
 )
 
 // Player is the player character \o/
@@ -219,17 +220,31 @@ func main() {
 		return
 	}
 
+	// process input (async)
+	input := make(chan string)
+	go func(ch chan<- string) {
+		for {
+			input, err := readInput()
+			if err != nil {
+				log.Printf("Error reading input: %v", err)
+				ch <- "ESC"
+			}
+			ch <- input
+		}
+	}(input)
+
 	// game loop
 	for {
-		// process input
-		input, err := readInput()
-		if err != nil {
-			log.Printf("Error reading input: %v", err)
-			break
+		// process movement
+		select {
+		case inp := <-input:
+			if inp == "ESC" {
+				lives = 0
+			}
+			movePlayer(inp)
+		default:
 		}
 
-		// process movement
-		movePlayer(input)
 		moveGhosts()
 
 		// process collisions
@@ -243,10 +258,11 @@ func main() {
 		printScreen()
 
 		// check game over
-		if input == "ESC" || numDots == 0 || lives == 0 {
+		if numDots == 0 || lives == 0 {
 			break
 		}
 
 		// repeat
+		time.Sleep(200 * time.Millisecond)
 	}
 }

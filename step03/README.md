@@ -1,24 +1,18 @@
-# Step 03: Terminal magic
+# Step 04: Adding Movement
 
 In this lesson you will learn how to:
 
-- Work with different terminal modes
-- Send escape sequences to the terminal
+- Create a struct
+- Use the switch statement
+- Handle the arrow keys
+- Use named return values
 
 ## Overview
 
-## Intro to terminal modes
+## Tracking player position
 
-1. Cooked Mode
-2. Cbreak Mode
-3. Raw Mode
+## Handling arrow key presses
 
-## Enabling Cbreak Mode
+## Updating the maze
 
-## Restoring Cooked Mode
-
-## Clearing the screen
-
-## References
-
-1. [Terminal modes](https://en.wikipedia.org/wiki/Terminal_mode)
+## Animation!

@@ -8,4 +8,4 @@ diff step03/main.go step04/main.go > diff/34.go
 diff step04/main.go step05/main.go > diff/45.go
 diff step05/main.go step06/main.go > diff/56.go
 diff step06/main.go step07/main.go > diff/67.go
-diff step07/main.go step08/main.go > diff/78.go
+# diff step07/main.go step08/main.go > diff/78.go

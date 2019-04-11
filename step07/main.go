@@ -2,6 +2,7 @@ package main
 
 import (
 	"bufio"
+	"encoding/json"
 	"fmt"
 	"log"
 	"math/rand"
@@ -25,6 +26,36 @@ type Ghost struct {
 }
 
 var ghosts []*Ghost
+
+// Config holds the emoji configuration
+type Config struct {
+	Player   string `json:"player"`
+	Ghost    string `json:"ghost"`
+	Wall     string `json:"wall"`
+	Dot      string `json:"dot"`
+	Pill     string `json:"pill"`
+	Death    string `json:"death"`
+	Space    string `json:"space"`
+	UseEmoji bool   `json:"use_emoji"`
+}
+
+var cfg Config
+
+func loadConfig() error {
+	f, err := os.Open("config.json")
+	if err != nil {
+		return err
+	}
+	defer f.Close()
+
+	decoder := json.NewDecoder(f)
+	err = decoder.Decode(&cfg)
+	if err != nil {
+		return err
+	}
+
+	return nil
+}
 
 func loadMaze() error {
 	f, err := os.Open("maze01.txt")
@@ -66,7 +97,11 @@ func clearScreen() {
 }
 
 func moveCursor(row, col int) {
-	fmt.Printf("\x1b[%d;%df", row+1, col+1)
+	if cfg.UseEmoji {
+		fmt.Printf("\x1b[%d;%df", row+1, col*2+1)
+	} else {
+		fmt.Printf("\x1b[%d;%df", row+1, col+1)
+	}
 }
 
 func printScreen() {
@@ -75,22 +110,22 @@ func printScreen() {
 		for _, chr := range line {
 			switch chr {
 			case '#':
-				fallthrough
+				fmt.Printf(cfg.Wall)
 			case '.':
-				fmt.Printf("%c", chr)
+				fmt.Printf(cfg.Dot)
 			default:
-				fmt.Printf(" ")
+				fmt.Printf(cfg.Space)
 			}
 		}
 		fmt.Printf("\n")
 	}
 
 	moveCursor(player.row, player.col)
-	fmt.Printf("P")
+	fmt.Printf(cfg.Player)
 
 	for _, g := range ghosts {
 		moveCursor(g.row, g.col)
-		fmt.Printf("G")
+		fmt.Printf(cfg.Ghost)
 	}
 
 	moveCursor(len(maze)+1, 0)
@@ -220,6 +255,12 @@ func main() {
 		return
 	}
 
+	err = loadConfig()
+	if err != nil {
+		log.Printf("Error loading configuration: %v\n", err)
+		return
+	}
+
 	// process input (async)
 	input := make(chan string)
 	go func(ch chan<- string) {
@@ -259,6 +300,11 @@ func main() {
 
 		// check game over
 		if numDots == 0 || lives == 0 {
+			if lives == 0 {
+				moveCursor(player.row, player.col)
+				fmt.Printf(cfg.Death)
+				moveCursor(len(maze)+2, 0)
+			}
 			break
 		}
 

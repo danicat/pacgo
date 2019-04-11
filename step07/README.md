@@ -1,4 +1,4 @@
-# Step 07: Making things real(time)
+# Step 08: Finally, emojis!
 
 In this lesson you will learn how to:
 
@@ -6,4 +6,6 @@ In this lesson you will learn how to:
 
 ## Overview
 
-## Handling input async
+## Handling configuration files (json)
+
+## Printing unicode

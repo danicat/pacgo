@@ -169,7 +169,7 @@ for idx := range maze {
 
 Since in this case we only care about the content and not the index, we can safely ignore the index by assigning it to the underscore.
 
-## Updating the game loop
+## Task 03: Updating the game loop
 
 Now that we have both a `loadMaze` and a `printScreen` function, we should update the `main` function to initialize the maze and print it on the game loop. See the code below:
 
@@ -186,14 +186,14 @@ func main() {
 
 	// game loop
 	for {
+		// update screen
+        printScreen()
+        
 		// process input
 
 		// process movement
 
 		// process collisions
-
-		// update screen
-		printScreen()
 
 		// check game over
 

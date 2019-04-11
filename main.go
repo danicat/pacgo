@@ -9,13 +9,13 @@ func main() {
 
 	// game loop
 	for {
+		// update screen
+
 		// process input
 
 		// process movement
 
 		// process collisions
-
-		// update screen
 
 		// check game over
 

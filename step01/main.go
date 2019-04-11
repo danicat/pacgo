@@ -43,14 +43,14 @@ func main() {
 
 	// game loop
 	for {
+		// update screen
+		printScreen()
+
 		// process input
 
 		// process movement
 
 		// process collisions
-
-		// update screen
-		printScreen()
 
 		// check game over
 

@@ -1,4 +1,4 @@
-# Step 05: Ghosts!
+# Step 06: Game over man, game over!
 
 In this lesson you will learn how to:
 
@@ -6,4 +6,6 @@ In this lesson you will learn how to:
 
 ## Overview
 
-## Making Ghosts move
+## Adding score and game win scenario
+
+## Handling collisions (and death!)
