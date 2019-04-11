@@ -49,13 +49,13 @@ Here is the definition of our `init`:
 
 ```go
 func init() {
-	cbTerm := exec.Command("/bin/stty", "cbreak", "-echo")
-	cbTerm.Stdin = os.Stdin
+    cbTerm := exec.Command("/bin/stty", "cbreak", "-echo")
+    cbTerm.Stdin = os.Stdin
 
-	err := cbTerm.Run()
-	if err != nil {
-		log.Fatalf("Unable to activate cbreak mode terminal: %v\n", err)
-	}
+    err := cbTerm.Run()
+    if err != nil {
+        log.Fatalf("Unable to activate cbreak mode terminal: %v\n", err)
+    }
 }
 ```
 
@@ -69,13 +69,13 @@ Restoring the cooked mode is a pretty straightfoward process. It is the same as 
 
 ```go
 func cleanup() {
-	cookedTerm := exec.Command("/bin/stty", "-cbreak", "echo")
-	cookedTerm.Stdin = os.Stdin
+    cookedTerm := exec.Command("/bin/stty", "-cbreak", "echo")
+    cookedTerm.Stdin = os.Stdin
 
-	err := cookedTerm.Run()
-	if err != nil {
-		log.Fatalf("Unable to activate cooked mode terminal: %v\n", err)
-	}
+    err := cookedTerm.Run()
+    if err != nil {
+        log.Fatalf("Unable to activate cooked mode terminal: %v\n", err)
+    }
 }
 ```
 
@@ -83,10 +83,10 @@ Note that this `cleanup` function doesn't have a special meaning in Go like the 
 
 ```go
 func main() {
-	// initialize game
-	defer cleanup()
+    // initialize game
+    defer cleanup()
 
-	// load resources
+    // load resources
     // ...
 ```
 
@@ -98,18 +98,18 @@ The `os.Stdin.Read` returns two values: the number of bytes read and an error va
 
 ```go
 func readInput() (string, error) {
-	buffer := make([]byte, 100)
+    buffer := make([]byte, 100)
 
-	cnt, err := os.Stdin.Read(buffer)
-	if err != nil {
-		return "", err
-	}
+    cnt, err := os.Stdin.Read(buffer)
+    if err != nil {
+        return "", err
+    }
 
-	if cnt == 1 && buffer[0] == 0x1b {
-		return "ESC", nil
-	}
+    if cnt == 1 && buffer[0] == 0x1b {
+        return "ESC", nil
+    }
 
-	return "", nil
+    return "", nil
 }
 ```
 
@@ -135,8 +135,8 @@ Now it's time to update the game loop to have the `readInput` function called ev
 // process input
 input, err := readInput()
 if err != nil {
-	log.Printf("Error reading input: %v", err)
-	break
+    log.Printf("Error reading input: %v", err)
+    break
 }
 ```
 
@@ -144,7 +144,7 @@ Finally, we can get rid of that permanent `break` statement and start testing fo
 
 ```go
 if input == "ESC" {
-	break
+    break
 }
 ```
 
@@ -154,12 +154,12 @@ Since we now have a proper game loop, we need to clear the screen after each loo
 
 ```go
 func clearScreen() {
-	fmt.Printf("\x1b[2J")
-	moveCursor(0, 0)
+    fmt.Printf("\x1b[2J")
+    moveCursor(0, 0)
 }
 
 func moveCursor(row, col int) {
-	fmt.Printf("\x1b[%d;%df", row+1, col+1)
+    fmt.Printf("\x1b[%d;%df", row+1, col+1)
 }
 ```
 
@@ -171,10 +171,10 @@ We will update the printScreen function to call clearScreen before printing, so 
 
 ```go
 func printScreen() {
-	clearScreen()
-	for _, line := range maze {
-		fmt.Println(line)
-	}
+    clearScreen()
+    for _, line := range maze {
+        fmt.Println(line)
+    }
 }
 ```
 

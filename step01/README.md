@@ -34,19 +34,19 @@ All that comes together as the code below:
 
 ```go
 func loadMaze() error {
-	f, err := os.Open("maze01.txt")
-	if err != nil {
-		return err
-	}
+    f, err := os.Open("maze01.txt")
+    if err != nil {
+        return err
+    }
     defer f.Close()
     
-	scanner := bufio.NewScanner(f)
-	for scanner.Scan() {
-		line := scanner.Text()
-		maze = append(maze, line)
-	}
+    scanner := bufio.NewScanner(f)
+    for scanner.Scan() {
+        line := scanner.Text()
+        maze = append(maze, line)
+    }
 
-	return nil
+    return nil
 }
 
 var maze []string
@@ -87,12 +87,12 @@ In the case above, Go automatically infers the type for both `f` and `err` varia
 When a function returns an error it is a common patter to check the error immediately afterwards:
 
 ```go
-	f, err := os.Open("maze01.txt")
-	if err != nil {
+    f, err := os.Open("maze01.txt")
+    if err != nil {
         // do something with err
         log.Printf("...")
         return
-	}
+    }
 ```
 
 Note: It is a good practice to keep the "happy path" aligned to the left, and the sad path to the right (ie: terminating the function early).
@@ -129,11 +129,11 @@ func loadMaze() error {
 The next part of the code just reads the file line by line and append it to the maze slice:
 
 ```go
-	scanner := bufio.NewScanner(f)
-	for scanner.Scan() {
-		line := scanner.Text()
-		maze = append(maze, line)
-	}
+    scanner := bufio.NewScanner(f)
+    for scanner.Scan() {
+        line := scanner.Text()
+        maze = append(maze, line)
+    }
 ```
 
 A scanner is a very convenient way to read a file. `scanner.Scan()` will return true while there is something to be read from the file, and `scanner.Text()` will return the next line of input.
@@ -149,9 +149,9 @@ One way to do that is to iterate over each entry in the `maze` slice and print i
 ```go
 
 func printScreen() {
-	for _, line := range maze {
-		fmt.Println(line)
-	}
+    for _, line := range maze {
+        fmt.Println(line)
+    }
 }
 ```
 
@@ -175,33 +175,33 @@ Now that we have both a `loadMaze` and a `printScreen` function, we should updat
 
 ```go
 func main() {
-	// initialize game
+    // initialize game
 
-	// load resources
-	err := loadMaze()
-	if err != nil {
-		log.Printf("Error loading maze: %v\n", err)
-		return
-	}
+    // load resources
+    err := loadMaze()
+    if err != nil {
+        log.Printf("Error loading maze: %v\n", err)
+        return
+    }
 
-	// game loop
-	for {
-		// update screen
+    // game loop
+    for {
+        // update screen
         printScreen()
         
-		// process input
+        // process input
 
-		// process movement
+        // process movement
 
-		// process collisions
+        // process collisions
 
-		// check game over
+        // check game over
 
-		// Temp: break infinite loop
-		break
+        // Temp: break infinite loop
+        break
 
-		// repeat
-	}
+        // repeat
+    }
 }
 ```
 

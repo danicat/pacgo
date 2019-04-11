@@ -23,8 +23,8 @@ First, the declaration:
 ```go
 // Ghost is the enemy that chases the player :O
 type Ghost struct {
-	row int
-	col int
+    row int
+    col int
 }
 
 var ghosts []*Ghost
@@ -66,14 +66,14 @@ We've mentioned before that we would be using a random number generator to contr
 
 ```go
 func drawDirection() string {
-	dir := rand.Intn(4)
-	move := map[int]string{
-		0: "UP",
-		1: "DOWN",
-		2: "RIGHT",
-		3: "LEFT",
-	}
-	return move[dir]
+    dir := rand.Intn(4)
+    move := map[int]string{
+        0: "UP",
+        1: "DOWN",
+        2: "RIGHT",
+        3: "LEFT",
+    }
+    return move[dir]
 }
 ```
 
@@ -87,10 +87,10 @@ Finally, we need a function to process the ghost movement. The `moveGhosts` func
 
 ```go
 func moveGhosts() {
-	for _, g := range ghosts {
-		dir := drawDirection()
-		g.row, g.col = makeMove(g.row, g.col, dir)
-	}
+    for _, g := range ghosts {
+        dir := drawDirection()
+        g.row, g.col = makeMove(g.row, g.col, dir)
+    }
 }
 ```
 

@@ -48,20 +48,20 @@ Now we need to update the `printScreen` function to print the dots again. This i
 
 ```go
 func printScreen() {
-	clearScreen()
-	for _, line := range maze {
-		for _, chr := range line {
-			switch chr {
-			case '#':
-				fallthrough
-			case '.':
-				fmt.Printf("%c", chr)
-			default:
-				fmt.Printf(" ")
-			}
-		}
-		fmt.Printf("\n")
-	}
+    clearScreen()
+    for _, line := range maze {
+        for _, chr := range line {
+            switch chr {
+            case '#':
+                fallthrough
+            case '.':
+                fmt.Printf("%c", chr)
+            default:
+                fmt.Printf(" ")
+            }
+        }
+        fmt.Printf("\n")
+    }
     // rest of the function omitted for brevity...
 }
 ```
@@ -111,14 +111,14 @@ We will add this code to the `movePlayer` function:
 
 ```go
 func movePlayer(dir string) {
-	player.row, player.col = makeMove(player.row, player.col, dir)
-	switch maze[player.row][player.col] {
-	case '.':
-		numDots--
-		score++
-		// Remove dot from the maze
-		maze[player.row] = maze[player.row][0:player.col] + " " + maze[player.row][player.col+1:]
-	}
+    player.row, player.col = makeMove(player.row, player.col, dir)
+    switch maze[player.row][player.col] {
+    case '.':
+        numDots--
+        score++
+        // Remove dot from the maze
+        maze[player.row] = maze[player.row][0:player.col] + " " + maze[player.row][player.col+1:]
+    }
 }
 ```
 

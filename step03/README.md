@@ -20,8 +20,8 @@ The first step in our journey is to create a variable to hold the player data. S
 ```go
 // Player is the player character \o/
 type Player struct {
-	row int
-	col int
+    row int
+    col int
 }
 
 var player Player
@@ -49,28 +49,28 @@ Here is the complete `loadMaze` just for reference:
 
 ```go
 func loadMaze() error {
-	f, err := os.Open("maze01.txt")
-	if err != nil {
-		return err
-	}
-	defer f.Close()
+    f, err := os.Open("maze01.txt")
+    if err != nil {
+        return err
+    }
+    defer f.Close()
 
-	scanner := bufio.NewScanner(f)
-	for scanner.Scan() {
-		line := scanner.Text()
-		maze = append(maze, line)
-	}
+    scanner := bufio.NewScanner(f)
+    for scanner.Scan() {
+        line := scanner.Text()
+        maze = append(maze, line)
+    }
 
-	for row, line := range maze {
-		for col, char := range line {
-			switch char {
-			case 'P':
-				player = Player{row, col}
-			}
-		}
-	}
+    for row, line := range maze {
+        for col, char := range line {
+            switch char {
+            case 'P':
+                player = Player{row, col}
+            }
+        }
+    }
 
-	return nil
+    return nil
 }
 ```
 
@@ -113,37 +113,37 @@ We now need a function to handle the movement:
 
 ```go
 func makeMove(oldRow, oldCol int, dir string) (newRow, newCol int) {
-	newRow, newCol = oldRow, oldCol
+    newRow, newCol = oldRow, oldCol
 
-	switch dir {
-	case "UP":
-		newRow = newRow - 1
-		if newRow < 0 {
-			newRow = len(maze) - 1
-		}
-	case "DOWN":
-		newRow = newRow + 1
-		if newRow == len(maze)-1 {
-			newRow = 0
-		}
-	case "RIGHT":
-		newCol = newCol + 1
-		if newCol == len(maze[0]) {
-			newCol = 0
-		}
-	case "LEFT":
-		newCol = newCol - 1
-		if newCol < 0 {
-			newCol = len(maze[0]) - 1
-		}
-	}
+    switch dir {
+    case "UP":
+        newRow = newRow - 1
+        if newRow < 0 {
+            newRow = len(maze) - 1
+        }
+    case "DOWN":
+        newRow = newRow + 1
+        if newRow == len(maze)-1 {
+            newRow = 0
+        }
+    case "RIGHT":
+        newCol = newCol + 1
+        if newCol == len(maze[0]) {
+            newCol = 0
+        }
+    case "LEFT":
+        newCol = newCol - 1
+        if newCol < 0 {
+            newCol = len(maze[0]) - 1
+        }
+    }
 
-	if maze[newRow][newCol] == '#' {
-		newRow = oldRow
-		newCol = oldCol
-	}
+    if maze[newRow][newCol] == '#' {
+        newRow = oldRow
+        newCol = oldCol
+    }
 
-	return
+    return
 }
 ```
 
@@ -157,7 +157,7 @@ The last piece in the movement puzzle is to define a function to move the player
 
 ```
 func movePlayer(dir string) {
-	player.row, player.col = makeMove(player.row, player.col, dir)
+    player.row, player.col = makeMove(player.row, player.col, dir)
 }
 ```
 
@@ -169,21 +169,21 @@ That will give us more control, enabling us to print the player at an arbitrary 
 
 ```go
 func printScreen() {
-	clearScreen()
-	for _, line := range maze {
-		for _, chr := range line {
-			switch chr {
-			case '#':
-				fmt.Printf("%c", chr)
-			default:
-				fmt.Printf(" ")
-			}
-		}
-		fmt.Printf("\n")
-	}
+    clearScreen()
+    for _, line := range maze {
+        for _, chr := range line {
+            switch chr {
+            case '#':
+                fmt.Printf("%c", chr)
+            default:
+                fmt.Printf(" ")
+            }
+        }
+        fmt.Printf("\n")
+    }
 
-	moveCursor(player.row, player.col)
-	fmt.Printf("P")
+    moveCursor(player.row, player.col)
+    fmt.Printf("P")
 }
 ```
 
