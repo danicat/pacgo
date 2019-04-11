@@ -40,7 +40,7 @@ If you don't, please follow the instructions in [golang.org](https://golang.org)
 
 ## How to use this tutorial
 
-In every step, including step 0 (this one), we have the given task explained in the README.md file followed by the code that does and an explanation of how it work.
+In every step, including step 0 (this one), we will describe the task in the README.md file followed by the code that does it and an explanation of how it work.
 
 Every step is located in its separate folder except for this one. Look for the folders stepXX for any given step.
 
@@ -124,7 +124,7 @@ Finally the `main` function. You define function in Go with the keyword `func` f
 
 ```go
 func main() {
-		// I'm a function body
+	// I'm a function body
 }
 ```
 
@@ -148,10 +148,10 @@ We can exit an infinite loop with a `break` statement. We are using it in the sa
 
 ```go
 func main() {
-		for {
-					fmt.Println("Hello, Pac Go!")
-					break
-			}
+	for {
+		fmt.Println("Hello, Pac Go!")
+		break
+	}
 }
 ```
 
