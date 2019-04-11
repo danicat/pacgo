@@ -1,11 +1,12 @@
-# Step 08: Finally, emojis!
+# Step 07: Finally, emojis!
 
 In this lesson you will learn how to:
 
-- 
+- Load a json file
+- Print emojis!!!
 
 ## Overview
 
-## Handling configuration files (json)
+## Task 01: Load a json
 
-## Printing unicode
+## Task 02: Replace hardcoded characters with configuration
