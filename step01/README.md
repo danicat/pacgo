@@ -16,11 +16,13 @@ We've got the basics covered, now it's time to get this game started!
 
 First, we are going to read the maze data. We have a file called `maze01.txt` that's basically an ASCII representation of the maze (you can open it in a text editor if you like). You may assume that:
 
+```
 - # represents a wall
 - . represents a dot
 - P represents the player
 - G represents the ghosts (enemies)
 - X represents the power up pills
+```
 
 Our first task consists in loading this ASCII representation of the maze to a slice of strings and then printing it to the screen. Looks simple, right? It is indeed!
 
