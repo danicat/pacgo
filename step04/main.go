@@ -173,7 +173,7 @@ func moveGhosts() {
 	}
 }
 
-func initialize() {
+func init() {
 	cbTerm := exec.Command("/bin/stty", "cbreak", "-echo")
 	cbTerm.Stdin = os.Stdin
 
@@ -195,7 +195,6 @@ func cleanup() {
 
 func main() {
 	// initialize game
-	initialize()
 	defer cleanup()
 
 	// load resources
@@ -207,6 +206,9 @@ func main() {
 
 	// game loop
 	for {
+		// update screen
+		printScreen()
+
 		// process input
 		input, err := readInput()
 		if err != nil {
@@ -219,9 +221,6 @@ func main() {
 		moveGhosts()
 
 		// process collisions
-
-		// update screen
-		printScreen()
 
 		// check game over
 		if input == "ESC" {
