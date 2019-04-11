@@ -93,7 +93,7 @@ func printScreen() {
 	}
 
 	moveCursor(len(maze)+1, 0)
-	fmt.Printf("Score %v\nRow %v Col %v\n", score, player.row, player.col)
+	fmt.Printf("Score: %v\nLives: %v\n", score, lives)
 }
 
 func readInput() (string, error) {
@@ -187,7 +187,7 @@ func moveGhosts() {
 	}
 }
 
-func initialize() {
+func init() {
 	cbTerm := exec.Command("/bin/stty", "cbreak", "-echo")
 	cbTerm.Stdin = os.Stdin
 
@@ -209,7 +209,6 @@ func cleanup() {
 
 func main() {
 	// initialize game
-	initialize()
 	defer cleanup()
 
 	// load resources
@@ -221,6 +220,9 @@ func main() {
 
 	// game loop
 	for {
+		// update screen
+		printScreen()
+
 		// process input
 		input, err := readInput()
 		if err != nil {
@@ -238,9 +240,6 @@ func main() {
 				lives = 0
 			}
 		}
-
-		// update screen
-		printScreen()
 
 		// check game over
 		if input == "ESC" || numDots == 0 || lives == 0 {

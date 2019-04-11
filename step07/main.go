@@ -129,7 +129,7 @@ func printScreen() {
 	}
 
 	moveCursor(len(maze)+1, 0)
-	fmt.Printf("Score %v\nRow %v Col %v\n", score, player.row, player.col)
+	fmt.Printf("Score: %v\nLives: %v\n", score, lives)
 }
 
 func readInput() (string, error) {

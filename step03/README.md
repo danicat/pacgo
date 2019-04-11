@@ -147,6 +147,8 @@ func makeMove(oldRow, oldCol int, dir string) (newRow, newCol int) {
 }
 ```
 
+Note: if you are used to the switch statement in other languages, please beware that in Go there is an implicit `break` after each `case` condition. So we don't need to explicitly break after each block. If we want to fall through the next `case` block we can use the `fallthrough` keyword. 
+
 The function above takes advantage of `named return values` to return the new position (`newRow` and `newCol`) after the move. Basically the function "tries"  the move first, and if by any chance the new position hits a wall (`#`) the move is cancelled. 
 
 It also handles the property that if the character moves outside the range of the maze it appears on the opposite side. 
