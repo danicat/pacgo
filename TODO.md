@@ -1,6 +1,5 @@
 ## TODO
 
-- Write README for step 03
 - Write README for step 04
 - Write README for step 05
 - Write README for step 06
