@@ -66,28 +66,28 @@ package main
 import "fmt"
 
 func main() {
-	// initialize game
+    // initialize game
 
-	// load resources
+    // load resources
 
-	// game loop
-	for {
-		// update screen
+    // game loop
+    for {
+        // update screen
 
-		// process input
+        // process input
 
-		// process movement
+        // process movement
 
-		// process collisions
+        // process collisions
 
-		// check game over
+        // check game over
 
-		// Temp: break infinite loop
-		fmt.Println("Hello, Pac Go!")
-		break
+        // Temp: break infinite loop
+        fmt.Println("Hello, Pac Go!")
+        break
 
-		// repeat
-	}
+        // repeat
+    }
 }
 ```
 
@@ -124,7 +124,7 @@ Finally the `main` function. You define function in Go with the keyword `func` f
 
 ```go
 func main() {
-	// I'm a function body
+    // I'm a function body
 }
 ```
 
@@ -148,10 +148,10 @@ We can exit an infinite loop with a `break` statement. We are using it in the sa
 
 ```go
 func main() {
-	for {
-		fmt.Println("Hello, Pac Go!")
-		break
-	}
+    for {
+        fmt.Println("Hello, Pac Go!")
+        break
+    }
 }
 ```
 
