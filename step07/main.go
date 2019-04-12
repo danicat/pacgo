@@ -223,7 +223,7 @@ func moveGhosts() {
 	}
 }
 
-func initialize() {
+func init() {
 	cbTerm := exec.Command("/bin/stty", "cbreak", "-echo")
 	cbTerm.Stdin = os.Stdin
 
@@ -245,7 +245,6 @@ func cleanup() {
 
 func main() {
 	// initialize game
-	initialize()
 	defer cleanup()
 
 	// load resources
