@@ -1,4 +1,4 @@
-# Step 04: Adding Movement
+# Step 03: Adding Movement
 
 In this lesson you will learn how to:
 
