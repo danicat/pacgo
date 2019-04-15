@@ -86,7 +86,7 @@ Keep in mind that Go is a strongly typed language, but that nice feature saves u
 
 In the case above, Go automatically infers the type for both `f` and `err` variables.
 
-When a function returns an error it is a common patter to check the error immediately afterwards:
+When a function returns an error it is a common pattern to check the error immediately afterwards:
 
 ```go
     f, err := os.Open("maze01.txt")

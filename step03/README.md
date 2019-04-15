@@ -123,7 +123,7 @@ func makeMove(oldRow, oldCol int, dir string) (newRow, newCol int) {
         }
     case "DOWN":
         newRow = newRow + 1
-        if newRow == len(maze)-1 {
+        if newRow == len(maze) - 1 {
             newRow = 0
         }
     case "RIGHT":
