@@ -94,7 +94,7 @@ func printScreen() {
 	}
 
 	moveCursor(len(maze)+1, 0)
-	fmt.Printf("Score: %v\nLives: %v\n", score, lives)
+	fmt.Printf("Score: %v\tLives: %v\n", score, lives)
 }
 
 func readInput() (string, error) {
