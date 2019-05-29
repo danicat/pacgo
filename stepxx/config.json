@@ -1,0 +1,12 @@
+{
+    "player": "😃",
+    "ghost": "👻",
+    "wall": "🌵",
+    "dot": "🧀",
+    "pill": "🍹",
+    "death": "💀",
+    "space": "  ",
+    "chaser": "👿",
+    "use_emoji": true,
+    "frame_rate": 5
+}
