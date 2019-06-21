@@ -2,7 +2,7 @@
 
 In this lesson you will learn how to:
 
-- Use gorotines
+- Use goroutines
 - Use anonymous functions (lambdas)
 - Use channels
 - Use the select statement to read channels async
