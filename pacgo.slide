@@ -1,0 +1,191 @@
+Pac Man from Scratch
+😃👻👻👻👻
+21 Jun 2019
+Tags: golang, tutorial, pacman
+
+Daniela Petruzalek
+Software Engineer, GoCardless
+daniela.petruzalek@gmail.com
+https://github.com/danicat
+@danicat83
+
+* A Bit of History
+
+- First version built in 2017
+- Designed to be a WWG tutorial
+- Hackaton project at Globo.com
+- Only in Portuguese :(
+
+.image GOPHER_LEARN.png _ 400
+
+* Terminal Modes
+
+- Cooked Mode
+- Cbreak Mode
+- Raw Mode
+
+* Terminal Magic
+
+ANSI Escape Sequences:
+- A way to send special "commands" to the terminal
+- Hex code for ESC (\x1b)
+
+Usually a escape sequence looks like:
+- ESC + ] + n number of bytes
+
+https://en.wikipedia.org/wiki/ANSI_escape_code#Escape_sequences
+
+* Let's work!
+
+https://github.com/danicat/pacgo
+
+* Step 00: Hello world
+
+.play main.go /^func main/,/^}/
+
+* Step 01: Draw the Maze
+
+.code step01/main.go /^func loadMaze/,/^}/
+
+.code step01/main.go /^var maze/,/^}/
+
+* Step 01: Draw the Maze
+
+.play step01/main.go /^func main/,/process input/
+
+* Step 02: Handle Input
+
+.code step02/main.go /^func clearScreen/,/^}/
+.code step02/main.go /^func moveCursor/,/^}/
+.code step02/main.go /^func printScreen/,/^}/
+
+* Step 02: Handle Input
+
+.code step02/main.go /^func readInput/,/^}/
+
+* Step 02: Handle Input
+
+.code step02/main.go /^func init/,/^}/
+.code step02/main.go /^func cleanup/,/^}/
+
+* Step 02: Handle Input
+
+.code step02/main.go /^func main/,/load resources/
+
+* Step 02: Handle Input
+
+.code step02/main.go /game loop/,/^}/
+
+* Step 03: Add the Player Character
+
+.code step03/main.go /^type Player/,/^var player/
+
+* Step 03: Add the Player Character
+
+.code step03/main.go /^func loadMaze/,/^}/
+
+* Step 03: Add the Player Character
+
+.code step03/main.go /^func readInput/,/^}/
+
+* Step 03: Add the Player Character
+
+.code step03/main.go /^func makeMove/,/^}/
+
+* Step 03: Add the Player Character
+
+.code step03/main.go /case "LEFT"/,/^}/
+
+.code step03/main.go /^func movePlayer/,/^}/
+
+* Step 03: Add the Player Character
+
+.code step03/main.go /^func printScreen/,/^}/
+
+* Step 03: Add the Player Character
+
+.code step03/main.go /process input/,/repeat/
+
+* Step 04: Add the Ghosts
+
+.code step04/main.go /^type Ghost/,/^var ghosts/
+
+* Step 04: Add the Ghosts
+
+- `loadMaze`:
+
+.code step04/main.go /for row, line/,/^}/
+
+* Step 04: Add the Ghosts
+
+.code step04/main.go /^func drawDirection/,/^}/
+.code step04/main.go /^func moveGhosts/,/^}/
+
+* Step 04: Add the Ghosts
+
+.code step04/main.go /^func printScreen/,/^}/
+
+* Step 04: Add the Ghosts
+
+.code step04/main.go /process input/,/repeat/
+
+* Step 05: Game Win and Game Over
+
+.code step05/main.go /^var maze/,/^var lives/
+
+* Step 05: Game Win and Game Over
+
+- `loadMaze`:
+
+.code step05/main.go /for row, line/,/^}/
+
+* Step 05: Game Win and Game Over
+
+.code step05/main.go /^func printScreen/,/^}/
+
+* Step 05: Game Win and Game Over
+
+.code step05/main.go /^func movePlayer/,/^}/
+
+* Step 05: Game Win and Game Over
+
+.code step05/main.go /process collisions/,/repeat/
+
+* Step 06: Realtime!
+
+.code step06/main.go /process input/,/game loop/
+
+* Step 06: Realtime!
+
+.code step06/main.go /process movement/,/repeat/
+
+* Step 07: Finally, emojis!
+
+.code step07/config.json
+
+* Step 07: Finally, emojis!
+
+.code step07/main.go /^type Config/,/var cfg/
+
+.code step07/main.go /^func moveCursor/,/^}/
+
+* Step 07: Finally, emojis!
+
+.code step07/main.go /^func loadConfig/,/^}/
+
+* Step 07: Finally, emojis!
+
+.code step07/main.go /^func printScreen/,/^}/
+
+* Step 07: Finally, emojis!
+
+.code step07/main.go /^func main/,/process input/
+
+* Final Words
+
+- The tutorial is still growing beyond step 07
+- e.g.: Step 08 deals with command line flags
+- Next steps will include tests, interfaces and new game features
+- It works both for self paced study and workshops
+- Please submit your PRs! :)
+- https://github.com/danicat/pacgo
