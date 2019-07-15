@@ -110,9 +110,11 @@ func printScreen() {
 		for _, chr := range line {
 			switch chr {
 			case '#':
-				fmt.Printf(cfg.Wall)
+				fmt.Printf("\x1b[44m" + cfg.Wall + "\x1b[0m")
 			case '.':
 				fmt.Printf(cfg.Dot)
+			case 'X':
+				fmt.Printf(cfg.Pill)
 			default:
 				fmt.Printf(cfg.Space)
 			}
@@ -201,6 +203,9 @@ func movePlayer(dir string) {
 		numDots--
 		score++
 		// Remove dot from the maze
+		maze[player.row] = maze[player.row][0:player.col] + " " + maze[player.row][player.col+1:]
+	case 'X':
+		score += 10
 		maze[player.row] = maze[player.row][0:player.col] + " " + maze[player.row][player.col+1:]
 	}
 }
