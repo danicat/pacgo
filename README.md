@@ -48,7 +48,7 @@ We will be editing a file called `main.go`. All the code in this tutorial will r
 
 The README.md for each step will explain the intent and show the modifications needed to proceed. You should make then in your own `main.go` file. 
 
-You can also use the `main.go` in step 00 as a starting point and modify it incrementaly when progressing through the steps.
+You can also use the `main.go` in step 00 as a starting point and modify it incrementally when progressing through the steps.
 
 If you get lost, every step has it's own `main.go` file with the changes to that step already applied. That also means that if you want to fast track to a given step you can start with the `main.go` from the previous step.
 
