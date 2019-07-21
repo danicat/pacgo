@@ -58,10 +58,7 @@ func (p Point) Right() (Point, error) {
 }
 
 func IsLegal(pos Point) bool {
-	if maze[pos.row][pos.col] == '#' {
-		return false
-	}
-	return true
+	return maze[pos.row][pos.col] != '#'
 }
 
 func makeMove(oldPos Point, dir string) Point {
