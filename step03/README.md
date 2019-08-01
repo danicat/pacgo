@@ -11,7 +11,7 @@ In this lesson you will learn how to:
 
 We have a maze, we can quit the game gracefully... but nothing very exciting is happening, right? So let's spice this thing up a bit and add some movement! 
 
-In this step we are adding the player character and enabling it's movement with the arrow keys.
+In this step we are adding the player character and enabling its movement with the arrow keys.
 
 ## Task 01: Tracking player position
 
@@ -82,7 +82,7 @@ Nevertheless, Go has an interesting mechanic in regards to defining visibility. 
 
 That's why every library function name we've used so far begins with a capital letter. That's also why your IDE may complain if you don't place a comment above the `Player` struct definition. 
 
-In this particular case, we are using capital letters just to differenciate the type `Player` from the variable `player`, since it doesn't make any sense to export a symbol from the package `main`.
+In this particular case, we are using capital letters just to differentiate the type `Player` from the variable `player`, since it doesn't make any sense to export a symbol from the package `main`.
 
 ## Task 02: Handling arrow key presses
 

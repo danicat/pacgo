@@ -29,7 +29,7 @@ Terminals can run in three possible [modes](https://en.wikipedia.org/wiki/Termin
 
 The cooked mode is the one that we are used to use. In this mode every input that the terminal receives is preprocessed, meaning that the system intercepts special characters to give them special meaning.
 
-Note: Special characters inclue backspace, delete, Ctrl+D, Ctrl+C, arrow keys and so on...
+Note: Special characters include backspace, delete, Ctrl+D, Ctrl+C, arrow keys and so on...
 
 The raw mode is the opposite: data is passed as is, without any kind of preprocessing.
 
@@ -39,7 +39,7 @@ We will use the cbreak mode to allow us to handle the escape sequences correspon
 
 ## Task 01: Enabling Cbreak Mode
 
-To enable the cbreak mode we are going to take advantage of a `init` function.
+To enable the cbreak mode we are going to take advantage of an `init` function.
 
 We said previously that the `main` function is the entrypoint of a given program. Besides that, we can also have an `init` function that perform initialization steps before the runtime calls the `main` function.
 
@@ -123,9 +123,9 @@ Now you may wonder why allocating a buffer of 100 bytes, or why testing the coun
 
 What if the buffer suddenly has 5 elements and one of them is the Esc key? Shouldn't we care to process that? Will that key press be lost?
 
-The short answer is we shouldn't care. Please keep in mind that this is a game. Depending on the processing speed and the lenght of your keyboard buffer, if we processed events sequentially we could introduce movement lag, ie, by having a queue of arrow key presses that were not processed yet.
+The short answer is we shouldn't care. Please keep in mind that this is a game. Depending on the processing speed and the length of your keyboard buffer, if we processed events sequentially we could introduce movement lag, ie, by having a queue of arrow key presses that were not processed yet.
 
-Since we are reading the input on a loop, there is no damage in droping all the key presses in a queue and just focusing on the last one. That will make the game response work better than if we were concerned about every key press.
+Since we are reading the input on a loop, there is no damage in dropping all the key presses in a queue and just focusing on the last one. That will make the game response work better than if we were concerned about every key press.
 
 ## Task 04: Updating the Game Loop
 
@@ -180,6 +180,6 @@ func printScreen() {
 
 Now run the game again and try hiting the `ESC` key.
 
-Please note that if you hit Ctrl+C by any change the program will terminate without calling the cleanup function, so you won't be able to see what you are typing in the terminal (because of the `-echo` flag).
+Please note that if you hit Ctrl+C by any chance the program will terminate without calling the cleanup function, so you won't be able to see what you are typing in the terminal (because of the `-echo` flag).
 
 If you get into that situation either close the terminal and reopen it or just run the game again and exit gracefully using the `ESC` key.
