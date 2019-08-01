@@ -30,7 +30,7 @@ Our first task consists in loading this ASCII representation of the maze to a sl
 
 Let's start by reading the `maze01.txt` file.
 
-We are going to use the function `Open` from the `os` package to open the it, and an scanner object from the buffered IO package (`bufio`) to read it to memory (to a global variable called `maze`). Finally we need to release the file handler by calling `os.Close`. 
+We are going to use the function `Open` from the `os` package to open it, and an scanner object from the buffered IO package (`bufio`) to read it to memory (to a global variable called `maze`). Finally we need to release the file handler by calling `os.Close`. 
 
 All that comes together as the code below:
 
@@ -57,7 +57,7 @@ var maze []string
 
 Now let's break it down and see what's going on.
 
-Please note that you need import both the `os` and `bufio` packages as shown below:
+Please note that you need to import both the `os` and `bufio` packages as shown below:
 
 ```go
 import "os"
@@ -113,7 +113,7 @@ if foo := rand.Intn(2); foo == 0 {
 // but you can't use foo here!
 ```
 
-Other interesting aspect of the `loadMaze` code is the use of the `defer` keyword. It basic says to call the function after `defer` at the end of the current function. It is very useful for cleanup purposes and in this case we are using it to close the file we've just opened:
+Another interesting aspect of the `loadMaze` code is the use of the `defer` keyword. It basically says to call the function after `defer` at the end of the current function. It is very useful for cleanup purposes and in this case we are using it to close the file we've just opened:
 
 ```go
 func loadMaze() error {
@@ -128,7 +128,7 @@ func loadMaze() error {
 }
 ```
 
-The next part of the code just reads the file line by line and append it to the maze slice:
+The next part of the code just reads the file line by line and appends it to the maze slice:
 
 ```go
     scanner := bufio.NewScanner(f)

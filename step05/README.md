@@ -7,17 +7,17 @@ In this lesson you will learn how to:
 
 ## Overview
 
-We are almost there. We have both player movement and ghost movement. But our ghosts are still innofensive. 
+We are almost there. We have both player movement and ghost movement. But our ghosts are still inoffensive. 
 
-It's time to add some danger to this game. Also, with great risks should come great rewards, so we will be also tackling the game win condition, by clearing the board of all it's dots.
+It's time to add some danger to this game. Also, with great risks should come great rewards, so we will be also tackling the game win condition, by clearing the board of all its dots.
 
 ## Task 01: Preparation
 
 For the game win condition we need to keep track of how many dots we have on the board, and declare win when this number is zero.
 
-We will need a mechanic to remove the dots from the board once the player stands over them. We will also keep track of an score to show the player.
+We will need a mechanic to remove the dots from the board once the player stands over them. We will also keep track of a score to show the player.
 
-For the game over scenario, we will be giving the player one life and when a ghost hits they this life is zeroed. We then test for zero lives in the game loop to terminate the game. (It should be pretty straightforward to add support for multiple lives, but we will do this at a later step).
+For the game over scenario, we will be giving the player one life and when a ghost hits them this life is zeroed. We then test for zero lives in the game loop to terminate the game. (It should be pretty straightforward to add support for multiple lives, but we will do this at a later step).
 
 Add the following global variables to track all of the above:
 
@@ -126,7 +126,7 @@ The code above works as follows: first we make the movement. Then we check which
 
 It's worthwhile to mention that strings in Go are immutable. We couldn't simply assign a space to a given position in a string. It wouldn't work.
 
-Hence, we are using here a trick by creating a new string composed by two slices of the original string. The two slices together make the exact same original string except for one position, that we replace with an space.
+Hence, we are using here a trick by creating a new string composed by two slices of the original string. The two slices together make the exact same original string except for one position, that we replace with a space.
 
 For more information about slices, please see [here](https://blog.golang.org/go-slices-usage-and-internals).
 

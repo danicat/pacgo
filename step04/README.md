@@ -30,7 +30,7 @@ type Ghost struct {
 var ghosts []*Ghost
 ```
 
-Note the `*` symbol denoting that `[]*Ghost` is an slice of **pointers** to Ghost objects.
+Note the `*` symbol denoting that `[]*Ghost` is a slice of **pointers** to Ghost objects.
 
 Next, loading. In the `loadMaze` function, add a new case to the switch statement for handling `G` symbols on the map:
 
@@ -49,7 +49,7 @@ for row, line := range maze {
 
 Please note the ampersand (`&`) operator. This means that instead of adding a Ghost object to the slice we are adding a pointer to it.
 
-Go is a garbage collected language, which means it can automatically de-allocate a piece of memory when it is no longer used. Because that we can use pointers in a much safer way than, for instance, in C++. We are also not allowed to do math on pointers. In effective, a pointer in Go works almost like a reference.
+Go is a garbage collected language, which means it can automatically de-allocate a piece of memory when it is no longer used. Because of that we can use pointers in a much safer way than, for instance, in C++. We are also not allowed to do math on pointers. In effect, a pointer in Go works almost like a reference.
 
 Now, since we are handling `G`s in the `loadMaze` function we also need to print them in `printScreen`. Just add the following block after printing the player:
 
