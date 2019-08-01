@@ -108,7 +108,7 @@ func printScreen() {
 
 	for _, s := range sprites {
 		moveCursor(s.Pos())
-		fmt.Printf(s.Img())
+		fmt.Print(s.Img())
 	}
 
 	moveCursor(len(maze)+1, 0)
