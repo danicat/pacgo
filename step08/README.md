@@ -114,3 +114,5 @@ Now try running `step08` with `--config-file config_noemoji.json` first, and `--
 You can also try copying `maze01.txt` to a new file and editing it to experiment.
 
 Maybe you can create your own themes now... try visiting https://unicode.org/emoji/charts/full-emoji-list.html for inspiration. :)
+
+[Optional step](https://github.com/eribertto/pacgo/tree/readme-edits/stepXX)
