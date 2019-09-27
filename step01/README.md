@@ -213,4 +213,4 @@ Now that we've finished the game loop modifications we can run the program with 
 
 You should see the maze printed to the terminal.
 
-[Take me to step 02!](step02/README.md)
+[Take me to step 02!](https://github.com/eribertto/pacgo/tree/readme-edits/step02)
