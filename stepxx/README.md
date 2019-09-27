@@ -29,3 +29,5 @@ The following modifications are on the roadmap but have not been implemented yet
 ## Task ??: Add support for multiple players
 ## Task ??: Add support for real graphics (SDL)
 ## Task ??: Add support for real graphics (Ebiten)
+
+[Back to home](https://github.com/eribertto/pacgo/tree/readme-edits)
