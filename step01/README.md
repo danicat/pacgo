@@ -212,3 +212,5 @@ Like always we are keeping the happy path to the left, so if the `loadMaze` func
 Now that we've finished the game loop modifications we can run the program with `go run` or compile it with `go build` and run it as a standalone program.
 
 You should see the maze printed to the terminal.
+
+[Take me to step 02!](step02/README.md)
