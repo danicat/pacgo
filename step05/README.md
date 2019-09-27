@@ -134,4 +134,4 @@ Now we have both game win and game over conditions. Try building a map with just
 
 (Tip: the maze01.txt at the step05 folder has only 3 dots.)
 
-[Take me to step 06)(https://github.com/eribertto/pacgo/tree/readme-edits/step06)
+[Take me to step 06](https://github.com/eribertto/pacgo/tree/readme-edits/step06)
