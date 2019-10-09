@@ -153,3 +153,5 @@ As an added bonus, let's add a game over sprite within the game over condition. 
 ```
 
 We have emojis! How great is that? :)
+
+[Take me to step 08!](../step08/README.md)

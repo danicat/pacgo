@@ -124,3 +124,5 @@ for {
 }
 
 We are done! Now we have ghosts that move! How scary -_-'''
+
+[Take me to step 05!](../step05/README.md)
