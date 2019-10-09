@@ -122,6 +122,7 @@ for {
 
     // repeat
 }
+```
 
 We are done! Now we have ghosts that move! How scary -_-'''
 
