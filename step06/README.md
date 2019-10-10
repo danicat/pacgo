@@ -145,3 +145,5 @@ We will also introduce a delay of 200ms. Since now we are not waiting for input 
 ```
 
 Try running the game now. Much more exciting, isn't it? :)
+
+[Take me to step 07](https://github.com/eribertto/pacgo/tree/readme-edits/step07)

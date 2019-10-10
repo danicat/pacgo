@@ -221,3 +221,5 @@ for {
 ```
 
 We are good to Go!
+
+[Take me to step 04](https://github.com/eribertto/pacgo/tree/readme-edits/step04)

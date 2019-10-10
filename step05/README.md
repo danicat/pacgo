@@ -133,3 +133,5 @@ For more information about slices, please see [here](https://blog.golang.org/go-
 Now we have both game win and game over conditions. Try building a map with just a couple of dots and test the game win. Hit a ghost to test the game over. We are making progress! 
 
 (Tip: the maze01.txt at the step05 folder has only 3 dots.)
+
+[Take me to step 06](https://github.com/eribertto/pacgo/tree/readme-edits/step06)
