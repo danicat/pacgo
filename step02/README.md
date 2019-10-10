@@ -183,3 +183,5 @@ Now run the game again and try hiting the `ESC` key.
 Please note that if you hit Ctrl+C by any chance the program will terminate without calling the cleanup function, so you won't be able to see what you are typing in the terminal (because of the `-echo` flag).
 
 If you get into that situation either close the terminal and reopen it or just run the game again and exit gracefully using the `ESC` key.
+
+[Take me to step 03!](../step03/README.md)
