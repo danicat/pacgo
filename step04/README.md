@@ -35,8 +35,6 @@ Note the `*` symbol denoting that `[]*Ghost` is a slice of **pointers** to Ghost
 Next, loading. In the `loadMaze` function, add a new case to the switch statement for handling `G` symbols on the map:
 
 ```go
-
-[Take me to step 05)(https://github.com/eribertto/pacgo/tree/readme-edits/step05)
 for row, line := range maze {
     for col, char := range line {
         switch char {
@@ -126,6 +124,3 @@ for {
 }
 
 We are done! Now we have ghosts that move! How scary -_-'''
-
-
-[Take me to step 05](https://github.com/eribertto/pacgo/tree/readme-edits/step05)
