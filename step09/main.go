@@ -20,18 +20,22 @@ var (
 )
 
 // Player is the player character \o/
-type Player struct {
+
+type Point struct {
 	row int
 	col int
 }
 
+type Player struct {
+	position Point
+	origin Point
+}
+
 var player Player
-var initialPosition Player
 
 // Ghost is the enemy that chases the player :O
 type Ghost struct {
-	row int
-	col int
+	position Point
 }
 
 var ghosts []*Ghost
@@ -83,10 +87,9 @@ func loadMaze() error {
 		for col, char := range line {
 			switch char {
 			case 'P':
-				player = Player{row, col}
-				initialPosition = Player{row, col}
+				player = Player{ position: Point{row, col}, origin: Point{row, col}}
 			case 'G':
-				ghosts = append(ghosts, &Ghost{row, col})
+				ghosts = append(ghosts, &Ghost{Point{row, col}})
 			case '.':
 				numDots++
 			}
@@ -130,17 +133,17 @@ func printScreen() {
 		fmt.Printf("\n")
 	}
 
-	moveCursor(player.row, player.col)
+	moveCursor(player.position.row, player.position.col)
 	fmt.Printf(cfg.Player)
 
 	for _, g := range ghosts {
-		moveCursor(g.row, g.col)
+		moveCursor(g.position.row, g.position.col)
 		fmt.Printf(cfg.Ghost)
 	}
 
 	moveCursor(len(maze)+1, 0)
 	
-	livesRemaining := strconv.Itoa(lives)
+	livesRemaining := strconv.Itoa(lives) //converts lives int to a string
 
 	if cfg.UseEmoji {
 		livesRemaining = getLivesAsEmoji()
@@ -221,13 +224,13 @@ func makeMove(oldRow, oldCol int, dir string) (newRow, newCol int) {
 }
 
 func movePlayer(dir string) {
-	player.row, player.col = makeMove(player.row, player.col, dir)
-	switch maze[player.row][player.col] {
+	player.position.row, player.position.col = makeMove(player.position.row, player.position.col, dir)
+	switch maze[player.position.row][player.position.col] {
 	case '.':
 		numDots--
 		score++
 		// Remove dot from the maze
-		maze[player.row] = maze[player.row][0:player.col] + " " + maze[player.row][player.col+1:]
+		maze[player.position.row] = maze[player.position.row][0:player.position.col] + " " + maze[player.position.row][player.position.col+1:]
 	}
 }
 
@@ -245,7 +248,7 @@ func drawDirection() string {
 func moveGhosts() {
 	for _, g := range ghosts {
 		dir := drawDirection()
-		g.row, g.col = makeMove(g.row, g.col, dir)
+		g.position.row, g.position.col = makeMove(g.position.row, g.position.col, dir)
 	}
 }
 
@@ -318,14 +321,14 @@ func main() {
 
 		// process collisions
 		for _, g := range ghosts {
-			if player.row == g.row && player.col == g.col {
+			if player.position.row == g.position.row && player.position.col == g.position.col {
 				lives = lives - 1
 				if lives != 0 {
-					moveCursor(player.row, player.col)
+					moveCursor(player.position.row, player.position.col)
 					fmt.Printf(cfg.Death)
 					moveCursor(len(maze)+2, 0)
 					time.Sleep(1000*time.Millisecond) //dramatic pause before reseting player position
-					player = initialPosition
+					player.position = player.origin
 				}
 			}
 		}
@@ -336,9 +339,9 @@ func main() {
 		// check game over
 		if numDots == 0 || lives == 0 {
 			if lives == 0 {
-				moveCursor(player.row, player.col)
+				moveCursor(player.position.row, player.position.col)
 				fmt.Printf(cfg.Death)
-				moveCursor(initialPosition.row, initialPosition.col-1)
+				moveCursor(player.origin.row, player.origin.col-1)
 				fmt.Printf("GAME OVER")
 				moveCursor(len(maze)+2, 0)
 			}
