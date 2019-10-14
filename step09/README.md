@@ -1,4 +1,4 @@
-# Step 08: Command line parameters
+# Step 09: Buffer The String Concatenation Slayer
 
 In this lesson you will learn how to:
 

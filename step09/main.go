@@ -11,6 +11,7 @@ import (
 	"os/exec"
 	"time"
 	"bytes"
+	"strconv"
 )
 
 var (
@@ -138,11 +139,18 @@ func printScreen() {
 	}
 
 	moveCursor(len(maze)+1, 0)
-	fmt.Printf("Score: %v\tLives: %v\n", score, drawLives())
+	
+	livesRemaining := strconv.Itoa(lives)
+
+	if cfg.UseEmoji {
+		livesRemaining = getLivesAsEmoji()
+	}
+
+	fmt.Printf("Score: %v\tLives: %v\n", score, livesRemaining)
 }
 
 //concatenate the correct number of player emojis based on lives
-func drawLives() string{
+func getLivesAsEmoji() string{
 	buf := bytes.Buffer{}
 	for i := lives; i > 0; i-- {
 		buf.WriteString(cfg.Player)
