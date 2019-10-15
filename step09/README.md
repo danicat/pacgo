@@ -112,4 +112,26 @@ func getLivesAsEmoji() string{
 }
 ```
 
+So why use a buffer? Turns out there are other ways to concatenate strings in Go. The simplest option just being using the `+` operator to concatenate two strings:
+
+```go
+string1 := "pac"
+string2 : = "go"
+pacgo := string1 + string2 //"pacgo"
+```
+
+For comparison, this is what the `getLivesAsEmoji` function would look like if we used the `+` operator approach.
+
+```go
+func getLivesAsEmoji() string{
+    emojiString := ""
+    for i := lives; i > 0; i-- {
+        emojiString = emojiString + cfg.Player
+    }
+    return emojiString
+}
+```
+
+This version of `getLivesAsEmoji` will be less efficient than the version of the function that uses a buffer. Part of the reason for this performance difference is due to memory allocation required for the string concatentaion. In the version of the function using the `+` operator, there is a memory allocation operation happening for every iteration of the for loop. While for the buffer version of the function there is only a single memory allocation happening when buffer is initiailized. A more detailed example of this performance difference is discussed here https://billglover.me/2019/03/13/learn-go-by-concatenating-strings/
+
 [Take me to Next Step!](../stepxx/README.md)
