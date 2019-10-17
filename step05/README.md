@@ -80,7 +80,7 @@ func printScreen() {
 
 ## Task 02: Game over
 
-To process game over is pretty straightforward. At any given moment in time, we are killing the player if they are in the same spot as a ghost. We will add the code that detects this one the game loop. We are also modifying the game quit condition adding `lives == 0` and `numDots == 0`:
+To process game over is pretty straightforward. At any given moment in time, we are killing the player if they are in the same spot as a ghost. We will add the code that detects this to the game loop. We are also modifying the game quit condition adding `lives == 0` and `numDots == 0`:
 
 ```go
 // game loop
