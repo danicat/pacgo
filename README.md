@@ -2,6 +2,8 @@
 
 A Pac Man clone written in Go (with emojis!)
 
+<a href="https://youtu.be/SM8LTMnB4x0"><img src="screenshots/screenshot__pacman_from_scratch_1.png" width="300px"></a>
+
 ## Introduction
 
 Welcome to Pac Go! This project is a tutorial to introduce people to the [Go programming language](https://golang.org).
@@ -19,7 +21,7 @@ You also learn a bit more about the terminal and it's magical escape sequences.
 ## Pre-requisites
 
 It's recommended to have:
-- Basic understanding on how programming languages work, as we won't be covering the basics 
+- Basic understanding on how programming languages work, as we won't be covering the basics
 - Basic terminal knowledge (know how to use command line applications)
 
 Of course, if you don't have the above, but is a curious spirit and want to try anyway, please feel free to do so.
@@ -46,7 +48,7 @@ Every step is located in its separate folder except for this one. Look for the f
 
 We will be editing a file called `main.go`. All the code in this tutorial will reside in this file. A proper program would usually have multiple source code files, but for the sake of simplicity we are keeping this program limited to one source.
 
-The README.md for each step will explain the intent and show the modifications needed to proceed. You should make then in your own `main.go` file. 
+The README.md for each step will explain the intent and show the modifications needed to proceed. You should make then in your own `main.go` file.
 
 You can also use the `main.go` in step 00 as a starting point and modify it incrementally when progressing through the steps.
 
@@ -54,7 +56,7 @@ If you get lost, every step has it's own `main.go` file with the changes to that
 
 ## Step 00: Hello (Game) World
 
-We are going to start by laying the ground a skeleton of what a game program looks like. 
+We are going to start by laying the ground a skeleton of what a game program looks like.
 
 Pick a directory to be your work dir (ie: `tutorial` under your home folder) and create a file called `main.go` with the content below.
 
@@ -157,9 +159,17 @@ func main() {
 
 Of course, in this case the infinite loop with a non-conditional break is pointless, but it will make sense in the next steps!
 
-Congratulations, step 00 is complete! 
+Congratulations, step 00 is complete!
 
 [Take me to step 01!](step01/README.md)
+
+## Screenshots
+
+> See also these YouTube videos: [LondonGophers 17/07/2019: Daniela Petruzalek - Pacman from scratch](https://youtu.be/0qvW4kIlS8I), [LondonGophers 17/07/2019: Daniela Petruzalek - Pacman from scratch](https://youtu.be/SM8LTMnB4x0).
+
+<a href="https://youtu.be/0qvW4kIlS8I"><img src="screenshots/screenshot__pacman_from_scratch_2.png" width="300px"></a>
+
+<a href="https://youtu.be/SM8LTMnB4x0"><img src="screenshots/screenshot__pacman_from_scratch_3.png" width="300px"></a>
 
 ## Contributing
 
@@ -169,7 +179,7 @@ If you are looking for inspiration you may browse the open issues or have a look
 
 ## License
 
-See [LICENSE](LICENSE)
+See [LICENSE](LICENSE).
 
 ## Contact Information
 
