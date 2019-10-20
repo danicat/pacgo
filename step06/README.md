@@ -47,7 +47,7 @@ func main() {
 
 That would guarantee that the goroutines would run, as we expect them to be faster than 100ms, but still, the output of this program is unpredictable, as we cannot count on the order that the goroutines are executed. 
 
-Once a `go` statement is executed, the ownership of scheduling the goroutine for execution is of the go runtime. We don't have control over this and we can never assume a specific order of execution. Keep that in mind when writing async code.
+Once a `go` statement is executed, the responsibility for scheduling the goroutine for execution is passed to the go runtime. We don't have control over this and we can never assume a specific order of execution. Keep that in mind when writing async code.
 
 In addition to goroutines, we also have the channel constructs. Channels allow us to communicate with goroutines by passing or receiving values. Or both.
 
@@ -81,7 +81,7 @@ When designing async processing we must be careful that two goroutines don't dep
 
 ## Task 01: Refactoring the input code
 
-Now that we know the basics about goroutines and channels, let's see them in action. First, let's remove the code that handle input from the game loop and place the code below before the start of the loop.
+Now that we know the basics about goroutines and channels, let's see them in action. First, let's remove the input handling code from the game loop and insert the code below before the start of the loop.
 
 ```go
 func main() {

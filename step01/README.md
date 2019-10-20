@@ -74,7 +74,7 @@ import (
 )
 ```
 
-The `os.Open()` function return a pair of values: a file and an error. Returning multiple values from a function is a common pattern in Go, specially for returning errors.
+The `os.Open()` function returns a pair of values: a file and an error. Returning multiple values from a function is a common pattern in Go, specially for returning errors.
 
 ```go
 f, err := os.Open("maze01.txt")

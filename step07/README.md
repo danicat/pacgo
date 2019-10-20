@@ -138,7 +138,7 @@ func printScreen() {
 }
 ```
 
-As an added bonus, let's add a game over sprite within the game over condition. Note that this will work only if you move the `printScreen` call to the beginning of the game loop before anything else is processed:
+As an added bonus, let's add a game over sprite within the game over condition. Note that this will work only if your `printScreen` call is at the beginning of the game loop before anything else is processed:
 
 ```go
     // check game over
