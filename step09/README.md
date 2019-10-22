@@ -132,6 +132,8 @@ func getLivesAsEmoji() string{
 }
 ```
 
-This version of `getLivesAsEmoji` will be less efficient than the version of the function that uses a buffer. Part of the reason for this performance difference is due to memory allocation required for the string concatentaion. In the version of the function using the `+` operator, there is a memory allocation operation happening for every iteration of the for loop. While for the buffer version of the function there is only a single memory allocation happening when buffer is initiailized. A more detailed example of this performance difference is discussed here https://billglover.me/2019/03/13/learn-go-by-concatenating-strings/
+This version of `getLivesAsEmoji` will be less efficient than the version of the function that uses a buffer. Part of the reason for this performance difference is due to memory allocation required for the string concatenation, as we've seen before that strings in Go are immutable. 
+
+In the version of the function using the `+` operator, there is a memory allocation operation happening for every iteration of the for loop. While for the buffer version of the function there is only a single memory allocation happening when buffer is initiailized. A more detailed example of this performance difference is discussed [here](https://billglover.me/2019/03/13/learn-go-by-concatenating-strings/)
 
 [Take me to Next Step!](../stepxx/README.md)
