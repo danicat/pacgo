@@ -16,7 +16,7 @@ Go is one of the languages that is known for making programming fun again, and w
 
 We will be writing a Pac Man clone for the terminal. While writing a game you are exposed to several interesting requirements that make a very good ground for exploring many features of the language, including input, output, functions, pointers, concurrency and a bit of math.
 
-You also learn a bit more about the terminal and it's magical escape sequences.
+You also learn a bit more about the terminal and its magical escape sequences.
 
 ## Pre-requisites
 
@@ -28,7 +28,7 @@ Of course, if you don't have the above, but is a curious spirit and want to try 
 
 ## Compatibility
 
-This tutorial has been tested on both Linux and Mac OSX environments. For Windows environments you may need to install a terminal emulator.
+This tutorial has been tested on both Linux and Mac OSX environments. For Windows environments you may need to install a terminal emulator, like [Git BASH](https://gitforwindows.org/).
 
 Please beware that since it relies on the terminal rendering the "graphics" it could produce different results for different kinds of terminals. If you have an issue feel free to raise it so we can find a proper solution, naming both your OS and terminal names and versions.
 
@@ -42,17 +42,17 @@ If you don't, please follow the instructions in [golang.org](https://golang.org)
 
 ## How to use this tutorial
 
-In every step, including step 0 (this one), we will describe the task in the README.md file followed by the code that does it and an explanation of how it work.
+In every step, including step 0 (this one), we will describe the task in the README.md file followed by the code that does it and an explanation of how it works.
 
 Every step is located in its separate folder except for this one. Look for the folders stepXX for any given step.
 
 We will be editing a file called `main.go`. All the code in this tutorial will reside in this file. A proper program would usually have multiple source code files, but for the sake of simplicity we are keeping this program limited to one source.
 
-The README.md for each step will explain the intent and show the modifications needed to proceed. You should make then in your own `main.go` file.
+The README.md for each step will explain the intent and show the modifications needed to proceed. You should make them in your own `main.go` file.
 
 You can also use the `main.go` in step 00 as a starting point and modify it incrementally when progressing through the steps.
 
-If you get lost, every step has it's own `main.go` file with the changes to that step already applied. That also means that if you want to fast track to a given step you can start with the `main.go` from the previous step.
+If you get lost, every step has its own `main.go` file with the changes to that step already applied. That also means that if you want to fast track to a given step you can start with the `main.go` from the previous step.
 
 ## Step 00: Hello (Game) World
 
@@ -60,7 +60,7 @@ We are going to start by laying the ground a skeleton of what a game program loo
 
 Pick a directory to be your work dir (ie: `tutorial` under your home folder) and create a file called `main.go` with the content below.
 
-Note: alternatively you can just clone this repository and edit the `main.go` file on it's root.
+Note: alternatively you can just clone this repository and edit the `main.go` file on its root.
 
 ```go
 package main
@@ -122,7 +122,7 @@ We are creating an executable program so we are using `package main` on the top 
 
 Next are the `import` statements. You use those to make code in other packages accessible to your program.
 
-Finally the `main` function. You define function in Go with the keyword `func` followed by it's name, it's parameters in between a pair of parenthesis, followed by the return value and finally the function body, which is contained in a pair of curly brackets `{}`. For example:
+Finally the `main` function. You define function in Go with the keyword `func` followed by its name, its parameters in between a pair of parentheses, followed by the return value and finally the function body, which is contained in a pair of curly brackets `{}`. For example:
 
 ```go
 func main() {
@@ -130,11 +130,11 @@ func main() {
 }
 ```
 
-This is a function called `main` which takes no parameters and return nothing. That's the proper definition of a main function in Go, as opposed to the definitions in other languages where the main function may take the command line arguments and/or return an integer value.
+This is a function called `main` which takes no parameters and returns nothing. That's the proper definition of a main function in Go, as opposed to the definitions in other languages where the main function may take the command line arguments and/or return an integer value.
 
-We have different ways to deal with the command line arguments and return values in Go, which we will see in Step 10.
+We have different ways to deal with the command line arguments and return values in Go, which we will see in [Step 08](step08/README.md).
 
-In the game main function we have some comments (any text after `//` is a comment) that are acting as placeholders for the actual game code. We will use those to drive each modification in a orderly way.
+In the game main function we have some comments (any text after `//` is a comment) that are acting as placeholders for the actual game code. We'll use those to drive each modification in an orderly way.
 
 The most important concept in a game is what is called the game loop. That's basically an infinite loop where all the game mechanics are processed.
 
