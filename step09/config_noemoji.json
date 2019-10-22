@@ -1,0 +1,9 @@
+{
+    "player": "P",
+    "ghost": "G",
+    "wall": "#",
+    "dot": ".",
+    "pill": "X",
+    "space": " ",
+    "use_emoji": false
+}
