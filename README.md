@@ -1,14 +1,14 @@
-# pacgo
+# Pac Go
 
 A Pac Man clone written in Go (with emojis!)
 
-<a href="https://youtu.be/SM8LTMnB4x0"><img src="screenshots/screenshot__pacman_from_scratch_1.png" width="300px"></a>
+![screenshot](./screenshot.jpg)
 
 ## Introduction
 
 Welcome to Pac Go! This project is a tutorial to introduce people to the [Go programming language](https://golang.org).
 
-## Why a new tutorial?
+### Why a new tutorial?
 
 We have a lot of great tutorials out there, but the whole idea about this tutorial is to make something different and fun while learning Go. Yes, we need to know about APIs and CRUDs on a daily basis, but while tackling something new, why not making a game instead?
 
@@ -18,7 +18,40 @@ We will be writing a Pac Man clone for the terminal. While writing a game you ar
 
 You also learn a bit more about the terminal and it's magical escape sequences.
 
-## Pre-requisites
+### Conference Talks
+
+If you want to have a look at the tutorial in a talk format before trying (about 25 minutes), try one of the links below:
+
+1. [Google Cloud Next UK '19](https://cloud.withgoogle.com/next/uk/sessions?session=DZ224), London, UK (November, 21st 2019)
+1. [London Gophers](https://youtu.be/SM8LTMnB4x0), London, UK
+1. [GoWayFest 3.0](https://youtu.be/0qvW4kIlS8I), Minsk, Belarus
+1. [GothamGo 2019](https://youtu.be/GH0DlCKTppE), New York City, NY, USA
+
+### Contributing
+
+This project is open source under the MIT license, which means you are basically free to do whatever you want with it, just give me the proper credits. :)
+
+If you want to contribute just raise an issue and/or submit a pull request.
+
+If you are looking for inspiration you may browse the open issues or have a look at the [TODO](TODO.md) list. 
+
+Everything on the TODO list should be planned as a new step on the tutorial unless otherwise noted.
+
+### License
+
+See [LICENSE](LICENSE).
+
+### Contacting the Author
+
+If you have any questions, please reach out to me at [daniela.petruzalek@gmail.com](mailto:daniela.petruzalek@gmail.com). I'm also on Twitter as [@danicat83](https://twitter.com/danicat83).
+
+Finally, you can support me on Ko-Fi if you like my work and want me to continue doing crazy stuff like this project:
+
+[![ko-fi](https://www.ko-fi.com/img/githubbutton_sm.svg)](https://ko-fi.com/O5O716D82)
+
+## Getting Started
+
+### Pre-requisites
 
 It's recommended to have:
 - Basic understanding on how programming languages work, as we won't be covering the basics
@@ -26,21 +59,24 @@ It's recommended to have:
 
 Of course, if you don't have the above, but is a curious spirit and want to try anyway, please feel free to do so.
 
-## Compatibility
+### Compatibility Warning!!!
 
-This tutorial has been tested on both Linux and Mac OSX environments. For Windows environments you may need to install a terminal emulator.
+This tutorial has been tested on both **Linux** and **Mac OS X** environments. For Windows environments you _may_ need to install a terminal emulator.
 
-Please beware that since it relies on the terminal rendering the "graphics" it could produce different results for different kinds of terminals. If you have an issue feel free to raise it so we can find a proper solution, naming both your OS and terminal names and versions.
+Please beware that since this code relies on the terminal to render the game it can produce different results for different configurations.
+
+If you have an issue feel free to raise it so we can find a proper solution, naming both your OS and terminal names and versions.
 
 **Note:** it is a known issue that the terminal window on VS Code doesn't render the game correctly at this moment.
 
-## Setup
+
+### Setup
 
 In order to start, make sure you have Go installed in your system.
 
 If you don't, please follow the instructions in [golang.org](https://golang.org)
 
-## How to use this tutorial
+### How to use this tutorial
 
 In every step, including step 0 (this one), we will describe the task in the README.md file followed by the code that does it and an explanation of how it work.
 
@@ -162,25 +198,3 @@ Of course, in this case the infinite loop with a non-conditional break is pointl
 Congratulations, step 00 is complete!
 
 [Take me to step 01!](step01/README.md)
-
-## Screenshots
-
-> See also these YouTube videos: [LondonGophers 17/07/2019: Daniela Petruzalek - Pacman from scratch](https://youtu.be/0qvW4kIlS8I), [LondonGophers 17/07/2019: Daniela Petruzalek - Pacman from scratch](https://youtu.be/SM8LTMnB4x0).
-
-<a href="https://youtu.be/0qvW4kIlS8I"><img src="screenshots/screenshot__pacman_from_scratch_2.png" width="300px"></a>
-
-<a href="https://youtu.be/SM8LTMnB4x0"><img src="screenshots/screenshot__pacman_from_scratch_3.png" width="300px"></a>
-
-## Contributing
-
-This project is open source under the MIT license. If you want to contribute just submit a pull request.
-
-If you are looking for inspiration you may browse the open issues or have a look at the [TODO](TODO.md) list. Everything on the TODO list should be planned as a new step on the tutorial unless otherwise noted.
-
-## License
-
-See [LICENSE](LICENSE).
-
-## Contact Information
-
-If you have any questions, please reach out to [daniela.petruzalek@gmail.com](mailto:daniela.petruzalek@gmail.com).
