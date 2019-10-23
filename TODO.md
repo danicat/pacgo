@@ -1,8 +1,10 @@
 ## TODO
 
-- Step 09: Add tests
-- Step 10: Add support for multiple lives
-- Step 11: Add support for power up pill
+- All steps: separate ANSI calls into a package
+- All steps: simplify code
+- Step ??: Add tests
+    - Extra Points: TDD Pac Go
+- Step ??: Add support for power up pill
 - Step ??: Add support for player 2
 - Step ??: Have a better AI
 - Step ??: PacGo Webserver?
