@@ -11,7 +11,6 @@ The following are the modifications made to the code after the last official ste
 ## Task ??: Make the frame rate configurable
 ## Task ??: Split main.go into multiple files
 ## Task ??: Refactor Player and Ghosts as Sprites
-## Task ??: Add support for multiple player lives
 
 ## Current
 
