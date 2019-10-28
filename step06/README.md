@@ -14,13 +14,13 @@ At this point of the tutorial we kind of have a complete game: it has a clear ob
 
 But it has one major issue: the enemies move only when the player moves. That doesn't look like very gamey to me, so let's do this properly.
 
-This issue happens because the read input is a blocking operation. We need to make it assynchronous somehow... if only we have some functionally to run things async in go... Oh, wait! We do! :)
+This issue happens because the read input is a blocking operation. We need to make it asynchronous somehow... if only we had some functionality to run things async in go... Oh, wait! We do! :)
 
 Here comes the fabulous channels and goroutines to the rescue!
 
 Goroutines are similar to threads, but they are much more lightweight. Under the hood, the go runtime spawns threads that will handle the goroutines, but a single thread can manage several goroutines, so their relation is bigger than 1:1.
 
-But that's not the best part. The go language design makes it very easy to spawn a goroutine: you just need to add the keyword `go` before the function call and the function will run on a separate goroutine in an assyncronous manner.
+But that's not the best part. The go language design makes it very easy to spawn a goroutine: you just need to add the keyword `go` before the function call and the function will run on a separate goroutine in an asynchronous manner.
 
 Have a look at the code below:
 
@@ -41,7 +41,7 @@ We could introduce a delay to the main function:
 func main() {
     go fmt.Println("hello")
     go fmt.Println("world")
-    time.Sleep(100 * time.Milisecond)
+    time.Sleep(100 * time.Millisecond)
 }
 ```
 
