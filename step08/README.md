@@ -63,9 +63,9 @@ With this change, by controlling the order things are called, we are making sure
 
 We've already handled the parsing, now we need to replace the hard coded values with their flag equivalents. 
 
-This is done replacing the hard coded value by the value of the flag (please note the de-reference operator, as the flags are pointers).
+This is done by replacing the hard coded value with the value of the flag (please note the de-reference operator, as the flags are pointers).
 
-At `loadConfig`:
+In `loadConfig`:
 
 ```go
 func loadConfig() error {
@@ -113,6 +113,6 @@ Now try running `step08` with `--config-file config_noemoji.json` first, and `--
 
 You can also try copying `maze01.txt` to a new file and editing it to experiment.
 
-Maybe you can create your own themes now... try visiting https://unicode.org/emoji/charts/full-emoji-list.html for inspiration. :)
+Maybe you can create your own themes now... try visiting [Full Emoji List](https://unicode.org/emoji/charts/full-emoji-list.html) for inspiration. :)
 
-[Take me to Next Step!](../stepxx/README.md)
+[Take me to step 09!](../step09/README.md)
