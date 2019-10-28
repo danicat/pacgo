@@ -28,7 +28,7 @@ The provided `config.json` file should look like this:
 }
 ```
 
-This is the default mapping but please feel free to toy with the entire emoji palette. We have inifinte possibilities!
+This is the default mapping but please feel free to toy with the entire emoji palette. We have infinite possibilities!
 
 One important aspect about the config file is the `use_emoji` configuration. We are using this flag to signal to the game when we are using emojis. This is necessary because emojis generally use more than one character in the screen (most of them use 2).
 
@@ -36,7 +36,7 @@ Using that flag we can have alternate code paths that make adjustments to compen
 
 ## Task 01: Load a json
 
-Go has support for loading json on the standard library.
+Go has support for loading json in the standard library.
 
 We first need to define a struct to hold the json data. The text between the backticks (\`) is called a `struct tag`. It is used by the json decoder to know which field of the struct corresponds to each field in the json file.
 
@@ -134,22 +134,22 @@ func printScreen() {
     }
 
     moveCursor(len(maze)+1, 0)
-    fmt.Printf("Score: %v\nLives: %v\n", score, lives)
+    fmt.Printf("Score: %v\tLives: %v\n", score, lives)
 }
 ```
 
 As an added bonus, let's add a game over sprite within the game over condition. Note that this will work only if your `printScreen` call is at the beginning of the game loop before anything else is processed:
 
 ```go
-    // check game over
-    if numDots == 0 || lives == 0 {
-        if lives == 0 {
-            moveCursor(player.row, player.col)
-            fmt.Printf(cfg.Death)
-            moveCursor(len(maze)+2, 0)
-        }
-        break
+// check game over
+if numDots == 0 || lives == 0 {
+    if lives == 0 {
+        moveCursor(player.row, player.col)
+        fmt.Printf(cfg.Death)
+        moveCursor(len(maze)+2, 0)
     }
+    break
+}
 ```
 
 We have emojis! How great is that? :)
