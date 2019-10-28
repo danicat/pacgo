@@ -16,7 +16,7 @@ If the Ghost hits a wall it doesn't matter, it will just try again on the next i
 
 ## Task 01: Making Ghosts
 
-Just like we've created a struct to hold our player data, we will create a similar one for ghosts. The only difference is that instead of holding a player global variable in memory we will have a slice of pointers to Ghosts. That way we can update each ghosts position in a very efficient way.
+Just like we've created a struct to hold our player data, we will create a similar one for ghosts. The only difference is that instead of holding a player global variable in memory we will have a slice of pointers to Ghosts. That way we can update each ghost's position in a very efficient way.
 
 First, the declaration:
 
