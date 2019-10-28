@@ -43,14 +43,14 @@ We first need to define a struct to hold the json data. The text between the bac
 ```go
 // Config holds the emoji configuration
 type Config struct {
-	Player   string `json:"player"`
-	Ghost    string `json:"ghost"`
-	Wall     string `json:"wall"`
-	Dot      string `json:"dot"`
-	Pill     string `json:"pill"`
-	Death    string `json:"death"`
-	Space    string `json:"space"`
-	UseEmoji bool   `json:"use_emoji"`
+    Player   string `json:"player"`
+    Ghost    string `json:"ghost"`
+    Wall     string `json:"wall"`
+    Dot      string `json:"dot"`
+    Pill     string `json:"pill"`
+    Death    string `json:"death"`
+    Space    string `json:"space"`
+    UseEmoji bool   `json:"use_emoji"`
 }
 
 var cfg Config
@@ -62,30 +62,30 @@ The code below parses the json and stores it in the `cfg` global variable.
 
 ```go
 func loadConfig() error {
-	f, err := os.Open("config.json")
-	if err != nil {
-		return err
-	}
-	defer f.Close()
+    f, err := os.Open("config.json")
+    if err != nil {
+        return err
+    }
+    defer f.Close()
 
-	decoder := json.NewDecoder(f)
-	err = decoder.Decode(&cfg)
-	if err != nil {
-		return err
-	}
+    decoder := json.NewDecoder(f)
+    err = decoder.Decode(&cfg)
+    if err != nil {
+        return err
+    }
 
-	return nil
+    return nil
 }
 ```
 
 Now add the `loadConfig` call in the initialization part of the main function, after `loadMaze`:
 
 ```go
-	err = loadConfig()
-	if err != nil {
-		log.Printf("Error loading configuration: %v\n", err)
-		return
-    }
+err = loadConfig()
+if err != nil {
+    log.Printf("Error loading configuration: %v\n", err)
+    return
+}
 ```
 
 ## Task 02: Adjusting the horizontal displacement
@@ -94,11 +94,11 @@ We need to adapt the `moveCursor` function to correct the horizontal displacemen
 
 ```go
 func moveCursor(row, col int) {
-	if cfg.UseEmoji {
-		fmt.Printf("\x1b[%d;%df", row+1, col*2+1)
-	} else {
-		fmt.Printf("\x1b[%d;%df", row+1, col+1)
-	}
+    if cfg.UseEmoji {
+        fmt.Printf("\x1b[%d;%df", row+1, col*2+1)
+    } else {
+        fmt.Printf("\x1b[%d;%df", row+1, col+1)
+    }
 }
 ```
 
@@ -110,31 +110,31 @@ The final part is to replace the hardcoded characters with their config counterp
 
 ```go
 func printScreen() {
-	clearScreen()
-	for _, line := range maze {
-		for _, chr := range line {
-			switch chr {
-			case '#':
-				fmt.Printf(cfg.Wall)
-			case '.':
-				fmt.Printf(cfg.Dot)
-			default:
-				fmt.Printf(cfg.Space)
-			}
-		}
-		fmt.Printf("\n")
-	}
+    clearScreen()
+    for _, line := range maze {
+        for _, chr := range line {
+            switch chr {
+            case '#':
+                fmt.Printf(cfg.Wall)
+            case '.':
+                fmt.Printf(cfg.Dot)
+            default:
+                fmt.Printf(cfg.Space)
+            }
+        }
+        fmt.Printf("\n")
+    }
 
-	moveCursor(player.row, player.col)
-	fmt.Printf(cfg.Player)
+    moveCursor(player.row, player.col)
+    fmt.Printf(cfg.Player)
 
-	for _, g := range ghosts {
-		moveCursor(g.row, g.col)
-		fmt.Printf(cfg.Ghost)
-	}
+    for _, g := range ghosts {
+        moveCursor(g.row, g.col)
+        fmt.Printf(cfg.Ghost)
+    }
 
-	moveCursor(len(maze)+1, 0)
-	fmt.Printf("Score: %v\nLives: %v\n", score, lives)
+    moveCursor(len(maze)+1, 0)
+    fmt.Printf("Score: %v\nLives: %v\n", score, lives)
 }
 ```
 

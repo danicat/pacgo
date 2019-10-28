@@ -114,15 +114,15 @@ The anonymous function then creates an infinite loop where it waits for input an
 In the game loop we will replace the code that processes the player movement with the code below:
 
 ```go
-	// process movement
-	select {
-	case inp := <-input:
-		if inp == "ESC" {
-			lives = 0
-		}
-		movePlayer(inp)
-    default:
+// process movement
+select {
+case inp := <-input:
+    if inp == "ESC" {
+        lives = 0
     }
+    movePlayer(inp)
+default:
+}
 ```
 
 Imagine that the select statement is just like a switch statement, but for channels. This select statement has a non-blocking nature, because it has a default clause. This means that if the `input` channel has something to be read it will be read, otherwise the `default` case is processed, which in this case is an empty block.
