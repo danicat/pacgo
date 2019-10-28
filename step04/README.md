@@ -77,7 +77,7 @@ func drawDirection() string {
 }
 ```
 
-The function `rand.Intn` from the `math/rand` package generates a random number between the interval `[0, n)`, where `n` is the parameter given to the function. (Note: that the interval is open ended, so `n` is not included).
+The function `rand.Intn` from the `math/rand` package generates a random number between the interval `[0, n)`, where `n` is the parameter given to the function. (Note that the interval is open ended, so `n` is not included).
 
 We are using a trick to map the integer numbers to the actual movements using a `map`. A map is a data structure that maps one value to another. I.e., in the case above, the map `move` maps an integer to a string.
 

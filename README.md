@@ -58,9 +58,9 @@ If you get lost, every step has its own `main.go` file with the changes to that 
 
 We are going to start by laying the ground a skeleton of what a game program looks like.
 
-Pick a directory to be your work dir (ie: `tutorial` under your home folder) and create a file called `main.go` with the content below.
+Pick a directory to be your work dir (e.g., `tutorial` under your home folder) and create a file called `main.go` with the content below.
 
-Note: alternatively you can just clone this repository and edit the `main.go` file on its root.
+Note: Alternatively you can just clone this repository and edit the `main.go` file on its root.
 
 ```go
 package main

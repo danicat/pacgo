@@ -96,7 +96,7 @@ When a function returns an error it is a common pattern to check the error immed
     }
 ```
 
-Note: It is a good practice to keep the "happy path" aligned to the left, and the sad path to the right (ie: terminating the function early).
+Note: It is a good practice to keep the "happy path" aligned to the left, and the sad path to the right (i.e., terminating the function early).
 
 `nil` in Go means no value is assigned to a variable. 
 
