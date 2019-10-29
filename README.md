@@ -23,9 +23,9 @@ You also learn a bit more about the terminal and its magical escape sequences.
 If you want to have a look at the tutorial in a talk format before trying (about 25 minutes), try one of the links below:
 
 1. [Google Cloud Next UK '19](https://cloud.withgoogle.com/next/uk/sessions?session=DZ224), London, UK (November, 21st 2019)
-1. [London Gophers](https://youtu.be/SM8LTMnB4x0), London, UK
-1. [GoWayFest 3.0](https://youtu.be/0qvW4kIlS8I), Minsk, Belarus
-1. [GothamGo 2019](https://youtu.be/GH0DlCKTppE), New York City, NY, USA
+2. [London Gophers](https://youtu.be/SM8LTMnB4x0), London, UK
+3. [GoWayFest 3.0](https://youtu.be/0qvW4kIlS8I), Minsk, Belarus
+4. [GothamGo 2019](https://youtu.be/GH0DlCKTppE), New York City, NY, USA
 
 ### Contributing
 
@@ -61,7 +61,7 @@ Of course, if you don't have the above, but is a curious spirit and want to try 
 
 ### Compatibility Warning!!!
 
-This tutorial has been tested on both **Linux** and **Mac OS X** environments. For Windows environments you may need to install a terminal emulator, like [Git BASH](https://gitforwindows.org/).
+This tutorial has been tested on both **Linux** and **Mac OS X** environments. For Windows environments you _may_ need to install a terminal emulator, like [Git BASH](https://gitforwindows.org/).
 
 Please beware that since this code relies on the terminal to render the game it can produce different results for different configurations.
 
