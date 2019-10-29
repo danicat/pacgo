@@ -171,7 +171,7 @@ Since in this case we only care about the content and not the index, we can safe
 
 ## Task 03: Updating the game loop
 
-Now that we have both a `loadMaze` and a `printScreen` functions, we should update the `main` function to initialize the maze and print it on the game loop. See the code below:
+Now that we have both `loadMaze` and `printScreen` functions, we should update the `main` function to initialize the maze and print it on the game loop. See the code below:
 
 ```go
 func main() {

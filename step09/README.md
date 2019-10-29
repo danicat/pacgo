@@ -6,7 +6,7 @@ In this lesson you will learn how to:
 
 ## Overview
 
-In this lesson we will be adding support for multiple lives to the application. We will update the collision tracking code to decrement the number of lives instead of setting lives to 0 on a collision. We will also add a player position reset to restart player after collision with a ghost. Finally, we will add Player emojis to the game scoreboard to track the number of lives remaining instead of displaying lives as an integer value.
+In this lesson we will be adding support for multiple lives to the application. We will update the collision tracking code to decrement the number of lives instead of setting lives to 0 on a collision. We will also keep track of the starting player position to respawn player there if they die. Finally, we will add Player emojis to the game scoreboard to track the number of lives remaining instead of displaying lives as an integer value.
 
 ## Task 01: Create Point type and update Player struct to use Point type.
 
@@ -136,4 +136,8 @@ This version of `getLivesAsEmoji` will be less efficient than the version of the
 
 In the version of the function using the `+` operator, there is a memory allocation operation happening for every iteration of the for loop. While for the buffer version of the function there is only a single memory allocation happening when buffer is initialized. A more detailed example of this performance difference is discussed [here](https://billglover.me/2019/03/13/learn-go-by-concatenating-strings/)
 
-[Take me to Next Step!](../stepxx/README.md)
+## That's All Folks!
+
+Congratulations! You've completed all the steps of the tutorial.
+
+But your journey must not end here. If you are interested in contributing with a new step, have a look at the [TODO list](../TODO.md) or any open issues and submit a PR!
