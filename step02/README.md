@@ -135,7 +135,7 @@ Now it's time to update the game loop to have the `readInput` function called ev
 // process input
 input, err := readInput()
 if err != nil {
-    log.Printf("Error reading input: %v", err)
+    log.Print("Error reading input:", err)
     break
 }
 ```

@@ -178,7 +178,7 @@ func main() {
 		// process input
 		input, err := readInput()
 		if err != nil {
-			log.Printf("Error reading input: %v", err)
+			log.Print("Error reading input:", err)
 			break
 		}
 
