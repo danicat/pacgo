@@ -110,24 +110,24 @@ func printScreen() {
 		for _, chr := range line {
 			switch chr {
 			case '#':
-				fmt.Printf("\x1b[44m" + cfg.Wall + "\x1b[0m")
+				fmt.Print("\x1b[44m" + cfg.Wall + "\x1b[0m")
 			case '.':
-				fmt.Printf(cfg.Dot)
+				fmt.Print(cfg.Dot)
 			case 'X':
-				fmt.Printf(cfg.Pill)
+				fmt.Print(cfg.Pill)
 			default:
-				fmt.Printf(cfg.Space)
+				fmt.Print(cfg.Space)
 			}
 		}
 		fmt.Println()
 	}
 
 	moveCursor(player.row, player.col)
-	fmt.Printf(cfg.Player)
+	fmt.Print(cfg.Player)
 
 	for _, g := range ghosts {
 		moveCursor(g.row, g.col)
-		fmt.Printf(cfg.Ghost)
+		fmt.Print(cfg.Ghost)
 	}
 
 	moveCursor(len(maze)+1, 0)
@@ -261,7 +261,7 @@ func main() {
 
 	err = loadConfig()
 	if err != nil {
-		log.Printf("Error loading configuration: %v\n", err)
+		log.Println("Error loading configuration:", err)
 		return
 	}
 
@@ -306,7 +306,7 @@ func main() {
 		if numDots == 0 || lives == 0 {
 			if lives == 0 {
 				moveCursor(player.row, player.col)
-				fmt.Printf(cfg.Death)
+				fmt.Print(cfg.Death)
 				moveCursor(len(maze)+2, 0)
 			}
 			break

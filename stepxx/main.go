@@ -98,9 +98,9 @@ func printScreen() {
 			case '#':
 				fmt.Printf(cfg.Wall)
 			case '.':
-				fmt.Printf(cfg.Dot)
+				fmt.Print(cfg.Dot)
 			default:
-				fmt.Printf(cfg.Space)
+				fmt.Print(cfg.Space)
 			}
 		}
 		fmt.Println()
@@ -128,7 +128,7 @@ func main() {
 	// load resources
 	err := loadConfig()
 	if err != nil {
-		log.Printf("Error loading configuration: %v\n", err)
+		log.Println("Error loading configuration:", err)
 		return
 	}
 
@@ -152,7 +152,7 @@ func main() {
 		if numDots == 0 || player.lives == 0 {
 			if player.lives == 0 {
 				moveCursor(player.Pos())
-				fmt.Printf(cfg.Death)
+				fmt.Print(cfg.Death)
 				moveCursor(len(maze)+2, 0)
 			}
 			break

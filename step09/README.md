@@ -75,7 +75,7 @@ for _, g := range ghosts {
         lives = lives - 1
         if lives != 0 {
             moveCursor(player.position.row, player.position.col)
-            fmt.Printf(cfg.Death)
+            fmt.Print(cfg.Death)
             moveCursor(len(maze)+2, 0)
             time.Sleep(1000*time.Millisecond) //dramatic pause before resetting player position
             player.position = player.origin
