@@ -154,7 +154,7 @@ Since we now have a proper game loop, we need to clear the screen after each loo
 
 ```go
 func clearScreen() {
-    fmt.Printf("\x1b[2J")
+    fmt.Print("\x1b[2J")
     moveCursor(0, 0)
 }
 

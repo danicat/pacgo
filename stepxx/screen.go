@@ -29,7 +29,7 @@ func cleanup() {
 }
 
 func clearScreen() {
-	fmt.Printf("\x1b[2J")
+	fmt.Print("\x1b[2J")
 	moveCursor(0, 0)
 }
 
