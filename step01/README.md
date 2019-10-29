@@ -182,7 +182,7 @@ func main() {
     // load resources
     err := loadMaze()
     if err != nil {
-        log.Printf("Error loading maze: %v\n", err)
+        log.Println("Error loading maze:", err)
         return
     }
 
