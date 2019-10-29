@@ -48,7 +48,7 @@ func initialize() {
 
     err := cbTerm.Run()
     if err != nil {
-        log.Fatalf("Unable to activate cbreak mode terminal: %v\n", err)
+        log.Fatalln("Unable to activate cbreak mode terminal:", err)
     }
 }
 ```

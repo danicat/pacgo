@@ -258,7 +258,7 @@ func initialize() {
 
 	err := cbTerm.Run()
 	if err != nil {
-		log.Fatalf("Unable to activate cbreak mode terminal: %v\n", err)
+		log.Fatalln("Unable to activate cbreak mode terminal:", err)
 	}
 }
 
@@ -268,7 +268,7 @@ func cleanup() {
 
 	err := cookedTerm.Run()
 	if err != nil {
-		log.Fatalf("Unable to activate cooked mode terminal: %v\n", err)
+		log.Fatalln("Unable to activate cooked mode terminal:", err)
 	}
 }
 
