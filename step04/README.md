@@ -16,7 +16,7 @@ If the Ghost hits a wall it doesn't matter, it will just try again on the next i
 
 ## Task 01: Making Ghosts
 
-Just like we've created a struct to hold our player data, we will create a similar one for ghosts. The only difference is that instead of holding a player global variable in memory we will have a slice of pointers to Ghosts. That way we can update each ghosts position in a very efficient way.
+Just like we've created a struct to hold our player data, we will create a similar one for ghosts. The only difference is that instead of holding a player global variable in memory we will have a slice of pointers to Ghosts. That way we can update each ghost's position in a very efficient way.
 
 First, the declaration:
 
@@ -77,7 +77,7 @@ func drawDirection() string {
 }
 ```
 
-The function `rand.Intn` from the `math/rand` package generates a random number between the interval `[0, n)`, where `n` is the parameter given to the function. (Note: that the interval is open ended, so `n` is not included).
+The function `rand.Intn` from the `math/rand` package generates a random number between the interval `[0, n)`, where `n` is the parameter given to the function. (Note that the interval is open ended, so `n` is not included).
 
 We are using a trick to map the integer numbers to the actual movements using a `map`. A map is a data structure that maps one value to another. I.e., in the case above, the map `move` maps an integer to a string.
 

@@ -153,7 +153,7 @@ func printScreen() {
 }
 
 //concatenate the correct number of player emojis based on lives
-func getLivesAsEmoji() string{
+func getLivesAsEmoji() string {
 	buf := bytes.Buffer{}
 	for i := lives; i > 0; i-- {
 		buf.WriteString(cfg.Player)
@@ -327,7 +327,7 @@ func main() {
 					moveCursor(player.position.row, player.position.col)
 					fmt.Printf(cfg.Death)
 					moveCursor(len(maze)+2, 0)
-					time.Sleep(1000*time.Millisecond) //dramatic pause before reseting player position
+					time.Sleep(1000*time.Millisecond) //dramatic pause before resetting player position
 					player.position = player.origin
 				}
 			}
