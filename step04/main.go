@@ -82,7 +82,7 @@ func printScreen() {
 
 	for _, g := range ghosts {
 		moveCursor(g.row, g.col)
-		fmt.Printf("G")
+		fmt.Print("G")
 	}
 }
 
