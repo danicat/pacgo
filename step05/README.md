@@ -9,7 +9,7 @@ In this lesson you will learn how to:
 
 We are almost there. We have both player movement and ghost movement. But our ghosts are still inoffensive. 
 
-It's time to add some danger to this game. Also, with great risks should come great rewards, so we will be also tackling the game win condition, by clearing the board of all its dots.
+It's time to add some danger to this game. Also, with great risks should come great rewards, so we'll also be tackling the game win condition, by clearing the board of all its dots.
 
 ## Task 01: Preparation
 
@@ -74,7 +74,7 @@ func printScreen() {
 
     // print score
     moveCursor(len(maze)+1, 0)
-    fmt.Printf("Score: %v\nLives: %v\n", score, lives)
+    fmt.Printf("Score: %v\tLives: %v\n", score, lives)
 }
 ```
 

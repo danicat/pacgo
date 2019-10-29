@@ -31,7 +31,7 @@ We are also defining the player as a global variable, just for the sake of simpl
 
 Next we need to capture the player position as soon as we load the maze, in the `loadMaze` function:
 
-```
+```go
 // traverse each character of the maze and create a new player when it locates a `P`
 for row, line := range maze {
     for col, char := range line {
@@ -76,7 +76,7 @@ func loadMaze() error {
 
 ### Optional: A note about visibility
 
-We are keeping things simple here just for the sake of the tutorial. Since everything is a single file we are not taking into account the visibility of variables, ie, if they are public or private.
+We are keeping things simple here just for the sake of the tutorial. Since everything is a single file we are not taking into account the visibility of variables, i.e., if they are public or private.
 
 Nevertheless, Go has an interesting mechanic in regards to defining visibility. Instead of having a public keyword, it considers public every symbol whose name starts with a capital letter. On the other hand, if a name starts with a lowercase character, it is a private symbol.
 
@@ -147,7 +147,7 @@ func makeMove(oldRow, oldCol int, dir string) (newRow, newCol int) {
 }
 ```
 
-Note: if you are used to the switch statement in other languages, please beware that in Go there is an implicit `break` after each `case` condition. So we don't need to explicitly break after each block. If we want to fall through the next `case` block we can use the `fallthrough` keyword. 
+Note: If you are used to the switch statement in other languages, please beware that in Go there is an implicit `break` after each `case` condition. So we don't need to explicitly break after each block. If we want to fall through the next `case` block we can use the `fallthrough` keyword. 
 
 The function above takes advantage of `named return values` to return the new position (`newRow` and `newCol`) after the move. Basically the function "tries"  the move first, and if by any chance the new position hits a wall (`#`) the move is cancelled. 
 
@@ -155,7 +155,7 @@ It also handles the property that if the character moves outside the range of th
 
 The last piece in the movement puzzle is to define a function to move the player:
 
-```
+```go
 func movePlayer(dir string) {
     player.row, player.col = makeMove(player.row, player.col, dir)
 }

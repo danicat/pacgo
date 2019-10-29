@@ -24,13 +24,13 @@ First, we are going to read the maze data. We have a file called `maze01.txt` th
 - X represents the power up pills
 ```
 
-Our first task consists in loading this ASCII representation of the maze to a slice of strings and then printing it to the screen. Looks simple, right? It is indeed!
+Our first task consists of loading this ASCII representation of the maze to a slice of strings and then printing it to the screen. Looks simple, right? It is indeed!
 
 ## Task 01: Load the Maze
 
 Let's start by reading the `maze01.txt` file.
 
-We are going to use the function `Open` from the `os` package to open it, and an scanner object from the buffered IO package (`bufio`) to read it to memory (to a global variable called `maze`). Finally we need to release the file handler by calling `os.Close`. 
+We are going to use the function `Open` from the `os` package to open it, and a scanner object from the buffered IO package (`bufio`) to read it to memory (to a global variable called `maze`). Finally we need to release the file handler by calling `os.Close`. 
 
 All that comes together as the code below:
 
@@ -52,7 +52,6 @@ func loadMaze() error {
 }
 
 var maze []string
-
 ```
 
 Now let's break it down and see what's going on.
@@ -97,7 +96,7 @@ When a function returns an error it is a common pattern to check the error immed
     }
 ```
 
-Note: It is a good practice to keep the "happy path" aligned to the left, and the sad path to the right (ie: terminating the function early).
+Note: It is a good practice to keep the "happy path" aligned to the left, and the sad path to the right (i.e., terminating the function early).
 
 `nil` in Go means no value is assigned to a variable. 
 
@@ -118,7 +117,7 @@ Another interesting aspect of the `loadMaze` code is the use of the `defer` keyw
 ```go
 func loadMaze() error {
     f, err := os.Open("maze01.txt")
-    // omited error handling
+    // omitted error handling
     defer f.Close() // puts f.Close() in the call stack
 
     // rest of the code
@@ -140,7 +139,7 @@ The next part of the code just reads the file line by line and appends it to the
 
 A scanner is a very convenient way to read a file. `scanner.Scan()` will return true while there is something to be read from the file, and `scanner.Text()` will return the next line of input.
 
-The `append` built in function is responsible for adding a new element to the `maze` slice.
+The `append` built-in function is responsible for adding a new element to the `maze` slice.
 
 ## Task 02: Printing to the Screen
 
@@ -149,7 +148,6 @@ Once we have the maze file loaded into memory we need to print it to the screen.
 One way to do that is to iterate over each entry in the `maze` slice and print it. This can be conveniently done with the `range` operator:
 
 ```go
-
 func printScreen() {
     for _, line := range maze {
         fmt.Println(line)
@@ -173,7 +171,7 @@ Since in this case we only care about the content and not the index, we can safe
 
 ## Task 03: Updating the game loop
 
-Now that we have both a `loadMaze` and a `printScreen` function, we should update the `main` function to initialize the maze and print it on the game loop. See the code below:
+Now that we have both `loadMaze` and `printScreen` functions, we should update the `main` function to initialize the maze and print it on the game loop. See the code below:
 
 ```go
 func main() {
