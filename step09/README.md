@@ -18,6 +18,7 @@ type Point struct {
     col int
 }
 
+// Player is the player character \o/
 type Player struct {
     position Point
     origin Point

@@ -19,13 +19,12 @@ var (
 	mazeFile   = flag.String("maze-file", "maze01.txt", "path to a custom maze file")
 )
 
-// Player is the player character \o/
-
 type Point struct {
 	row int
 	col int
 }
 
+// Player is the player character \o/
 type Player struct {
 	position Point
 	origin Point
