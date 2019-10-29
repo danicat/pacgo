@@ -122,7 +122,7 @@ func printScreen() {
 		for _, chr := range line {
 			switch chr {
 			case '#':
-				fmt.Printf(cfg.Wall)
+				fmt.Print(cfg.Wall)
 			case '.':
 				fmt.Print(cfg.Dot)
 			default:
