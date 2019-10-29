@@ -61,7 +61,7 @@ func init() {
 
 In the function above we are actually invoking another program that modifies the terminal configuration, called `stty`. We are both enabling the cbreak mode and disabling the cursor echo.
 
-The `log.Fatalf` function will terminate the program after printing the log, in case of error. This is important here because without the cbreak mode the game is unplayable.
+The `log.Fatalln` function will terminate the program after printing the log, in case of error. This is important here because without the cbreak mode the game is unplayable.
 
 ## Task 02: Restoring Cooked Mode
 
