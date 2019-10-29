@@ -31,7 +31,7 @@ We are also defining the player as a global variable, just for the sake of simpl
 
 Next we need to capture the player position as soon as we load the maze, in the `loadMaze` function:
 
-```
+```go
 // traverse each character of the maze and create a new player when it locates a `P`
 for row, line := range maze {
     for col, char := range line {
@@ -155,7 +155,7 @@ It also handles the property that if the character moves outside the range of th
 
 The last piece in the movement puzzle is to define a function to move the player:
 
-```
+```go
 func movePlayer(dir string) {
     player.row, player.col = makeMove(player.row, player.col, dir)
 }
