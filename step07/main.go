@@ -119,7 +119,7 @@ func printScreen() {
 				fmt.Printf(cfg.Space)
 			}
 		}
-		fmt.Printf("\n")
+		fmt.Println()
 	}
 
 	moveCursor(player.row, player.col)

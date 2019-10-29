@@ -78,14 +78,14 @@ func printScreen() {
 			case '.':
 				fmt.Printf("%c", chr)
 			default:
-				fmt.Printf(" ")
+				fmt.Print(" ")
 			}
 		}
-		fmt.Printf("\n")
+		fmt.Println()
 	}
 
 	moveCursor(player.row, player.col)
-	fmt.Printf("P")
+	fmt.Print("P")
 
 	for _, g := range ghosts {
 		moveCursor(g.row, g.col)

@@ -60,14 +60,14 @@ func printScreen() {
 			case '#':
 				fmt.Printf("%c", chr)
 			default:
-				fmt.Printf(" ")
+				fmt.Print(" ")
 			}
 		}
-		fmt.Printf("\n")
+		fmt.Println()
 	}
 
 	moveCursor(player.row, player.col)
-	fmt.Printf("P")
+	fmt.Print("P")
 
 	moveCursor(len(maze)+1, 0)
 	fmt.Printf("Row %v Col %v", player.row, player.col)

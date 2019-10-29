@@ -103,7 +103,7 @@ func printScreen() {
 				fmt.Printf(cfg.Space)
 			}
 		}
-		fmt.Printf("\n")
+		fmt.Println()
 	}
 
 	for _, s := range sprites {

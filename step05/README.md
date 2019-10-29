@@ -57,10 +57,10 @@ func printScreen() {
             case '.':
                 fmt.Printf("%c", chr)
             default:
-                fmt.Printf(" ")
+                fmt.Print(" ")
             }
         }
-        fmt.Printf("\n")
+        fmt.Println()
     }
     // rest of the function omitted for brevity...
 }
