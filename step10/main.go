@@ -51,15 +51,16 @@ var ghosts []*Ghost
 
 // Config holds the emoji configuration
 type Config struct {
-	Player    string `json:"player"`
-	Ghost     string `json:"ghost"`
-	GhostBlue string `json:"ghost_blue"`
-	Wall      string `json:"wall"`
-	Dot       string `json:"dot"`
-	Pill      string `json:"pill"`
-	Death     string `json:"death"`
-	Space     string `json:"space"`
-	UseEmoji  bool   `json:"use_emoji"`
+	Player           string        `json:"player"`
+	Ghost            string        `json:"ghost"`
+	GhostBlue        string        `json:"ghost_blue"`
+	Wall             string        `json:"wall"`
+	Dot              string        `json:"dot"`
+	Pill             string        `json:"pill"`
+	Death            string        `json:"death"`
+	Space            string        `json:"space"`
+	UseEmoji         bool          `json:"use_emoji"`
+	PillDurationSecs time.Duration `json:"pill_duration_secs"`
 }
 
 var cfg Config
@@ -260,12 +261,12 @@ func updateGhosts(ghosts []*Ghost, ghostStatus GhostStatus) {
 	}
 }
 
-var pillTimer = time.NewTimer(time.Second * 10)
+var pillTimer = time.NewTimer(time.Second * cfg.PillDurationSecs)
 
 func proccessPill() {
 	updateGhosts(ghosts, Blue)
 	pillTimer.Stop()
-	pillTimer.Reset(time.Second * 10)
+	pillTimer.Reset(time.Second * cfg.PillDurationSecs)
 	<-pillTimer.C
 	pillTimer.Stop()
 	updateGhosts(ghosts, Normal)
