@@ -91,7 +91,7 @@ When a function returns an error it is a common pattern to check the error immed
     f, err := os.Open("maze01.txt")
     if err != nil {
         // do something with err
-        log.Printf("...")
+        log.Print("...")
         return
     }
 ```

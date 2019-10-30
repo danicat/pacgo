@@ -100,7 +100,7 @@ func printScreen() {
         livesRemaining = getLivesAsEmoji()
     }
 
-    fmt.Printf("Score: %v\tLives: %v\n", score, livesRemaining)
+    fmt.Println("Score:", score, "\tLives:", livesRemaining)
 }
 
 //concatenate the correct number of player emojis based on lives

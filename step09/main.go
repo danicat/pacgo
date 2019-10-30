@@ -148,7 +148,7 @@ func printScreen() {
 		livesRemaining = getLivesAsEmoji()
 	}
 
-	fmt.Printf("Score: %v\tLives: %v\n", score, livesRemaining)
+	fmt.Println("Score:", score, "\tLives:", livesRemaining)
 }
 
 //concatenate the correct number of player emojis based on lives
@@ -341,7 +341,7 @@ func main() {
 				moveCursor(player.position.row, player.position.col)
 				fmt.Print(cfg.Death)
 				moveCursor(player.origin.row, player.origin.col-1)
-				fmt.Printf("GAME OVER")
+				fmt.Print("GAME OVER")
 				moveCursor(len(maze)+2, 0)
 			}
 			break

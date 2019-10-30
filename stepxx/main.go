@@ -112,10 +112,10 @@ func printScreen() {
 	}
 
 	moveCursor(len(maze)+1, 0)
-	fmt.Printf("Score: %v\tLives: %v\n", player.score, player.lives)
+	fmt.Println("Score:", player.score, "\tLives:", player.lives)
 
 	moveCursor(len(maze)+3, 0)
-	fmt.Printf("%v", chaserPath)
+	fmt.Print(chaserPath)
 }
 
 func main() {
