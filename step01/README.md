@@ -56,10 +56,11 @@ var maze []string
 
 Now let's break it down and see what's going on.
 
-Please note that you need to import both the `os` and `bufio` packages as shown below:
+Please note that you need to import the `log`, `os`, and `bufio` packages as shown below:
 
 ```go
 import "os"
+import "log"
 import "bufio"
 ```
 
@@ -69,6 +70,7 @@ Alternatively, since you already have one import (`fmt`), you can add it as a li
 import (
     "bufio"
     "fmt"
+	"log"
     "os"
 )
 ```
