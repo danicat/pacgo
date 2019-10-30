@@ -4,7 +4,6 @@
 - All steps: simplify code
 - Step ??: Add tests
     - Extra Points: TDD Pac Go
-- Step ??: Add support for power up pill
 - Step ??: Add support for player 2
 - Step ??: Have a better AI
 - Step ??: PacGo Webserver?
