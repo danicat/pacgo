@@ -230,7 +230,7 @@ func moveGhosts() {
 }
 
 func initialize() {
-	cbTerm := exec.Command("/bin/stty", "cbreak", "-echo")
+	cbTerm := exec.Command("stty", "cbreak", "-echo")
 	cbTerm.Stdin = os.Stdin
 
 	err := cbTerm.Run()
@@ -240,7 +240,7 @@ func initialize() {
 }
 
 func cleanup() {
-	cookedTerm := exec.Command("/bin/stty", "-cbreak", "echo")
+	cookedTerm := exec.Command("stty", "-cbreak", "echo")
 	cookedTerm.Stdin = os.Stdin
 
 	err := cookedTerm.Run()

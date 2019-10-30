@@ -49,7 +49,7 @@ Here is the definition of our `init`:
 
 ```go
 func init() {
-    cbTerm := exec.Command("/bin/stty", "cbreak", "-echo")
+    cbTerm := exec.Command("stty", "cbreak", "-echo")
     cbTerm.Stdin = os.Stdin
 
     err := cbTerm.Run()
@@ -69,7 +69,7 @@ Restoring the cooked mode is a pretty straightforward process. It is the same as
 
 ```go
 func cleanup() {
-    cookedTerm := exec.Command("/bin/stty", "-cbreak", "echo")
+    cookedTerm := exec.Command("stty", "-cbreak", "echo")
     cookedTerm.Stdin = os.Stdin
 
     err := cookedTerm.Run()

@@ -43,7 +43,7 @@ Please note that we are calling `flag.Parse()` as the very first thing in the pr
 
 ```go
 func initialize() {
-    cbTerm := exec.Command("/bin/stty", "cbreak", "-echo")
+    cbTerm := exec.Command("stty", "cbreak", "-echo")
     cbTerm.Stdin = os.Stdin
 
     err := cbTerm.Run()
