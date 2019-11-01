@@ -11,6 +11,7 @@ import (
 	"os"
 	"os/exec"
 	"strconv"
+	"sync"
 	"time"
 )
 
@@ -48,6 +49,7 @@ type Ghost struct {
 }
 
 var ghosts []*Ghost
+var gostsStatusMx sync.RWMutex
 
 // Config holds the emoji configuration
 type Config struct {
@@ -149,14 +151,16 @@ func printScreen() {
 	moveCursor(player.position.row, player.position.col)
 	fmt.Printf(cfg.Player)
 
+	gostsStatusMx.RLock()
 	for _, g := range ghosts {
 		moveCursor(g.position.row, g.position.col)
-		if g.status == Blue {
-			fmt.Printf(cfg.GhostBlue)
-		} else {
+		if g.status == Normal {
 			fmt.Printf(cfg.Ghost)
+		} else if g.status == Blue {
+			fmt.Printf(cfg.GhostBlue)
 		}
 	}
+	gostsStatusMx.RUnlock()
 
 	moveCursor(len(maze)+1, 0)
 
@@ -256,6 +260,8 @@ func movePlayer(dir string) {
 }
 
 func updateGhosts(ghosts []*Ghost, ghostStatus GhostStatus) {
+	gostsStatusMx.Lock()
+	defer gostsStatusMx.Unlock()
 	for _, g := range ghosts {
 		g.status = ghostStatus
 	}
@@ -363,6 +369,7 @@ func main() {
 		// process collisions
 		for _, g := range ghosts {
 			if player.position.row == g.position.row && player.position.col == g.position.col {
+				gostsStatusMx.RLock()
 				if g.status == Normal {
 					lives = lives - 1
 					if lives != 0 {
@@ -377,6 +384,7 @@ func main() {
 					updateGhosts([]*Ghost{g}, Blue)
 					g.position.row, g.position.col = g.initialPosition.row, g.initialPosition.col
 				}
+				gostsStatusMx.RUnlock()
 			}
 		}
 
