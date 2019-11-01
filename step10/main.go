@@ -261,11 +261,14 @@ func updateGhosts(ghosts []*Ghost, ghostStatus GhostStatus) {
 	}
 }
 
-var pillTimer = time.NewTimer(time.Second * cfg.PillDurationSecs)
+var pillTimer *time.Timer
 
 func proccessPill() {
 	updateGhosts(ghosts, Blue)
-	pillTimer.Stop()
+	if pillTimer != nil {
+		pillTimer.Stop()
+	}
+	pillTimer = time.NewTimer(time.Second * cfg.PillDurationSecs)
 	pillTimer.Reset(time.Second * cfg.PillDurationSecs)
 	<-pillTimer.C
 	pillTimer.Stop()
