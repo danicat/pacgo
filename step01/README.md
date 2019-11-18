@@ -7,8 +7,9 @@ In this lesson you will learn how to:
 - Handle multiple return values
 - Handle errors
 - Create and add an element to a slice
-- Iterate over a collection
+- Range loop over a slice
 - Defer a function call
+- Log errors
 
 ## Overview
 
@@ -79,7 +80,7 @@ The `os.Open()` function returns a pair of values: a file and an error. Returnin
 f, err := os.Open(file)
 ```
 
-The `:=` operator is an assignment operator, but with special property that it automatically infers the type of the variable(s) based on the value(s) on the right side.
+The `:=` operator is an assignment operator, but with the special property that it automatically infers the type of the variable(s) based on the value(s) on the right hand side.
 
 Keep in mind that Go is a strongly typed language, but that nice feature saves us the trouble of specifying the type when it's possible to infer it.
 
@@ -175,12 +176,12 @@ Now that we have both `loadMaze` and `printScreen` functions, we should update t
 
 ```go
 func main() {
-    // initialize game
+    // initialise game
 
     // load resources
     err := loadMaze("maze01.txt")
     if err != nil {
-        log.Println("Error loading maze:", err)
+        log.Println("failed to load maze:", err)
         return
     }
 
@@ -218,12 +219,12 @@ import (
 
 Some IDEs, like `vscode`, can be configured to do this automatically for you.
 
-Note: one could also use `log.Fatalln` for the same effect, but we need to make sure that any deferred calls are executed before exiting the `main` function, and `log.Fatal` skips deferred function calls by calling `os.Exit(1)` internally. We don't have any deffered calls in the main function yet, but we will add one in the next chapter.
+Note: one could also use `log.Fatalln` for the same effect, but we need to make sure that any deferred calls are executed before exiting the `main` function, and functions in the `log.Fatal` family skip deferred function calls by calling `os.Exit(1)` internally. We don't have any deffered calls in the main function yet, but we will add one in the next chapter.
 
 Now that we've finished the game loop modifications we can run the program with `go run` or compile it with `go build` and run it as a standalone program.
 
 ```sh
-$ go run main.go
+go run main.go
 ```
 
 You should see the maze printed to the terminal.

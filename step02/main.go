@@ -6,10 +6,14 @@ import (
 	"log"
 	"os"
 	"os/exec"
+
+	"github.com/danicat/simpleansi"
 )
 
-func loadMaze() error {
-	f, err := os.Open("maze01.txt")
+var maze []string
+
+func loadMaze(file string) error {
+	f, err := os.Open(file)
 	if err != nil {
 		return err
 	}
@@ -24,19 +28,8 @@ func loadMaze() error {
 	return nil
 }
 
-var maze []string
-
-func clearScreen() {
-	fmt.Print("\x1b[2J")
-	moveCursor(0, 0)
-}
-
-func moveCursor(row, col int) {
-	fmt.Printf("\x1b[%d;%df", row+1, col+1)
-}
-
 func printScreen() {
-	clearScreen()
+	simpleansi.ClearScreen()
 	for _, line := range maze {
 		fmt.Println(line)
 	}
@@ -57,13 +50,13 @@ func readInput() (string, error) {
 	return "", nil
 }
 
-func init() {
+func initialise() {
 	cbTerm := exec.Command("stty", "cbreak", "-echo")
 	cbTerm.Stdin = os.Stdin
 
 	err := cbTerm.Run()
 	if err != nil {
-		log.Fatalln("Unable to activate cbreak mode terminal:", err)
+		log.Fatalln("unable to activate cbreak mode:", err)
 	}
 }
 
@@ -73,18 +66,19 @@ func cleanup() {
 
 	err := cookedTerm.Run()
 	if err != nil {
-		log.Fatalln("Unable to activate cooked mode terminal:", err)
+		log.Fatalln("unable to activate cooked mode:", err)
 	}
 }
 
 func main() {
-	// initialize game
+	// initialise game
+	initialise()
 	defer cleanup()
 
 	// load resources
-	err := loadMaze()
+	err := loadMaze("maze01.txt")
 	if err != nil {
-		log.Println("Error loading maze:", err)
+		log.Println("failed to load maze:", err)
 		return
 	}
 

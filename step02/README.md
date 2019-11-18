@@ -3,25 +3,24 @@
 In this lesson you will learn how to:
 
 - Work with different terminal modes
+- Calling external commands from Go code
 - Send escape sequences to the terminal
 - Read from standard input
 - Create a function that returns multiple values
 
 ## Overview
 
-In the last step we've learned how to print something to the standard output. Now it's time to learn how to read from standard input. 
+In the last step we've learned how to print something to the standard output. Now it's time to learn how to read from standard input.
 
-In this game we will be processing a restricted set of movements: up, down, left and right. Besides those, the only other key we will be needing is the game end key, in order to enable the player to quit the game gracefully.
-
-We will map the escape key (Esc) on the keyboard to do this graceful termination. The movements will be mapped to the arrow keys.
+In this game we will be processing a restricted set of movements: up, down, left and right. Besides those, the only other key we will be using is the escape key, in order to enable the player to exit the game gracefully. The movements will be mapped to the arrow keys.
 
 This step will handle the Esc key and we will see how to process the arrow keys in step 03.
 
-But before getting into the implementation we need to know a bit about terminal modes.
+But, before getting into the implementation, we need to know a bit about terminal modes.
 
 ## Intro to terminal modes
 
-Terminals can run in three possible [modes](https://en.wikipedia.org/wiki/Terminal_mode): 
+Terminals can run in three possible [modes](https://en.wikipedia.org/wiki/Terminal_mode):
 
 1. Cooked Mode
 2. Cbreak Mode
@@ -39,29 +38,25 @@ We will use the cbreak mode to allow us to handle the escape sequences correspon
 
 ## Task 01: Enabling Cbreak Mode
 
-To enable the cbreak mode we are going to take advantage of an `init` function.
-
-We said previously that the `main` function is the entrypoint of a given program. Besides that, we can also have an `init` function that performs initialization steps before the runtime calls the `main` function.
-
-Additionally, we can have an `init` function for library packages to perform any necessary initialization. It's useful to note that you shouldn't count on the order of which the `init` functions are called in the scenario where you have multiple packages with multiple `init` functions.
+To enable the cbreak mode we are going to call an external command that controls terminal behaviour, the `stty` command. We are also going to disable terminal echo so we don't polute the screen with the output of key presses.
 
 Here is the definition of our `init`:
 
 ```go
-func init() {
+func initialise() {
     cbTerm := exec.Command("stty", "cbreak", "-echo")
     cbTerm.Stdin = os.Stdin
 
     err := cbTerm.Run()
     if err != nil {
-        log.Fatalln("Unable to activate cbreak mode terminal:", err)
+        log.Fatalln("unable to activate cbreak mode:", err)
     }
 }
 ```
 
-In the function above we are actually invoking another program that modifies the terminal configuration, called `stty`. We are both enabling the cbreak mode and disabling the cursor echo.
+You will need to add the import "os/exec" if your IDE is not configured to add it automatically.
 
-The `log.Fatalln` function will terminate the program after printing the log, in case of error. This is important here because without the cbreak mode the game is unplayable.
+The `log.Fatalln` function will terminate the program after printing the log, in case of error. This is important here because without the cbreak mode the game is unplayable. As this is the very first function we will call in our program, we are not worried about skipping any deferred calls.
 
 ## Task 02: Restoring Cooked Mode
 
@@ -74,16 +69,17 @@ func cleanup() {
 
     err := cookedTerm.Run()
     if err != nil {
-        log.Fatalln("Unable to activate cooked mode terminal:", err)
+        log.Fatalln("unable to restore cooked mode:", err)
     }
 }
 ```
 
-Note that this `cleanup` function doesn't have a special meaning in Go like the `init` one, so we must explicitly call it in our `main` function. We can either call it at the end of the function or use the `defer` statement as shown below:
+Now we need to call both functions in the `main` function:
 
 ```go
 func main() {
-    // initialize game
+    // initialise game
+    initialise()
     defer cleanup()
 
     // load resources
@@ -113,13 +109,13 @@ func readInput() (string, error) {
 }
 ```
 
-The `make` function is a [built-in function](https://golang.org/pkg/builtin/#make) that allocates and initializes objects. It is only used for slices, maps and channels. In this case we are creating an array of bytes with size 100 and returning a slice that points to it.
+The `make` function is a [built-in function](https://golang.org/pkg/builtin/#make) that allocates and initialises objects. It is only used for slices, maps and channels. In this case we are creating an array of bytes with size 100 and returning a slice that points to it.
 
 After the usual error handling (we are just passing the error up on the call stack), we are testing if we read just one byte and if that byte is the escape key. (0x1b is the hexadecimal code that represents Esc).
 
 We return "ESC" if the Esc key was pressed or an empty string otherwise.
 
-Now you may wonder why allocating a buffer of 100 bytes, or why testing the count of exact one byte... 
+Now you may wonder why allocating a buffer of 100 bytes, or why testing the count of exact one byte...
 
 What if the buffer suddenly has 5 elements and one of them is the Esc key? Shouldn't we care to process that? Will that key press be lost?
 
@@ -135,7 +131,7 @@ Now it's time to update the game loop to have the `readInput` function called ev
 // process input
 input, err := readInput()
 if err != nil {
-    log.Print("Error reading input:", err)
+    log.Print("error reading input:", err)
     break
 }
 ```
@@ -150,28 +146,32 @@ if input == "ESC" {
 
 ## Task 05: Clearing the Screen
 
-Since we now have a proper game loop, we need to clear the screen after each loop so we have a blank screen for drawing in the next iteration. In order to do that, we are going to use some special escape sequences.
-
-```go
-func clearScreen() {
-    fmt.Print("\x1b[2J")
-    moveCursor(0, 0)
-}
-
-func moveCursor(row, col int) {
-    fmt.Printf("\x1b[%d;%df", row+1, col+1)
-}
-```
+Since we now have a proper game loop, we need to clear the screen after each loop so we have a blank screen for drawing in the next iteration. In order to do that, we are going to use some special "escape sequences".
 
 [Escape sequences](https://en.wikipedia.org/wiki/ANSI_escape_code#Escape_sequences) are called like that because they start with the ESC character (0x1b) followed by one or more characters. Those characters work as commands for the terminal emulator.
 
-We are using above two commands: one for clearing the screen and other for moving the cursor to a given position.
+You actually don't need to worry about the sequences we are going to use, as we are going to import another package called `simpleansi` that does the work for us:
 
-We will update the printScreen function to call clearScreen before printing, so we are sure to be using a blank screen each frame:
+```go
+import "github.com/danicat/simpleansi"
+```
+
+---
+### A note on external packages
+
+This time we are not importing a package from the standard library, but an external package instead. If you look at `simpleansi`'s [implementation](https://github.com/danicat/simpleansi), you will notice that every function starts with a capital letter, like `ClearScreen` or `MoveCursor`.
+
+That is important in Go because the capitalisation of a word defines if that function or variable has **public** or **private** escope.
+
+Words starting with a lower case character are private to the package defining it, and words starting with an upper case character are public. That may be confusing to people coming from other languages like java, but if you follow naming conventions like "classes (structs) always start with a capital letter" you may end up inadvertedly making every type in your code public, which is probably not what you want.
+
+---
+
+We will update the printScreen function to call `simpleansi.ClearScreen` before printing, so we are sure to be using a blank screen each frame:
 
 ```go
 func printScreen() {
-    clearScreen()
+    simpleansi.ClearScreen()
     for _, line := range maze {
         fmt.Println(line)
     }
