@@ -7,8 +7,10 @@ import (
 	"os"
 )
 
-func loadMaze() error {
-	f, err := os.Open("maze01.txt")
+var maze []string
+
+func loadMaze(file string) error {
+	f, err := os.Open(file)
 	if err != nil {
 		return err
 	}
@@ -23,8 +25,6 @@ func loadMaze() error {
 	return nil
 }
 
-var maze []string
-
 func printScreen() {
 	for _, line := range maze {
 		fmt.Println(line)
@@ -35,7 +35,7 @@ func main() {
 	// initialize game
 
 	// load resources
-	err := loadMaze()
+	err := loadMaze("maze01.txt")
 	if err != nil {
 		log.Println("Error loading maze:", err)
 		return
