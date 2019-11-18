@@ -96,14 +96,14 @@ func printScreen() {
 		for _, chr := range line {
 			switch chr {
 			case '#':
-				fmt.Printf(cfg.Wall)
+				fmt.Print(cfg.Wall)
 			case '.':
-				fmt.Printf(cfg.Dot)
+				fmt.Print(cfg.Dot)
 			default:
-				fmt.Printf(cfg.Space)
+				fmt.Print(cfg.Space)
 			}
 		}
-		fmt.Printf("\n")
+		fmt.Println()
 	}
 
 	for _, s := range sprites {
@@ -112,10 +112,10 @@ func printScreen() {
 	}
 
 	moveCursor(len(maze)+1, 0)
-	fmt.Printf("Score: %v\tLives: %v\n", player.score, player.lives)
+	fmt.Println("Score:", player.score, "\tLives:", player.lives)
 
 	moveCursor(len(maze)+3, 0)
-	fmt.Printf("%v", chaserPath)
+	fmt.Print(chaserPath)
 }
 
 func main() {
@@ -128,13 +128,13 @@ func main() {
 	// load resources
 	err := loadConfig()
 	if err != nil {
-		log.Printf("Error loading configuration: %v\n", err)
+		log.Println("Error loading configuration:", err)
 		return
 	}
 
 	err = loadMaze()
 	if err != nil {
-		log.Printf("Error loading maze: %v\n", err)
+		log.Println("Error loading maze:", err)
 		return
 	}
 
@@ -152,7 +152,7 @@ func main() {
 		if numDots == 0 || player.lives == 0 {
 			if player.lives == 0 {
 				moveCursor(player.Pos())
-				fmt.Printf(cfg.Death)
+				fmt.Print(cfg.Death)
 				moveCursor(len(maze)+2, 0)
 			}
 			break

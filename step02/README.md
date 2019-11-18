@@ -54,14 +54,14 @@ func init() {
 
     err := cbTerm.Run()
     if err != nil {
-        log.Fatalf("Unable to activate cbreak mode terminal: %v\n", err)
+        log.Fatalln("Unable to activate cbreak mode terminal:", err)
     }
 }
 ```
 
 In the function above we are actually invoking another program that modifies the terminal configuration, called `stty`. We are both enabling the cbreak mode and disabling the cursor echo.
 
-The `log.Fatalf` function will terminate the program after printing the log, in case of error. This is important here because without the cbreak mode the game is unplayable.
+The `log.Fatalln` function will terminate the program after printing the log, in case of error. This is important here because without the cbreak mode the game is unplayable.
 
 ## Task 02: Restoring Cooked Mode
 
@@ -74,7 +74,7 @@ func cleanup() {
 
     err := cookedTerm.Run()
     if err != nil {
-        log.Fatalf("Unable to activate cooked mode terminal: %v\n", err)
+        log.Fatalln("Unable to activate cooked mode terminal:", err)
     }
 }
 ```
@@ -135,7 +135,7 @@ Now it's time to update the game loop to have the `readInput` function called ev
 // process input
 input, err := readInput()
 if err != nil {
-    log.Printf("Error reading input: %v", err)
+    log.Print("Error reading input:", err)
     break
 }
 ```
@@ -154,7 +154,7 @@ Since we now have a proper game loop, we need to clear the screen after each loo
 
 ```go
 func clearScreen() {
-    fmt.Printf("\x1b[2J")
+    fmt.Print("\x1b[2J")
     moveCursor(0, 0)
 }
 

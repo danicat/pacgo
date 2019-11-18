@@ -91,7 +91,7 @@ When a function returns an error it is a common pattern to check the error immed
     f, err := os.Open("maze01.txt")
     if err != nil {
         // do something with err
-        log.Printf("...")
+        log.Print("...")
         return
     }
 ```
@@ -180,7 +180,7 @@ func main() {
     // load resources
     err := loadMaze()
     if err != nil {
-        log.Printf("Error loading maze: %v\n", err)
+        log.Println("Error loading maze:", err)
         return
     }
 

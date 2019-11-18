@@ -98,7 +98,7 @@ var numDots int
 var lives = 1
 
 func clearScreen() {
-	fmt.Printf("\x1b[2J")
+	fmt.Print("\x1b[2J")
 	moveCursor(0, 0)
 }
 
@@ -116,26 +116,26 @@ func printScreen() {
 		for _, chr := range line {
 			switch chr {
 			case '#':
-				fmt.Printf(cfg.Wall)
+				fmt.Print(cfg.Wall)
 			case '.':
-				fmt.Printf(cfg.Dot)
+				fmt.Print(cfg.Dot)
 			default:
-				fmt.Printf(cfg.Space)
+				fmt.Print(cfg.Space)
 			}
 		}
-		fmt.Printf("\n")
+		fmt.Println()
 	}
 
 	moveCursor(player.row, player.col)
-	fmt.Printf(cfg.Player)
+	fmt.Print(cfg.Player)
 
 	for _, g := range ghosts {
 		moveCursor(g.row, g.col)
-		fmt.Printf(cfg.Ghost)
+		fmt.Print(cfg.Ghost)
 	}
 
 	moveCursor(len(maze)+1, 0)
-	fmt.Printf("Score: %v\tLives: %v\n", score, lives)
+	fmt.Println("Score:", score, "\tLives:", lives)
 }
 
 func readInput() (string, error) {
@@ -235,7 +235,7 @@ func initialize() {
 
 	err := cbTerm.Run()
 	if err != nil {
-		log.Fatalf("Unable to activate cbreak mode terminal: %v\n", err)
+		log.Fatalln("Unable to activate cbreak mode terminal:", err)
 	}
 }
 
@@ -245,7 +245,7 @@ func cleanup() {
 
 	err := cookedTerm.Run()
 	if err != nil {
-		log.Fatalf("Unable to activate cooked mode terminal: %v\n", err)
+		log.Fatalln("Unable to activate cooked mode terminal:", err)
 	}
 }
 
@@ -259,13 +259,13 @@ func main() {
 	// load resources
 	err := loadMaze()
 	if err != nil {
-		log.Printf("Error loading maze: %v\n", err)
+		log.Println("Error loading maze:", err)
 		return
 	}
 
 	err = loadConfig()
 	if err != nil {
-		log.Printf("Error loading configuration: %v\n", err)
+		log.Println("Error loading configuration:", err)
 		return
 	}
 
@@ -275,7 +275,7 @@ func main() {
 		for {
 			input, err := readInput()
 			if err != nil {
-				log.Printf("Error reading input: %v", err)
+				log.Print("Error reading input:", err)
 				ch <- "ESC"
 			}
 			ch <- input
@@ -310,7 +310,7 @@ func main() {
 		if numDots == 0 || lives == 0 {
 			if lives == 0 {
 				moveCursor(player.row, player.col)
-				fmt.Printf(cfg.Death)
+				fmt.Print(cfg.Death)
 				moveCursor(len(maze)+2, 0)
 			}
 			break

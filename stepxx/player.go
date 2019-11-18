@@ -45,7 +45,7 @@ func (p *Player) Kill() {
 func (p *Player) Move() {
 	input, err := readInput()
 	if err != nil {
-		log.Printf("Error reading input: %v", err)
+		log.Print("Error reading input:", err)
 		p.lives = 0
 		return
 	}

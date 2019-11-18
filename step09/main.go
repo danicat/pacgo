@@ -19,13 +19,12 @@ var (
 	mazeFile   = flag.String("maze-file", "maze01.txt", "path to a custom maze file")
 )
 
-// Player is the player character \o/
-
 type Point struct {
 	row int
 	col int
 }
 
+// Player is the player character \o/
 type Player struct {
 	position Point
 	origin Point
@@ -105,7 +104,7 @@ var numDots int
 var lives = 3
 
 func clearScreen() {
-	fmt.Printf("\x1b[2J")
+	fmt.Print("\x1b[2J")
 	moveCursor(0, 0)
 }
 
@@ -123,22 +122,22 @@ func printScreen() {
 		for _, chr := range line {
 			switch chr {
 			case '#':
-				fmt.Printf(cfg.Wall)
+				fmt.Print(cfg.Wall)
 			case '.':
-				fmt.Printf(cfg.Dot)
+				fmt.Print(cfg.Dot)
 			default:
-				fmt.Printf(cfg.Space)
+				fmt.Print(cfg.Space)
 			}
 		}
-		fmt.Printf("\n")
+		fmt.Println()
 	}
 
 	moveCursor(player.position.row, player.position.col)
-	fmt.Printf(cfg.Player)
+	fmt.Print(cfg.Player)
 
 	for _, g := range ghosts {
 		moveCursor(g.position.row, g.position.col)
-		fmt.Printf(cfg.Ghost)
+		fmt.Print(cfg.Ghost)
 	}
 
 	moveCursor(len(maze)+1, 0)
@@ -149,7 +148,7 @@ func printScreen() {
 		livesRemaining = getLivesAsEmoji()
 	}
 
-	fmt.Printf("Score: %v\tLives: %v\n", score, livesRemaining)
+	fmt.Println("Score:", score, "\tLives:", livesRemaining)
 }
 
 //concatenate the correct number of player emojis based on lives
@@ -258,7 +257,7 @@ func initialize() {
 
 	err := cbTerm.Run()
 	if err != nil {
-		log.Fatalf("Unable to activate cbreak mode terminal: %v\n", err)
+		log.Fatalln("Unable to activate cbreak mode terminal:", err)
 	}
 }
 
@@ -268,7 +267,7 @@ func cleanup() {
 
 	err := cookedTerm.Run()
 	if err != nil {
-		log.Fatalf("Unable to activate cooked mode terminal: %v\n", err)
+		log.Fatalln("Unable to activate cooked mode terminal:", err)
 	}
 }
 
@@ -282,13 +281,13 @@ func main() {
 	// load resources
 	err := loadMaze()
 	if err != nil {
-		log.Printf("Error loading maze: %v\n", err)
+		log.Println("Error loading maze:", err)
 		return
 	}
 
 	err = loadConfig()
 	if err != nil {
-		log.Printf("Error loading configuration: %v\n", err)
+		log.Println("Error loading configuration:", err)
 		return
 	}
 
@@ -298,7 +297,7 @@ func main() {
 		for {
 			input, err := readInput()
 			if err != nil {
-				log.Printf("Error reading input: %v", err)
+				log.Print("Error reading input:", err)
 				ch <- "ESC"
 			}
 			ch <- input
@@ -325,7 +324,7 @@ func main() {
 				lives = lives - 1
 				if lives != 0 {
 					moveCursor(player.position.row, player.position.col)
-					fmt.Printf(cfg.Death)
+					fmt.Print(cfg.Death)
 					moveCursor(len(maze)+2, 0)
 					time.Sleep(1000*time.Millisecond) //dramatic pause before resetting player position
 					player.position = player.origin
@@ -340,9 +339,9 @@ func main() {
 		if numDots == 0 || lives == 0 {
 			if lives == 0 {
 				moveCursor(player.position.row, player.position.col)
-				fmt.Printf(cfg.Death)
+				fmt.Print(cfg.Death)
 				moveCursor(player.origin.row, player.origin.col-1)
-				fmt.Printf("GAME OVER")
+				fmt.Print("GAME OVER")
 				moveCursor(len(maze)+2, 0)
 			}
 			break

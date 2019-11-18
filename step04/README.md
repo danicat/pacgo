@@ -56,7 +56,7 @@ Now, since we are handling `G`s in the `loadMaze` function we also need to print
 ```go
 for _, g := range ghosts {
     moveCursor(g.row, g.col)
-    fmt.Printf("G")
+    fmt.Print("G")
 }
 ```
 
@@ -105,7 +105,7 @@ for {
     // process input
     input, err := readInput()
     if err != nil {
-        log.Printf("Error reading input: %v", err)
+        log.Print("Error reading input:", err)
         break
     }
 

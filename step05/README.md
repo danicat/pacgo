@@ -57,10 +57,10 @@ func printScreen() {
             case '.':
                 fmt.Printf("%c", chr)
             default:
-                fmt.Printf(" ")
+                fmt.Print(" ")
             }
         }
-        fmt.Printf("\n")
+        fmt.Println()
     }
     // rest of the function omitted for brevity...
 }
@@ -74,7 +74,7 @@ func printScreen() {
 
     // print score
     moveCursor(len(maze)+1, 0)
-    fmt.Printf("Score: %v\tLives: %v\n", score, lives)
+    fmt.Println("Score:", score, "\tLives:", lives)
 }
 ```
 
