@@ -6,18 +6,20 @@ import (
 	"log"
 	"os"
 	"os/exec"
+
+	"github.com/danicat/simpleansi"
 )
 
-// Player is the player character \o/
-type Player struct {
+type sprite struct {
 	row int
 	col int
 }
 
-var player Player
+var player sprite
+var maze []string
 
-func loadMaze() error {
-	f, err := os.Open("maze01.txt")
+func loadMaze(file string) error {
+	f, err := os.Open(file)
 	if err != nil {
 		return err
 	}
@@ -33,7 +35,7 @@ func loadMaze() error {
 		for col, char := range line {
 			switch char {
 			case 'P':
-				player = Player{row, col}
+				player = sprite{row, col}
 			}
 		}
 	}
@@ -41,19 +43,8 @@ func loadMaze() error {
 	return nil
 }
 
-var maze []string
-
-func clearScreen() {
-	fmt.Print("\x1b[2J")
-	moveCursor(0, 0)
-}
-
-func moveCursor(row, col int) {
-	fmt.Printf("\x1b[%d;%df", row+1, col+1)
-}
-
 func printScreen() {
-	clearScreen()
+	simpleansi.ClearScreen()
 	for _, line := range maze {
 		for _, chr := range line {
 			switch chr {
@@ -66,11 +57,11 @@ func printScreen() {
 		fmt.Println()
 	}
 
-	moveCursor(player.row, player.col)
+	simpleansi.MoveCursor(player.row, player.col)
 	fmt.Print("P")
 
-	moveCursor(len(maze)+1, 0)
-	fmt.Print("Row ", player.row, " Col ", player.col)
+	// Move cursor outside of maze drawing area
+	simpleansi.MoveCursor(len(maze)+1, 0)
 }
 
 func readInput() (string, error) {
@@ -139,13 +130,13 @@ func movePlayer(dir string) {
 	player.row, player.col = makeMove(player.row, player.col, dir)
 }
 
-func init() {
+func initialise() {
 	cbTerm := exec.Command("stty", "cbreak", "-echo")
 	cbTerm.Stdin = os.Stdin
 
 	err := cbTerm.Run()
 	if err != nil {
-		log.Fatalln("Unable to activate cbreak mode terminal:", err)
+		log.Fatalln("unable to activate cbreak mode:", err)
 	}
 }
 
@@ -155,18 +146,19 @@ func cleanup() {
 
 	err := cookedTerm.Run()
 	if err != nil {
-		log.Fatalln("Unable to activate cooked mode terminal:", err)
+		log.Fatalln("unable to activate cooked mode:", err)
 	}
 }
 
 func main() {
-	// initialize game
+	// initialise game
+	initialise()
 	defer cleanup()
 
 	// load resources
-	err := loadMaze()
+	err := loadMaze("maze01.txt")
 	if err != nil {
-		log.Println("Error loading maze:", err)
+		log.Println("failed to load maze:", err)
 		return
 	}
 
@@ -178,7 +170,7 @@ func main() {
 		// process input
 		input, err := readInput()
 		if err != nil {
-			log.Print("Error reading input:", err)
+			log.Println("error reading input:", err)
 			break
 		}
 

@@ -90,7 +90,7 @@ func main() {
 		// process input
 		input, err := readInput()
 		if err != nil {
-			log.Print("Error reading input:", err)
+			log.Println("error reading input:", err)
 			break
 		}
 

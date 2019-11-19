@@ -37,7 +37,7 @@ func main() {
 	// load resources
 	err := loadMaze("maze01.txt")
 	if err != nil {
-		log.Println("Error loading maze:", err)
+		log.Println("failed to load maze:", err)
 		return
 	}
 
