@@ -61,8 +61,8 @@ Note that we used public members for the `Config` struct. That is required for t
 The code below parses the json and stores it in the `cfg` global variable.
 
 ```go
-func loadConfig() error {
-    f, err := os.Open("config.json")
+func loadConfig(file string) error {
+    f, err := os.Open(file)
     if err != nil {
         return err
     }
@@ -81,9 +81,9 @@ func loadConfig() error {
 Now add the `loadConfig` call in the initialization part of the main function, after `loadMaze`:
 
 ```go
-err = loadConfig()
+err = loadConfig("config.json")
 if err != nil {
-    log.Println("Error loading configuration:", err)
+    log.Println("failed to load configuration:", err)
     return
 }
 ```
@@ -95,9 +95,9 @@ We need to adapt the `moveCursor` function to correct the horizontal displacemen
 ```go
 func moveCursor(row, col int) {
     if cfg.UseEmoji {
-        fmt.Printf("\x1b[%d;%df", row+1, col*2+1)
+        simpleansi.MoveCursor(row, col*2)
     } else {
-        fmt.Printf("\x1b[%d;%df", row+1, col+1)
+        simpleansi.MoveCursor(row, col)
     }
 }
 ```
@@ -106,16 +106,16 @@ Scaling the `col` value by 2 times will ensure we position every character in th
 
 ## Task 03: Replace hardcoded characters with configuration
 
-The final part is to replace the hardcoded characters with their config counterparts in the `printScreen` function:
+The final part is to replace the hardcoded characters with their config counterparts in the `printScreen` function. We are also going to use the `simpleansi.WithBlueBackground` function to change the colour of the walls to make it more representative of the original game.
 
 ```go
 func printScreen() {
-    clearScreen()
+    simpleansi.ClearScreen()
     for _, line := range maze {
         for _, chr := range line {
             switch chr {
             case '#':
-                fmt.Print(cfg.Wall)
+                fmt.Print(simpleansi.WithBlueBackground(cfg.Wall))
             case '.':
                 fmt.Print(cfg.Dot)
             default:
@@ -138,7 +138,9 @@ func printScreen() {
 }
 ```
 
-As an added bonus, let's add a game over sprite within the game over condition. Note that this will work only if your `printScreen` call is at the beginning of the game loop before anything else is processed:
+## Task 04: Game over and pills
+
+As an added bonus, let's add a game over sprite within the game over condition.
 
 ```go
 // check game over
@@ -151,6 +153,30 @@ if numDots == 0 || lives == 0 {
     break
 }
 ```
+
+Also, let's add the code to treat the power up pill as a dot that worth more points, as a placeholder for the actual power up mechanics. We are just doing this now to have a sense of a complete game, but we'll come to implement the proper power up mechanics at a later step.
+
+```go
+func movePlayer(dir string) {
+    player.row, player.col = makeMove(player.row, player.col, dir)
+
+    removeDot := func(row, col int) {
+        maze[row] = maze[row][0:col] + " " + maze[row][col+1:]
+    }
+
+    switch maze[player.row][player.col] {
+    case '.':
+        numDots--
+        score++
+        removeDot(player.row, player.col)
+    case 'X':
+        score += 10
+        removeDot(player.row, player.col)
+    }
+}
+```
+
+Once interesting thing about the code above is that we are defining an inline function to do the removal of both the dot and the X from the game when we have a collision. We could also have repeated the code, but this makes it more readable and maintainable.
 
 We have emojis! How great is that? :)
 
