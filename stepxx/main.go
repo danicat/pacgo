@@ -8,6 +8,8 @@ import (
 	"log"
 	"os"
 	"time"
+
+	"github.com/danicat/simpleansi"
 )
 
 var (
@@ -91,14 +93,16 @@ var maze []string
 var numDots int
 
 func printScreen() {
-	clearScreen()
+	simpleansi.ClearScreen()
 	for _, line := range maze {
 		for _, chr := range line {
 			switch chr {
 			case '#':
-				fmt.Print(cfg.Wall)
+				fmt.Print(simpleansi.WithBlueBackground(cfg.Wall))
 			case '.':
 				fmt.Print(cfg.Dot)
+			case 'X':
+				fmt.Print(cfg.Pill)
 			default:
 				fmt.Print(cfg.Space)
 			}
@@ -113,9 +117,6 @@ func printScreen() {
 
 	moveCursor(len(maze)+1, 0)
 	fmt.Println("Score:", player.score, "\tLives:", player.lives)
-
-	moveCursor(len(maze)+3, 0)
-	fmt.Print(chaserPath)
 }
 
 func main() {

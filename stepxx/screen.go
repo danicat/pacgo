@@ -1,10 +1,11 @@
 package main
 
 import (
-	"fmt"
 	"log"
 	"os"
 	"os/exec"
+
+	"github.com/danicat/simpleansi"
 )
 
 func initialize() {
@@ -28,15 +29,10 @@ func cleanup() {
 	}
 }
 
-func clearScreen() {
-	fmt.Print("\x1b[2J")
-	moveCursor(0, 0)
-}
-
 func moveCursor(row, col int) {
 	if cfg.UseEmoji {
-		fmt.Printf("\x1b[%d;%df", row+1, col*2+1)
+		simpleansi.MoveCursor(row, col*2)
 	} else {
-		fmt.Printf("\x1b[%d;%df", row+1, col+1)
+		simpleansi.MoveCursor(row, col)
 	}
 }

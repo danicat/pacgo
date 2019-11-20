@@ -1,12 +1,12 @@
 {
     "player": "😃",
     "ghost": "👻",
-    "wall": "🌵",
-    "dot": "🧀",
-    "pill": "🍹",
+    "wall": "  ",
+    "dot": "▫️ ",
+    "pill": "💊",
     "death": "💀",
+    "chaser": "👻",
     "space": "  ",
-    "chaser": "👿",
     "use_emoji": true,
     "frame_rate": 5
 }
