@@ -93,7 +93,7 @@ func main() {
         for {
             input, err := readInput()
             if err != nil {
-                log.Print("Error reading input:", err)
+                log.Println("error reading input:", err)
                 ch <- "ESC"
             }
             ch <- input
@@ -127,7 +127,7 @@ default:
 
 Imagine that the select statement is just like a switch statement, but for channels. This select statement has a non-blocking nature, because it has a default clause. This means that if the `input` channel has something to be read it will be read, otherwise the `default` case is processed, which in this case is an empty block.
 
-Finally, since we've moved the "ESC" logic to the block above, we will remove it from the game over conditions (as the `lives == 0` already satisfies it). 
+Finally, since we've moved the "ESC" logic to the block above, we will remove it from the game over conditions (as the `lives <= 0` already satisfies it).
 
 We will also introduce a delay of 200ms. Since now we are not waiting for input anymore the game will run too fast without it. The relevant snippet is below:
 
@@ -136,7 +136,7 @@ We will also introduce a delay of 200ms. Since now we are not waiting for input 
     printScreen()
 
     // check game over
-    if numDots == 0 || lives == 0 {
+    if numDots == 0 || lives <= 0 {
         break
     }
 

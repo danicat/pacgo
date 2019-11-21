@@ -1,9 +1,9 @@
 {
     "player": "😃",
     "ghost": "👻",
-    "wall": "🌵",
-    "dot": "🧀",
-    "pill": "🍹",
+    "wall": "  ",
+    "dot": "▫️ ",
+    "pill": "💊",
     "death": "💀",
     "space": "  ",
     "use_emoji": true

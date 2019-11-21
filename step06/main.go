@@ -8,26 +8,24 @@ import (
 	"os"
 	"os/exec"
 	"time"
+
+	"github.com/danicat/simpleansi"
 )
 
-// Player is the player character \o/
-type Player struct {
+type sprite struct {
 	row int
 	col int
 }
 
-var player Player
+var player sprite
+var ghosts []*sprite
+var maze []string
+var score int
+var numDots int
+var lives = 1
 
-// Ghost is the enemy that chases the player :O
-type Ghost struct {
-	row int
-	col int
-}
-
-var ghosts []*Ghost
-
-func loadMaze() error {
-	f, err := os.Open("maze01.txt")
+func loadMaze(file string) error {
+	f, err := os.Open(file)
 	if err != nil {
 		return err
 	}
@@ -43,9 +41,9 @@ func loadMaze() error {
 		for col, char := range line {
 			switch char {
 			case 'P':
-				player = Player{row, col}
+				player = sprite{row, col}
 			case 'G':
-				ghosts = append(ghosts, &Ghost{row, col})
+				ghosts = append(ghosts, &sprite{row, col})
 			case '.':
 				numDots++
 			}
@@ -55,22 +53,8 @@ func loadMaze() error {
 	return nil
 }
 
-var maze []string
-var score int
-var numDots int
-var lives = 1
-
-func clearScreen() {
-	fmt.Print("\x1b[2J")
-	moveCursor(0, 0)
-}
-
-func moveCursor(row, col int) {
-	fmt.Printf("\x1b[%d;%df", row+1, col+1)
-}
-
 func printScreen() {
-	clearScreen()
+	simpleansi.ClearScreen()
 	for _, line := range maze {
 		for _, chr := range line {
 			switch chr {
@@ -85,15 +69,15 @@ func printScreen() {
 		fmt.Println()
 	}
 
-	moveCursor(player.row, player.col)
+	simpleansi.MoveCursor(player.row, player.col)
 	fmt.Print("P")
 
 	for _, g := range ghosts {
-		moveCursor(g.row, g.col)
+		simpleansi.MoveCursor(g.row, g.col)
 		fmt.Print("G")
 	}
 
-	moveCursor(len(maze)+1, 0)
+	simpleansi.MoveCursor(len(maze)+1, 0)
 	fmt.Println("Score:", score, "\tLives:", lives)
 }
 
@@ -188,13 +172,13 @@ func moveGhosts() {
 	}
 }
 
-func initialize() {
+func initialise() {
 	cbTerm := exec.Command("stty", "cbreak", "-echo")
 	cbTerm.Stdin = os.Stdin
 
 	err := cbTerm.Run()
 	if err != nil {
-		log.Fatalln("Unable to activate cbreak mode terminal:", err)
+		log.Fatalln("unable to activate cbreak mode:", err)
 	}
 }
 
@@ -204,19 +188,19 @@ func cleanup() {
 
 	err := cookedTerm.Run()
 	if err != nil {
-		log.Fatalln("Unable to activate cooked mode terminal:", err)
+		log.Fatalln("unable to activate cooked mode:", err)
 	}
 }
 
 func main() {
-	// initialize game
-	initialize()
+	// initialise game
+	initialise()
 	defer cleanup()
 
 	// load resources
-	err := loadMaze()
+	err := loadMaze("maze01.txt")
 	if err != nil {
-		log.Println("Error loading maze:", err)
+		log.Println("error loading maze:", err)
 		return
 	}
 
@@ -226,7 +210,7 @@ func main() {
 		for {
 			input, err := readInput()
 			if err != nil {
-				log.Print("Error reading input:", err)
+				log.Println("error reading input:", err)
 				ch <- "ESC"
 			}
 			ch <- input
@@ -249,8 +233,8 @@ func main() {
 
 		// process collisions
 		for _, g := range ghosts {
-			if player.row == g.row && player.col == g.col {
-				lives = 0
+			if player == *g {
+				lives--
 			}
 		}
 
@@ -258,7 +242,7 @@ func main() {
 		printScreen()
 
 		// check game over
-		if numDots == 0 || lives == 0 {
+		if numDots == 0 || lives <= 0 {
 			break
 		}
 

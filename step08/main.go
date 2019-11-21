@@ -10,6 +10,8 @@ import (
 	"os"
 	"os/exec"
 	"time"
+
+	"github.com/danicat/simpleansi"
 )
 
 var (
@@ -17,24 +19,12 @@ var (
 	mazeFile   = flag.String("maze-file", "maze01.txt", "path to a custom maze file")
 )
 
-// Player is the player character \o/
-type Player struct {
+type sprite struct {
 	row int
 	col int
 }
 
-var player Player
-
-// Ghost is the enemy that chases the player :O
-type Ghost struct {
-	row int
-	col int
-}
-
-var ghosts []*Ghost
-
-// Config holds the emoji configuration
-type Config struct {
+type config struct {
 	Player   string `json:"player"`
 	Ghost    string `json:"ghost"`
 	Wall     string `json:"wall"`
@@ -45,10 +35,16 @@ type Config struct {
 	UseEmoji bool   `json:"use_emoji"`
 }
 
-var cfg Config
+var cfg config
+var player sprite
+var ghosts []*sprite
+var maze []string
+var score int
+var numDots int
+var lives = 1
 
-func loadConfig() error {
-	f, err := os.Open(*configFile)
+func loadConfig(file string) error {
+	f, err := os.Open(file)
 	if err != nil {
 		return err
 	}
@@ -63,8 +59,8 @@ func loadConfig() error {
 	return nil
 }
 
-func loadMaze() error {
-	f, err := os.Open(*mazeFile)
+func loadMaze(file string) error {
+	f, err := os.Open(file)
 	if err != nil {
 		return err
 	}
@@ -80,9 +76,9 @@ func loadMaze() error {
 		for col, char := range line {
 			switch char {
 			case 'P':
-				player = Player{row, col}
+				player = sprite{row, col}
 			case 'G':
-				ghosts = append(ghosts, &Ghost{row, col})
+				ghosts = append(ghosts, &sprite{row, col})
 			case '.':
 				numDots++
 			}
@@ -92,33 +88,25 @@ func loadMaze() error {
 	return nil
 }
 
-var maze []string
-var score int
-var numDots int
-var lives = 1
-
-func clearScreen() {
-	fmt.Print("\x1b[2J")
-	moveCursor(0, 0)
-}
-
 func moveCursor(row, col int) {
 	if cfg.UseEmoji {
-		fmt.Printf("\x1b[%d;%df", row+1, col*2+1)
+		simpleansi.MoveCursor(row, col*2)
 	} else {
-		fmt.Printf("\x1b[%d;%df", row+1, col+1)
+		simpleansi.MoveCursor(row, col)
 	}
 }
 
 func printScreen() {
-	clearScreen()
+	simpleansi.ClearScreen()
 	for _, line := range maze {
 		for _, chr := range line {
 			switch chr {
 			case '#':
-				fmt.Print(cfg.Wall)
+				fmt.Print(simpleansi.WithBlueBackground(cfg.Wall))
 			case '.':
 				fmt.Print(cfg.Dot)
+			case 'X':
+				fmt.Print(cfg.Pill)
 			default:
 				fmt.Print(cfg.Space)
 			}
@@ -202,12 +190,19 @@ func makeMove(oldRow, oldCol int, dir string) (newRow, newCol int) {
 
 func movePlayer(dir string) {
 	player.row, player.col = makeMove(player.row, player.col, dir)
+
+	removeDot := func(row, col int) {
+		maze[row] = maze[row][0:col] + " " + maze[row][col+1:]
+	}
+
 	switch maze[player.row][player.col] {
 	case '.':
 		numDots--
 		score++
-		// Remove dot from the maze
-		maze[player.row] = maze[player.row][0:player.col] + " " + maze[player.row][player.col+1:]
+		removeDot(player.row, player.col)
+	case 'X':
+		score += 10
+		removeDot(player.row, player.col)
 	}
 }
 
@@ -229,13 +224,13 @@ func moveGhosts() {
 	}
 }
 
-func initialize() {
+func initialise() {
 	cbTerm := exec.Command("stty", "cbreak", "-echo")
 	cbTerm.Stdin = os.Stdin
 
 	err := cbTerm.Run()
 	if err != nil {
-		log.Fatalln("Unable to activate cbreak mode terminal:", err)
+		log.Fatalln("unable to activate cbreak mode:", err)
 	}
 }
 
@@ -245,7 +240,7 @@ func cleanup() {
 
 	err := cookedTerm.Run()
 	if err != nil {
-		log.Fatalln("Unable to activate cooked mode terminal:", err)
+		log.Fatalln("unable to activate cooked mode:", err)
 	}
 }
 
@@ -253,17 +248,17 @@ func main() {
 	flag.Parse()
 
 	// initialize game
-	initialize()
+	initialise()
 	defer cleanup()
 
 	// load resources
-	err := loadMaze()
+	err := loadMaze(*mazeFile)
 	if err != nil {
 		log.Println("Error loading maze:", err)
 		return
 	}
 
-	err = loadConfig()
+	err = loadConfig(*configFile)
 	if err != nil {
 		log.Println("Error loading configuration:", err)
 		return
@@ -275,7 +270,7 @@ func main() {
 		for {
 			input, err := readInput()
 			if err != nil {
-				log.Print("Error reading input:", err)
+				log.Print("error reading input:", err)
 				ch <- "ESC"
 			}
 			ch <- input

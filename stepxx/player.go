@@ -61,12 +61,19 @@ func (p *Player) movePlayer(dir string) {
 	p.position = makeMove(p.position, dir)
 	row := p.position.row
 	col := p.position.col
+
+	removeDot := func(row, col int) {
+		maze[row] = maze[row][0:col] + " " + maze[row][col+1:]
+	}
+
 	switch maze[row][col] {
 	case '.':
 		numDots--
 		p.score++
-		// Remove dot from the maze
-		maze[row] = maze[row][0:col] + " " + maze[row][col+1:]
+		removeDot(row, col)
+	case 'X':
+		p.score += 10
+		removeDot(row, col)
 	}
 }
 

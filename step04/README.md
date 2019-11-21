@@ -16,21 +16,15 @@ If the Ghost hits a wall it doesn't matter, it will just try again on the next i
 
 ## Task 01: Making Ghosts
 
-Just like we've created a struct to hold our player data, we will create a similar one for ghosts. The only difference is that instead of holding a player global variable in memory we will have a slice of pointers to Ghosts. That way we can update each ghost's position in a very efficient way.
+Just like we've created a struct to hold our player data, we will create a similar one for ghosts. The only difference is that instead of holding a player global variable in memory we will have a slice of pointers to sprites. That way we can update each ghost's position in a very efficient way.
 
 First, the declaration:
 
 ```go
-// Ghost is the enemy that chases the player :O
-type Ghost struct {
-    row int
-    col int
-}
-
-var ghosts []*Ghost
+var ghosts []*sprite
 ```
 
-Note the `*` symbol denoting that `[]*Ghost` is a slice of **pointers** to Ghost objects.
+Note the `*` symbol denoting that `[]*sprite` is a slice of **pointers** to sprite objects.
 
 Next, loading. In the `loadMaze` function, add a new case to the switch statement for handling `G` symbols on the map:
 
@@ -39,15 +33,15 @@ for row, line := range maze {
     for col, char := range line {
         switch char {
         case 'P':
-            player = Player{row, col}
+            player = sprite{row, col}
         case 'G':
-            ghosts = append(ghosts, &Ghost{row, col})
+            ghosts = append(ghosts, &sprite{row, col})
         }
     }
 }
 ```
 
-Please note the ampersand (`&`) operator. This means that instead of adding a Ghost object to the slice we are adding a pointer to it.
+Please note the ampersand (`&`) operator. This means that instead of adding a sprite object to the slice we are adding a pointer to it.
 
 Go is a garbage collected language, which means it can automatically de-allocate a piece of memory when it is no longer used. Because of that we can use pointers in a much safer way than, for instance, in C++. We are also not allowed to do math on pointers. In effect, a pointer in Go works almost like a reference.
 
@@ -55,7 +49,7 @@ Now, since we are handling `G`s in the `loadMaze` function we also need to print
 
 ```go
 for _, g := range ghosts {
-    moveCursor(g.row, g.col)
+    simpleansi.MoveCursor(g.row, g.col)
     fmt.Print("G")
 }
 ```
@@ -105,7 +99,7 @@ for {
     // process input
     input, err := readInput()
     if err != nil {
-        log.Print("Error reading input:", err)
+        log.Println("error reading input:", err)
         break
     }
 

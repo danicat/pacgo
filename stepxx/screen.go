@@ -1,19 +1,20 @@
 package main
 
 import (
-	"fmt"
 	"log"
 	"os"
 	"os/exec"
+
+	"github.com/danicat/simpleansi"
 )
 
-func initialize() {
+func initialise() {
 	cbTerm := exec.Command("stty", "cbreak", "-echo")
 	cbTerm.Stdin = os.Stdin
 
 	err := cbTerm.Run()
 	if err != nil {
-		log.Fatalln("Unable to activate cbreak mode terminal:", err)
+		log.Fatalln("unable to activate cbreak mode:", err)
 	}
 }
 
@@ -24,19 +25,14 @@ func cleanup() {
 
 	err := cookedTerm.Run()
 	if err != nil {
-		log.Fatalln("Unable to activate cooked mode terminal:", err)
+		log.Fatalln("unable to activate cooked mode:", err)
 	}
-}
-
-func clearScreen() {
-	fmt.Print("\x1b[2J")
-	moveCursor(0, 0)
 }
 
 func moveCursor(row, col int) {
 	if cfg.UseEmoji {
-		fmt.Printf("\x1b[%d;%df", row+1, col*2+1)
+		simpleansi.MoveCursor(row, col*2)
 	} else {
-		fmt.Printf("\x1b[%d;%df", row+1, col+1)
+		simpleansi.MoveCursor(row, col)
 	}
 }
