@@ -150,8 +150,8 @@ func main() {
 		printScreen()
 
 		// check game over
-		if numDots == 0 || player.lives == 0 {
-			if player.lives == 0 {
+		if numDots == 0 || player.lives <= 0 {
+			if player.lives <= 0 {
 				moveCursor(player.Pos())
 				fmt.Print(cfg.Death)
 				moveCursor(len(maze)+2, 0)

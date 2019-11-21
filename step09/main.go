@@ -328,7 +328,7 @@ func main() {
 		printScreen()
 
 		// check game over
-		if numDots == 0 || lives == 0 {
+		if numDots == 0 || lives <= 0 {
 			if lives == 0 {
 				moveCursor(player.row, player.col)
 				fmt.Print(cfg.Death)
