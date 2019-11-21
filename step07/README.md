@@ -90,7 +90,7 @@ if err != nil {
 
 ## Task 02: Adjusting the horizontal displacement
 
-We need to adapt the `moveCursor` function to correct the horizontal displacement when the emoji flag is set:
+We need to create a custom `moveCursor` function to correct the horizontal displacement when the emoji flag is set:
 
 ```go
 func moveCursor(row, col int) {
@@ -101,6 +101,8 @@ func moveCursor(row, col int) {
     }
 }
 ```
+
+Make sure you replace all calls to `simpleansi.MoveCursor` with calls to the new `moveCursor` function (except for the ones inside the new function).
 
 Scaling the `col` value by 2 times will ensure we position every character in the right place. It will also have the side effect of making the maze look bigger.
 

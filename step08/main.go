@@ -102,9 +102,11 @@ func printScreen() {
 		for _, chr := range line {
 			switch chr {
 			case '#':
-				fmt.Print(cfg.Wall)
+				fmt.Print(simpleansi.WithBlueBackground(cfg.Wall))
 			case '.':
 				fmt.Print(cfg.Dot)
+			case 'X':
+				fmt.Print(cfg.Pill)
 			default:
 				fmt.Print(cfg.Space)
 			}
@@ -268,7 +270,7 @@ func main() {
 		for {
 			input, err := readInput()
 			if err != nil {
-				log.Print("Error reading input:", err)
+				log.Print("error reading input:", err)
 				ch <- "ESC"
 			}
 			ch <- input
