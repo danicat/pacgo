@@ -122,8 +122,8 @@ func printScreen() {
 func main() {
 	flag.Parse()
 
-	// initialize game
-	initialize()
+	// initialise game
+	initialise()
 	defer cleanup()
 
 	// load resources

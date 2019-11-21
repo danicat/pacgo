@@ -8,13 +8,13 @@ import (
 	"github.com/danicat/simpleansi"
 )
 
-func initialize() {
+func initialise() {
 	cbTerm := exec.Command("stty", "cbreak", "-echo")
 	cbTerm.Stdin = os.Stdin
 
 	err := cbTerm.Run()
 	if err != nil {
-		log.Fatalln("Unable to activate cbreak mode terminal:", err)
+		log.Fatalln("unable to activate cbreak mode:", err)
 	}
 }
 
@@ -25,7 +25,7 @@ func cleanup() {
 
 	err := cookedTerm.Run()
 	if err != nil {
-		log.Fatalln("Unable to activate cooked mode terminal:", err)
+		log.Fatalln("unable to activate cooked mode:", err)
 	}
 }
 
