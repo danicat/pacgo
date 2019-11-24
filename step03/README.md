@@ -185,7 +185,7 @@ func printScreen() {
         fmt.Println()
     }
 
-    moveCursor(player.row, player.col)
+    simpleansi.MoveCursor(player.row, player.col)
     fmt.Print("P")
 
 
