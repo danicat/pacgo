@@ -73,7 +73,7 @@ func printScreen() {
     // code omitted...
 
     // print score
-    moveCursor(len(maze)+1, 0)
+    simpleansi.MoveCursor(len(maze)+1, 0)
     fmt.Println("Score:", score, "\tLives:", lives)
 }
 ```
