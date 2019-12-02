@@ -376,15 +376,16 @@ func main() {
 						moveCursor(player.position.row, player.position.col)
 						fmt.Printf(cfg.Death)
 						moveCursor(len(maze)+2, 0)
+						gostsStatusMx.RUnlock()
 						updateGhosts(ghosts, Normal)
 						time.Sleep(1000 * time.Millisecond) //dramatic pause before reseting player position
 						player.position = player.origin
 					}
 				} else if g.status == Blue {
-					updateGhosts([]*Ghost{g}, Blue)
+					gostsStatusMx.RUnlock()
+					updateGhosts([]*Ghost{g}, Normal)
 					g.position.row, g.position.col = g.initialPosition.row, g.initialPosition.col
 				}
-				gostsStatusMx.RUnlock()
 			}
 		}
 
