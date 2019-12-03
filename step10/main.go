@@ -253,7 +253,7 @@ func movePlayer(dir string) {
 		// Remove dot from the maze
 		maze[player.position.row] = maze[player.position.row][0:player.position.col] + " " + maze[player.position.row][player.position.col+1:]
 	case 'X':
-		go proccessPill()
+		go processPill()
 		// Remove pill from the maze
 		maze[player.position.row] = maze[player.position.row][0:player.position.col] + " " + maze[player.position.row][player.position.col+1:]
 	}
@@ -269,7 +269,7 @@ func updateGhosts(ghosts []*Ghost, ghostStatus GhostStatus) {
 
 var pillTimer *time.Timer
 
-func proccessPill() {
+func processPill() {
 	updateGhosts(ghosts, Blue)
 	if pillTimer != nil {
 		pillTimer.Stop()
