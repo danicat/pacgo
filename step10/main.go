@@ -49,7 +49,8 @@ type Ghost struct {
 }
 
 var ghosts []*Ghost
-var gostsStatusMx sync.RWMutex
+var ghostsStatusMx sync.RWMutex
+var pillMx sync.Mutex
 
 // Config holds the emoji configuration
 type Config struct {
@@ -151,7 +152,7 @@ func printScreen() {
 	moveCursor(player.position.row, player.position.col)
 	fmt.Printf(cfg.Player)
 
-	gostsStatusMx.RLock()
+	ghostsStatusMx.RLock()
 	for _, g := range ghosts {
 		moveCursor(g.position.row, g.position.col)
 		if g.status == Normal {
@@ -160,7 +161,7 @@ func printScreen() {
 			fmt.Printf(cfg.GhostBlue)
 		}
 	}
-	gostsStatusMx.RUnlock()
+	ghostsStatusMx.RUnlock()
 
 	moveCursor(len(maze)+1, 0)
 
@@ -260,8 +261,8 @@ func movePlayer(dir string) {
 }
 
 func updateGhosts(ghosts []*Ghost, ghostStatus GhostStatus) {
-	gostsStatusMx.Lock()
-	defer gostsStatusMx.Unlock()
+	ghostsStatusMx.Lock()
+	defer ghostsStatusMx.Unlock()
 	for _, g := range ghosts {
 		g.status = ghostStatus
 	}
@@ -271,13 +272,17 @@ var pillTimer *time.Timer
 
 func processPill() {
 	updateGhosts(ghosts, Blue)
+	pillMx.Lock()
 	if pillTimer != nil {
 		pillTimer.Stop()
 	}
 	pillTimer = time.NewTimer(time.Second * cfg.PillDurationSecs)
 	pillTimer.Reset(time.Second * cfg.PillDurationSecs)
+	pillMx.Unlock()
 	<-pillTimer.C
+	pillMx.Lock()
 	pillTimer.Stop()
+	pillMx.Unlock()
 	updateGhosts(ghosts, Normal)
 }
 
@@ -369,20 +374,20 @@ func main() {
 		// process collisions
 		for _, g := range ghosts {
 			if player.position.row == g.position.row && player.position.col == g.position.col {
-				gostsStatusMx.RLock()
+				ghostsStatusMx.RLock()
 				if g.status == Normal {
 					lives = lives - 1
 					if lives != 0 {
 						moveCursor(player.position.row, player.position.col)
 						fmt.Printf(cfg.Death)
 						moveCursor(len(maze)+2, 0)
-						gostsStatusMx.RUnlock()
+						ghostsStatusMx.RUnlock()
 						updateGhosts(ghosts, Normal)
 						time.Sleep(1000 * time.Millisecond) //dramatic pause before reseting player position
 						player.position = player.origin
 					}
 				} else if g.status == Blue {
-					gostsStatusMx.RUnlock()
+					ghostsStatusMx.RUnlock()
 					updateGhosts([]*Ghost{g}, Normal)
 					g.position.row, g.position.col = g.initialPosition.row, g.initialPosition.col
 				}
