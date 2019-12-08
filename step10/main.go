@@ -271,19 +271,18 @@ func updateGhosts(ghosts []*Ghost, ghostStatus GhostStatus) {
 var pillTimer *time.Timer
 
 func processPill() {
-	updateGhosts(ghosts, Blue)
 	pillMx.Lock()
+	updateGhosts(ghosts, Blue)
 	if pillTimer != nil {
 		pillTimer.Stop()
 	}
 	pillTimer = time.NewTimer(time.Second * cfg.PillDurationSecs)
-	pillTimer.Reset(time.Second * cfg.PillDurationSecs)
 	pillMx.Unlock()
 	<-pillTimer.C
 	pillMx.Lock()
 	pillTimer.Stop()
-	pillMx.Unlock()
 	updateGhosts(ghosts, Normal)
+	pillMx.Unlock()
 }
 
 func drawDirection() string {
