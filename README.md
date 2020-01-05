@@ -45,10 +45,6 @@ See [LICENSE](LICENSE).
 
 If you have any questions, please reach out to me at [daniela.petruzalek@gmail.com](mailto:daniela.petruzalek@gmail.com). I'm also on Twitter as [@danicat83](https://twitter.com/danicat83).
 
-Finally, you can support me on Ko-Fi if you like my work and want me to continue doing crazy stuff like this project:
-
-[![ko-fi](https://www.ko-fi.com/img/githubbutton_sm.svg)](https://ko-fi.com/O5O716D82)
-
 ## Getting Started
 
 ### Pre-requisites
