@@ -148,7 +148,6 @@ func updateGhosts(ghosts []*Ghost, ghostStatus GhostStatus) {
 
 Also we have to acquire a RLock whenever we read a ghost's status. Multiple read locks can be acquire simultaneously but only one write lock can be acquired. We are going to use the `ghostsStatusMx.RLock()` and `ghostsStatusMx.RUnlock()` while reading the ghosts' status. We have to always unlock the RLock before updating a ghost's status otherwise a deadlock will occur.
 
-
 Now we have a more challenging pacman! Happy gaming/coding! :) 
 
 ## That's All Folks!
