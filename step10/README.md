@@ -151,4 +151,8 @@ Also we have to acquire a RLock whenever we read a ghost's status. Multiple read
 
 Now we have a more challenging pacman! Happy gaming/coding! :) 
 
-[Take me to Next Step!](../stepxx/README.md)
+## That's All Folks!
+
+Congratulations! You've completed all the steps of the tutorial.
+
+But your journey must not end here. If you are interested in contributing with a new step, have a look at the [TODO list](../TODO.md) or any open issues and submit a PR!
