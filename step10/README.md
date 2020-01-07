@@ -13,27 +13,20 @@ In this lesson we will be adding support for the power up pill to the applicatio
 Before we even start we should update the configuration to support power up pills! So for both `config_noemoji.json` and `config.json` we have to add the `ghost_blue` (string) and the `pill_duration_secs` (int) configurations.
 Accordingly we update our `Config` struct:
 ```go
-type Config struct {
+type config struct {
     ...
 	GhostBlue        string        `json:"ghost_blue"`
 	PillDurationSecs time.Duration `json:"pill_duration_secs"`
 }
 ```
 
-Then we should also update the `printScreen` func to support the pills drawing by adding one more case in the switch statement:
-```go
-case 'X':
-    fmt.Printf(cfg.Pill)
-```
-
 ## Task 02: Enable Pill swallowing
 To enable the pill swallowing by pacman we should add another case in the `movePlayer` func for the pill case
 ```go
 case 'X':
-    go processPill()
-    // Remove pill from the maze
-    maze[player.position.row] = maze[player.position.row][0:player.position.col] + " " + maze[player.position.row][player.position.col+1:]
-
+	score += 10
+	removeDot(player.row, player.col)
+	go processPill()
 ```
 Where `X` is the pill config character. 
 
@@ -44,25 +37,23 @@ Now, before moving to the `processPill` func, we should add some more code for t
 type GhostStatus string
 
 const (
-	Normal GhostStatus = "Normal"
-	Blue   GhostStatus = "Blue"
+	GhostStatusNormal GhostStatus = "Normal"
+	GhostStatusBlue   GhostStatus = "Blue"
 )
 ```
 
 Now, each ghost should hold alongside with it's current position, the `initialPosition` where it will be spawned after it's been eaten by the pacman and it's current status.
 
 ```go
-// Ghost is the enemy that chases the player :O
-type Ghost struct {
-	position        Point
-	initialPosition Point
-	status          GhostStatus
+type ghost struct {
+	position sprite
+	status   GhostStatus
 }
 ```
 So, the `loadMaze` func will initially draw the ghosts with the `Normal` status and store it's initial position.
 
 ```go
-ghosts = append(ghosts, &Ghost{Point{row, col}, Point{row, col}, "Normal"})
+ghosts = append(ghosts, &ghost{sprite{row, col, row, col}, GhostStatusNormal})
 ```
 
 The `printScreen` func should be updated as well to support printing ghost of both types - Normal and Blue ghosts!
@@ -81,19 +72,19 @@ for _, g := range ghosts {
 The last thing that has left is the `processPill` func we added just before. This func should change all Ghosts' status to `Blue` for the defined period by the `PillDurationSecs` config.
 For the pill processing  we are going to use a `Timer` from the ['time' package](https://golang.org/pkg/time/). We will use the `NewTimer` func which creates a new Timer that will send the current time on its channel after at least the specified duration.
 
-The processPill code changes all ghosts' statuses to `Blue`, then it blocks for `PillDurationSecs` and then changes back all ghosts' statuses back to `Normal`.
+The processPill code changes all ghosts' statuses to `GhostStatusBlue`, then it blocks for `PillDurationSecs` and then changes back all ghosts' statuses back to `GhostStatusNormal`.
 
 ```go
 var pillTimer *time.Timer
 
 func processPill() {
 	for _, g := range ghosts {
-		g.status = Blue
+		g.status = GhostStatusBlue
 	}
 	pillTimer = time.NewTimer(time.Second * cfg.PillDurationSecs)
 	<-pillTimer.C
     for _, g := range ghosts {
-		g.status = Normal
+		g.status = GhostStatusNormal
     }
 }
 ```
@@ -105,14 +96,14 @@ The `processPill` function we discussed just before has a simple issue. Imagine 
 var pillTimer *time.Timer
 
 func processPill() {
-	updateGhosts(ghosts, Blue)
+	updateGhosts(ghosts, GhostStatusBlue)
 	if pillTimer != nil {
 		pillTimer.Stop()
 	}
 	pillTimer = time.NewTimer(time.Second * cfg.PillDurationSecs)
 	<-pillTimer.C
 	pillTimer.Stop()
-	updateGhosts(ghosts, Normal)
+	updateGhosts(ghosts, GhostStatusNormal)
 }
 ```
 
@@ -127,7 +118,7 @@ var pillMx sync.Mutex
 
 func processPill() {
 	pillMx.Lock()
-	updateGhosts(ghosts, Blue)
+	updateGhosts(ghosts, GhostStatusBlue)
 	if pillTimer != nil {
 		pillTimer.Stop()
 	}
@@ -136,12 +127,12 @@ func processPill() {
 	<-pillTimer.C
 	pillMx.Lock()
 	pillTimer.Stop()
-	updateGhosts(ghosts, Normal)
+	updateGhosts(ghosts, GhostStatusNormal)
 	pillMx.Unlock()
 }
 ```
 
-Another possible race condition that might arise during execution is when we update the ghosts' status. For this purpose we are going to use a RWMutex lock. We have to acquire the lcok whenever we read or update a ghost's status. RWMutex supports locking even for read or write access. So we are introducing the `var ghostsStatusMx sync.RWMutex` and a `updateGhosts` function that updates one or more ghost's status.
+Another possible race condition that might arise during execution is when we update the ghosts' status. For this purpose we are going to use a RWMutex lock. We have to acquire the lock whenever we read or update a ghost's status. RWMutex supports locking even for read or write access. So we are introducing the `var ghostsStatusMx sync.RWMutex` and a `updateGhosts` function that updates one or more ghost's status.
 
 ```go 
 var ghostsStatusMx sync.RWMutex
