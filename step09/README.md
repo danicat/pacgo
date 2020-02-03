@@ -124,8 +124,5 @@ This version of `getLivesAsEmoji` will be less efficient than the version of the
 
 In the version of the function using the `+` operator, there is a memory allocation operation happening for every iteration of the for loop. While for the buffer version of the function there is only a single memory allocation happening when buffer is initialized. A more detailed example of this performance difference is discussed [here](https://billglover.me/2019/03/13/learn-go-by-concatenating-strings/)
 
-## That's All Folks!
 
-Congratulations! You've completed all the steps of the tutorial.
-
-But your journey must not end here. If you are interested in contributing with a new step, have a look at the [TODO list](../TODO.md) or any open issues and submit a PR!
+[Take me to step 10!](../step10/README.md)
