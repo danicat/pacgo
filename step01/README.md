@@ -39,7 +39,7 @@ All that comes together as the code below:
 var maze []string
 
 func loadMaze(file string) error {
-    f, err := os.Open()
+    f, err := os.Open(file)
     if err != nil {
         return err
     }
