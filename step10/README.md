@@ -61,9 +61,9 @@ The `printScreen` func should be updated as well to support printing ghost of bo
 ```go
 for _, g := range ghosts {
 		moveCursor(g.position.row, g.position.col)
-		if g.status == Normal {
+		if g.status == GhostStatusNormal {
 			fmt.Printf(cfg.Ghost)
-		} else if g.status == Blue {
+		} else if g.status == GhostStatusBlue {
 			fmt.Printf(cfg.GhostBlue)
 		}
 	}
