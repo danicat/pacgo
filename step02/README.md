@@ -18,6 +18,34 @@ This step will handle the Esc key and we will see how to process the arrow keys 
 
 But, before getting into the implementation, we need to know a bit about terminal modes.
 
+
+## *!!!Only for windows!!!*
+
+If you run Go on Windows OS,  Task 01 - Task 03 not actual for you
+Instead use next code:
+
+```go
+
+import term "github.com/nsf/termbox-go"
+
+func readInput() (string, error) {
+    e := term.Init()
+    defer term.Close()
+    if e != nil {
+        return "", e
+    }
+     
+    ev := term.PollEvent()
+    if ev.Key == term.KeyEsc {
+        return "ESC", nil
+    }
+    return "", nil
+}
+```
+
+Next, move to: "Task 04: Updating the Game Loop"
+
+
 ## Intro to terminal modes
 
 Terminals can run in three possible [modes](https://en.wikipedia.org/wiki/Terminal_mode):
