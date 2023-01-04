@@ -157,13 +157,15 @@ import "github.com/danicat/simpleansi"
 ```
 
 ---
-### A note on external packages
+### Some notes on external packages
 
 This time we are not importing a package from the standard library, but an external package instead. If you look at `simpleansi`'s [implementation](https://github.com/danicat/simpleansi), you will notice that every function starts with a capital letter, like `ClearScreen` or `MoveCursor`.
 
 That is important in Go because the capitalisation of a word defines if that function or variable has **public** or **private** escope.
 
 Words starting with a lower case character are private to the package defining it, and words starting with an upper case character are public. That may be confusing to people coming from other languages like java, but if you follow naming conventions like "classes (structs) always start with a capital letter" you may end up inadvertedly making every type in your code public, which is probably not what you want.
+
+As we are importing a package from a different project, we need to tell Go about it. As the library is in a different project it has its own lifecycle. The library may change and the change may break our project. To cater with this Go has introduced a dependency management based on Go modules (for a tutorial see: https://go.dev/doc/tutorial/create-module). Basically we need a file go.mod a go.sum file describing the dependencies in the root directory of our project. These files have been already created.
 
 ---
 
