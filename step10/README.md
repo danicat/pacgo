@@ -137,7 +137,7 @@ Another possible race condition that might arise during execution is when we upd
 ```go 
 var ghostsStatusMx sync.RWMutex
 
-func updateGhosts(ghosts []*Ghost, ghostStatus GhostStatus) {
+func updateGhosts(ghosts []*ghost, ghostStatus GhostStatus) {
 	ghostsStatusMx.Lock()
 	defer ghostsStatusMx.Unlock()
 	for _, g := range ghosts {
