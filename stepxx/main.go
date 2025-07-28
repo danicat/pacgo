@@ -93,30 +93,30 @@ var maze []string
 var numDots int
 
 func printScreen() {
-	simpleansi.ClearScreen()
-	for _, line := range maze {
-		for _, chr := range line {
+	ClearScreen()
+	for row, line := range maze {
+		for col, chr := range line {
 			switch chr {
 			case '#':
-				fmt.Print(simpleansi.WithBlueBackground(cfg.Wall))
+				Draw(row, col, simpleansi.WithBlueBackground(cfg.Wall))
 			case '.':
-				fmt.Print(cfg.Dot)
+				Draw(row, col, cfg.Dot)
 			case 'X':
-				fmt.Print(cfg.Pill)
+				Draw(row, col, cfg.Pill)
 			default:
-				fmt.Print(cfg.Space)
+				Draw(row, col, cfg.Space)
 			}
 		}
-		fmt.Println()
 	}
 
 	for _, s := range sprites {
-		moveCursor(s.Pos())
-		fmt.Print(s.Img())
+		row, col := s.Pos()
+		Draw(row, col, s.Img())
 	}
 
-	moveCursor(len(maze)+1, 0)
-	fmt.Println("Score:", player.score, "\tLives:", player.lives)
+	// Move cursor to the bottom of the screen
+	Draw(len(maze)+1, 0, fmt.Sprintf("Score: %d, Lives: %d", player.score, player.lives))
+	Flush()
 }
 
 func main() {
@@ -139,11 +139,14 @@ func main() {
 		return
 	}
 
+	// initialise screen
+	InitScreen(len(maze[0]), len(maze))
+
 	// game loop
 	for {
 		// process movement
 		for _, s := range sprites {
-			go s.Move()
+			s.Move()
 		}
 
 		// update screen
