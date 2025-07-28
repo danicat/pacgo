@@ -218,6 +218,7 @@ func main() {
 	}(input)
 
 	// game loop
+	ticker := time.NewTicker(200 * time.Millisecond)
 	for {
 		// process movement
 		select {
@@ -226,10 +227,9 @@ func main() {
 				lives = 0
 			}
 			movePlayer(inp)
-		default:
+		case <-ticker.C:
+			moveGhosts()
 		}
-
-		moveGhosts()
 
 		// process collisions
 		for _, g := range ghosts {
@@ -245,8 +245,5 @@ func main() {
 		if numDots == 0 || lives <= 0 {
 			break
 		}
-
-		// repeat
-		time.Sleep(200 * time.Millisecond)
 	}
 }
