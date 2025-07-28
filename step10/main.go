@@ -259,20 +259,30 @@ func updateGhosts(ghosts []*ghost, ghostStatus GhostStatus) {
 }
 
 var pillTimer *time.Timer
+var pillCancel chan struct{}
 
 func processPill() {
 	pillMx.Lock()
+	defer pillMx.Unlock()
+
 	updateGhosts(ghosts, GhostStatusBlue)
-	if pillTimer != nil {
-		pillTimer.Stop()
+
+	if pillCancel != nil {
+		close(pillCancel)
 	}
-	pillTimer = time.NewTimer(time.Second * cfg.PillDurationSecs)
-	pillMx.Unlock()
-	<-pillTimer.C
-	pillMx.Lock()
-	pillTimer.Stop()
-	updateGhosts(ghosts, GhostStatusNormal)
-	pillMx.Unlock()
+	pillCancel = make(chan struct{})
+	timer := time.NewTimer(time.Second * cfg.PillDurationSecs)
+
+	go func(cancel chan struct{}) {
+		select {
+		case <-timer.C:
+			pillMx.Lock()
+			defer pillMx.Unlock()
+			updateGhosts(ghosts, GhostStatusNormal)
+		case <-cancel:
+			// timer cancelled
+		}
+	}(pillCancel)
 }
 
 func drawDirection() string {
