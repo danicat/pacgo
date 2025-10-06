@@ -1,5 +1,7 @@
 # Pac Go
 
+**This is not an officially supported Google product**
+
 A Pac Man clone written in Go (with emojis!)
 
 ![screenshot](./screenshot.jpg)
